@@ -6,17 +6,13 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/internal/telephony/cdma/CdmaDataConnectionTracker$OemCommands;
-    }
-.end annotation
-
-
-# annotations
-.annotation system Ldalvik/annotation/MemberClasses;
-    value = {
+        Lcom/android/internal/telephony/cdma/CdmaDataConnectionTracker$OemCommands;,
         Lcom/android/internal/telephony/cdma/CdmaDataConnectionTracker$Injector;
     }
 .end annotation
+
+
+
 
 
 # static fields
