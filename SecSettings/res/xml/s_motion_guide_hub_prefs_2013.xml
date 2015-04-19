@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen android:title="@string/motion_settings_title" android:key="parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/motion_advanced_settings" android:key="advanced_category" />
-    <Preference android:title="@string/motion_advanced_settings" android:key="advanced_setting" android:widgetLayout="@layout/round_more_icon" />
-</PreferenceScreen>

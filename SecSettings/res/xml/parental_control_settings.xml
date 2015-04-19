@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreferenceScreen android:title="@string/parental_control_allow_device" android:key="allow_device_settings" android:fragment="com.android.settings.parentalcontrol.AllowDeviceSettings" />
-    <SwitchPreferenceScreen android:title="@string/parental_control_device_lock_time" android:key="device_lock_time" android:fragment="com.android.settings.parentalcontrol.DeviceLockTimeSettings" />
-    <PreferenceScreen android:title="@string/manageapplications_settings_title" android:key="hide_applications" android:fragment="com.android.settings.parentalcontrol.HideApplicationSettings" />
-    <PreferenceScreen android:enabled="false" android:title="@string/lockpattern_change_lock_pin_label" android:key="change_password" />
-</PreferenceScreen>
