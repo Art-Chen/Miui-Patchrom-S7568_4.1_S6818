@@ -1,0 +1,13 @@
+*** ./smali/android/preference/PreferenceActivity.smali	2015-04-19 13:46:41.053101348 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/preference/PreferenceActivity.smali	2015-04-19 13:48:09.537104653 +0800
+***************
+*** 2045,2050 ****
+--- 2045,2052 ----
+  
+      if-lez v17, :cond_e
+  
++     invoke-static/range {p0 .. p0}, Landroid/preference/PreferenceActivity$Injector;->setListViewPadding(Landroid/preference/PreferenceActivity;)V
++ 
+      new-instance v17, Landroid/preference/PreferenceActivity$HeaderAdapter;
+  
+      move-object/from16 v0, p0

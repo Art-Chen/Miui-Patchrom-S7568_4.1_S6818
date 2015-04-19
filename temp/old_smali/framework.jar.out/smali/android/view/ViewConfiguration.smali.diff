@@ -1,0 +1,65 @@
+*** ./smali/android/view/ViewConfiguration.smali	2015-04-19 13:46:09.749100179 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/view/ViewConfiguration.smali	2015-04-19 13:47:39.173103519 +0800
+***************
+*** 334,339 ****
+--- 334,343 ----
+  
+      float-to-int v10, v10
+  
++     invoke-static {p1, v10}, Landroid/view/ViewConfiguration$Injector;->getOverScrollDistance(Landroid/content/Context;I)I
++ 
++     move-result v10
++ 
+      iput v10, p0, Landroid/view/ViewConfiguration;->mOverscrollDistance:I
+  
+      const/high16 v10, 0x40c0
+***************
+*** 344,349 ****
+--- 348,357 ----
+  
+      float-to-int v10, v10
+  
++     invoke-static {p1, v10}, Landroid/view/ViewConfiguration$Injector;->getOverFlingDistance(Landroid/content/Context;I)I
++ 
++     move-result v10
++ 
+      iput v10, p0, Landroid/view/ViewConfiguration;->mOverflingDistance:I
+  
+      iget-boolean v10, p0, Landroid/view/ViewConfiguration;->sHasPermanentMenuKeySet:Z
+***************
+*** 437,442 ****
+--- 445,460 ----
+      .parameter "context"
+  
+      .prologue
++     invoke-static {p0}, Landroid/view/ViewConfiguration$Injector;->get(Landroid/content/Context;)Landroid/view/ViewConfiguration;
++ 
++     move-result-object v0
++ 
++     if-eqz v0, :cond_miui_0
++ 
++ 
++     return-object v0
++ 
++     :cond_miui_0
+      invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+  
+      move-result-object v3
+***************
+*** 858,860 ****
+--- 876,890 ----
+  
+      return v0
+  .end method
++ 
++ .method public static getInstance(Landroid/content/Context;)Landroid/view/ViewConfiguration;
++     .locals 1
++     .parameter "context"
++ 
++     .prologue
++     new-instance v0, Landroid/view/ViewConfiguration;
++ 
++     invoke-direct {v0, p0}, Landroid/view/ViewConfiguration;-><init>(Landroid/content/Context;)V
++ 
++     return-object v0
++ .end method

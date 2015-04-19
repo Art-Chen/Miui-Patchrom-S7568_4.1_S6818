@@ -1,0 +1,49 @@
+*** ./smali/android/accounts/AccountManagerService.smali	2015-04-19 13:46:33.261101057 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/accounts/AccountManagerService.smali	2015-04-19 13:47:58.169104228 +0800
+***************
+*** 15,21 ****
+          Landroid/accounts/AccountManagerService$GetAccountsByTypeAndFeatureSession;,
+          Landroid/accounts/AccountManagerService$RemoveAccountSession;,
+          Landroid/accounts/AccountManagerService$TestFeaturesSession;,
+!         Landroid/accounts/AccountManagerService$UserAccounts;
+      }
+  .end annotation
+  
+--- 15,22 ----
+          Landroid/accounts/AccountManagerService$GetAccountsByTypeAndFeatureSession;,
+          Landroid/accounts/AccountManagerService$RemoveAccountSession;,
+          Landroid/accounts/AccountManagerService$TestFeaturesSession;,
+!         Landroid/accounts/AccountManagerService$UserAccounts;,
+!         Landroid/accounts/AccountManagerService$Injector;
+      }
+  .end annotation
+  
+***************
+*** 2552,2557 ****
+--- 2553,2561 ----
+      .locals 5
+      .parameter "accountType"
+      .parameter "callingUid"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v3, 0x0
+***************
+*** 2601,2607 ****
+  
+      iget v4, v1, Landroid/content/pm/RegisteredServicesCache$ServiceInfo;->uid:I
+  
+!     invoke-virtual {v2, v4, p2}, Landroid/content/pm/PackageManager;->checkSignatures(II)I
+  
+      move-result v2
+  
+--- 2605,2611 ----
+  
+      iget v4, v1, Landroid/content/pm/RegisteredServicesCache$ServiceInfo;->uid:I
+  
+!     invoke-static {v2, v4, p2, p1}, Landroid/accounts/AccountManagerService$Injector;->checkSignatures(Landroid/content/pm/PackageManager;IILjava/lang/String;)I
+  
+      move-result v2
+  

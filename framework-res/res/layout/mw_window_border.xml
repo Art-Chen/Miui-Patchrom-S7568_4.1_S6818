@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/windowBorder" android:paddingLeft="0.0dip" android:paddingTop="0.0dip" android:paddingRight="0.0dip" android:paddingBottom="0.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/windowContentFrame" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:id="@id/windowIconic" android:background="@drawable/mw_window_iconic_bg" android:padding="10.0dip" android:visibility="gone" android:layout_width="@dimen/multiwindow_minimized_width" android:layout_height="@dimen/multiwindow_minimized_height" />
+    </LinearLayout>
+</FrameLayout>

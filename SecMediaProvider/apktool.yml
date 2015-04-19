@@ -1,0 +1,13 @@
+version: 1.5.2
+apkFileName: SecMediaProvider.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+sdkInfo:
+  minSdkVersion: '16'
+  targetSdkVersion: '16'
+packageInfo:
+  cur_package: com.android.providers.media
+  orig_package: com.android.providers.media
+compressionType: false

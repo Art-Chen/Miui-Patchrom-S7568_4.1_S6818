@@ -1,0 +1,18 @@
+*** IStatusBar$Stub.smali	2015-04-19 13:47:18.705102755 +0800
+--- IStatusBar$Stub.smali	2015-04-19 13:48:46.309106026 +0800
+***************
+*** 536,541 ****
+          0xd -> :sswitch_d
+          0xe -> :sswitch_e
+          0xf -> :sswitch_f
+          0x5f4e5446 -> :sswitch_0
+      .end sparse-switch
+  .end method
+--- 580,586 ----
+          0xd -> :sswitch_d
+          0xe -> :sswitch_e
+          0xf -> :sswitch_f
++         0x10 -> :sswitch_10
+          0x5f4e5446 -> :sswitch_0
+      .end sparse-switch
+  .end method

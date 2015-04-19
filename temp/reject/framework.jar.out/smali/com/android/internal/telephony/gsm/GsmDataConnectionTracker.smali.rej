@@ -1,0 +1,23 @@
+*** GsmDataConnectionTracker.smali	2015-04-19 13:47:22.421102893 +0800
+--- GsmDataConnectionTracker.smali	2015-04-19 13:48:51.965106238 +0800
+***************
+*** 7583,7588 ****
+      monitor-enter v3
+  
+      :try_start_0
+      iget-boolean v4, p0, Lcom/android/internal/telephony/gsm/GsmDataConnectionTracker;->mInternalDataEnabled:Z
+  
+      if-eqz v4, :cond_0
+--- 7645,7656 ----
+      monitor-enter v3
+  
+      :try_start_0
++     invoke-virtual {p0}, Lcom/android/internal/telephony/gsm/GsmDataConnectionTracker;->isMmsDataEnabled()Z
++ 
++     move-result v4
++ 
++     if-nez v4, :cond_1
++ 
+      iget-boolean v4, p0, Lcom/android/internal/telephony/gsm/GsmDataConnectionTracker;->mInternalDataEnabled:Z
+  
+      if-eqz v4, :cond_0

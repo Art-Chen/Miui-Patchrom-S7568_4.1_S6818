@@ -1,0 +1,41 @@
+*** ./smali/android/app/DownloadManager.smali	2015-04-19 13:46:26.541100806 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/app/DownloadManager.smali	2015-04-19 13:47:53.881104068 +0800
+***************
+*** 8,14 ****
+      value = {
+          Landroid/app/DownloadManager$CursorTranslator;,
+          Landroid/app/DownloadManager$Query;,
+!         Landroid/app/DownloadManager$Request;
+      }
+  .end annotation
+  
+--- 8,15 ----
+      value = {
+          Landroid/app/DownloadManager$CursorTranslator;,
+          Landroid/app/DownloadManager$Query;,
+!         Landroid/app/DownloadManager$Request;,
+!         Landroid/app/DownloadManager$Injector;
+      }
+  .end annotation
+  
+***************
+*** 639,644 ****
+--- 640,657 ----
+      return-wide v1
+  .end method
+  
++ .method getBaseUri()Landroid/net/Uri;
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget-object v0, p0, Landroid/app/DownloadManager;->mBaseUri:Landroid/net/Uri;
++ 
++     return-object v0
++ .end method
++ 
+  .method getDownloadUri(J)Landroid/net/Uri;
+      .locals 1
+      .parameter "id"

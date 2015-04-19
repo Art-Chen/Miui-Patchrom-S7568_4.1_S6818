@@ -1,0 +1,73 @@
+*** SmsMessage.smali	2015-04-19 13:47:22.145102883 +0800
+--- SmsMessage.smali	2015-04-19 13:48:51.721106228 +0800
+***************
+*** 1199,1205 ****
+  
+      packed-switch v2, :pswitch_data_0
+  
+-     :pswitch_0
+      new-instance v2, Ljava/lang/RuntimeException;
+  
+      const-string v3, "Unsupported message type"
+--- 1202,1207 ----
+  
+      packed-switch v2, :pswitch_data_0
+  
+      new-instance v2, Ljava/lang/RuntimeException;
+  
+      const-string v3, "Unsupported message type"
+***************
+*** 1208,1219 ****
+  
+      throw v2
+  
+!     :pswitch_1
+      invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/gsm/SmsMessage;->parseSmsDeliver(Lcom/android/internal/telephony/gsm/SmsMessage$PduParser;I)V
+  
+      :goto_0
+      return-void
+  
+      :pswitch_2
+      invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/gsm/SmsMessage;->parseSmsStatusReport(Lcom/android/internal/telephony/gsm/SmsMessage$PduParser;I)V
+  
+--- 1210,1226 ----
+  
+      throw v2
+  
+!     :pswitch_0
+      invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/gsm/SmsMessage;->parseSmsDeliver(Lcom/android/internal/telephony/gsm/SmsMessage$PduParser;I)V
+  
+      :goto_0
+      return-void
+  
++     :pswitch_1
++     invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/gsm/SmsMessage;->parseSmsSubmit(Lcom/android/internal/telephony/gsm/SmsMessage$PduParser;I)V
++ 
++     goto :goto_0
++ 
+      :pswitch_2
+      invoke-direct {p0, v1, v0}, Lcom/android/internal/telephony/gsm/SmsMessage;->parseSmsStatusReport(Lcom/android/internal/telephony/gsm/SmsMessage$PduParser;I)V
+  
+***************
+*** 1221,1230 ****
+  
+      :pswitch_data_0
+      .packed-switch 0x0
+-         :pswitch_1
+          :pswitch_0
+-         :pswitch_2
+          :pswitch_1
+      .end packed-switch
+  .end method
+  
+--- 1228,1237 ----
+  
+      :pswitch_data_0
+      .packed-switch 0x0
+          :pswitch_0
+          :pswitch_1
++         :pswitch_2
++         :pswitch_0
+      .end packed-switch
+  .end method
+  

@@ -1,0 +1,368 @@
+*** ./smali/com/android/server/PowerManagerService.smali	2015-04-19 13:47:31.001103214 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/services.jar.out/./smali/com/android/server/PowerManagerService.smali	2015-04-19 13:49:00.733106565 +0800
+***************
+*** 19,25 ****
+          Lcom/android/server/PowerManagerService$DockReceiver;,
+          Lcom/android/server/PowerManagerService$BootCompletedReceiver;,
+          Lcom/android/server/PowerManagerService$BatteryReceiver;,
+!         Lcom/android/server/PowerManagerService$UnsynchronizedWakeLock;
+      }
+  .end annotation
+  
+--- 19,26 ----
+          Lcom/android/server/PowerManagerService$DockReceiver;,
+          Lcom/android/server/PowerManagerService$BootCompletedReceiver;,
+          Lcom/android/server/PowerManagerService$BatteryReceiver;,
+!         Lcom/android/server/PowerManagerService$UnsynchronizedWakeLock;,
+!         Lcom/android/server/PowerManagerService$Injector;
+      }
+  .end annotation
+  
+***************
+*** 37,43 ****
+  
+  .field static final AUTOBRIGHTNESS_ANIM_STEPS:I = 0x78
+  
+! .field static final AUTODIMNESS_ANIM_STEPS:I = 0x147ae1
+  
+  .field private static final BATTERY_LOW_BIT:I = 0x10
+  
+--- 38,48 ----
+  
+  .field static final AUTOBRIGHTNESS_ANIM_STEPS:I = 0x78
+  
+! .field static final AUTODIMNESS_ANIM_STEPS:I = 0x78
+!     .annotation build Landroid/annotation/MiuiHook;
+!         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+!     .end annotation
+! .end field
+  
+  .field private static final BATTERY_LOW_BIT:I = 0x10
+  
+***************
+*** 1926,1931 ****
+--- 1931,1939 ----
+  
+  .method private enableProximityLockLocked()V
+      .locals 6
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-boolean v2, p0, Lcom/android/server/PowerManagerService;->mProximitySensorEnabled:Z
+***************
+*** 1957,1963 ****
+      invoke-static {v0, v1}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+  
+      .end local v0           #identity:J
+!     :cond_0
+      return-void
+  
+      .restart local v0       #identity:J
+--- 1965,1971 ----
+      invoke-static {v0, v1}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+  
+      .end local v0           #identity:J
+!     :goto_0
+      return-void
+  
+      .restart local v0       #identity:J
+***************
+*** 1967,1972 ****
+--- 1975,1988 ----
+      invoke-static {v0, v1}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+  
+      throw v2
++ 
++     .end local v0           #identity:J
++     :cond_0
++     iget-boolean v2, p0, Lcom/android/server/PowerManagerService;->mProximitySensorActive:Z
++ 
++     invoke-direct {p0, v2}, Lcom/android/server/PowerManagerService;->proximityChangedLocked(Z)V
++ 
++     goto :goto_0
+  .end method
+  
+  .method private forceReenableScreen()V
+***************
+*** 2012,2018 ****
+  
+      iget-object v1, p0, Lcom/android/server/PowerManagerService;->mScreenBrightnessAnimator:Lcom/android/server/PowerManagerService$ScreenBrightnessAnimator;
+  
+!     invoke-virtual {v1}, Lcom/android/server/PowerManagerService$ScreenBrightnessAnimator;->cancelAnimation()V
+  
+      :cond_0
+      iget-boolean v0, p0, Lcom/android/server/PowerManagerService;->mUserActivityAllowed:Z
+--- 2028,2038 ----
+  
+      iget-object v1, p0, Lcom/android/server/PowerManagerService;->mScreenBrightnessAnimator:Lcom/android/server/PowerManagerService$ScreenBrightnessAnimator;
+  
+!     const/4 v2, 0x2
+! 
+!     const/4 v3, 0x0
+! 
+!     invoke-static {p0, v1, v3, v2, v3}, Lcom/android/server/PowerManagerService$Injector;->animateTo(Lcom/android/server/PowerManagerService;Lcom/android/server/PowerManagerService$ScreenBrightnessAnimator;III)V
+  
+      :cond_0
+      iget-boolean v0, p0, Lcom/android/server/PowerManagerService;->mUserActivityAllowed:Z
+***************
+*** 2813,2819 ****
+      throw v4
+  
+      :cond_7
+!     const v3, 0x147ae1
+  
+      .restart local v3       #steps:I
+      goto :goto_3
+--- 2833,2839 ----
+      throw v4
+  
+      :cond_7
+!     const/16 v3, 0x78
+  
+      .restart local v3       #steps:I
+      goto :goto_3
+***************
+*** 3448,3453 ****
+--- 3468,3476 ----
+      .parameter "newState"
+      .parameter "noChangeLights"
+      .parameter "reason"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-object v10, p0, Lcom/android/server/PowerManagerService;->mLocks:Lcom/android/server/PowerManagerService$LockList;
+***************
+*** 3470,3477 ****
+  
+      if-eqz v9, :cond_1
+  
+-     and-int/lit8 p1, p1, -0x4
+- 
+      :cond_1
+      invoke-direct {p0}, Lcom/android/server/PowerManagerService;->batteryIsLow()Z
+  
+--- 3493,3498 ----
+***************
+*** 4126,4131 ****
+--- 4147,4155 ----
+  .method private setScreenStateLocked(Z)I
+      .locals 4
+      .parameter "on"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v3, 0x0
+***************
+*** 4151,4157 ****
+  
+      const/4 v2, 0x2
+  
+!     invoke-virtual {v1, v3, v2, v3}, Lcom/android/server/PowerManagerService$ScreenBrightnessAnimator;->animateTo(III)V
+  
+      :cond_1
+      invoke-static {p1}, Lcom/android/server/PowerManagerService;->nativeSetScreenState(Z)I
+--- 4175,4181 ----
+  
+      const/4 v2, 0x2
+  
+!     invoke-static {p0, v1, v3, v2, v3}, Lcom/android/server/PowerManagerService$Injector;->animateTo(Lcom/android/server/PowerManagerService;Lcom/android/server/PowerManagerService$ScreenBrightnessAnimator;III)V
+  
+      :cond_1
+      invoke-static {p1}, Lcom/android/server/PowerManagerService;->nativeSetScreenState(Z)I
+***************
+*** 5163,5168 ****
+--- 5187,5195 ----
+      .parameter "eventType"
+      .parameter "force"
+      .parameter "ignoreIfScreenOff"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget v1, p0, Lcom/android/server/PowerManagerService;->mPokey:I
+***************
+*** 5235,5244 ****
+  
+      if-nez v1, :cond_4
+  
+-     const/4 v1, 0x0
+- 
+-     iput-boolean v1, p0, Lcom/android/server/PowerManagerService;->mProximitySensorActive:Z
+- 
+      :cond_4
+      iget-wide v1, p0, Lcom/android/server/PowerManagerService;->mLastEventTime:J
+  
+--- 5262,5267 ----
+***************
+*** 5255,5261 ****
+  
+      if-eqz v1, :cond_6
+  
+!     iget-boolean v1, p0, Lcom/android/server/PowerManagerService;->mProximitySensorActive:Z
+  
+      if-eqz v1, :cond_7
+  
+--- 5278,5284 ----
+  
+      if-eqz v1, :cond_6
+  
+!     sget-boolean v1, Lcom/android/server/PowerManagerService$Injector;->FALSE:Z
+  
+      if-eqz v1, :cond_7
+  
+***************
+*** 5492,5497 ****
+--- 5515,5523 ----
+      .parameter "pid"
+      .parameter "tag"
+      .parameter "ws"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      if-eqz p6, :cond_0
+***************
+*** 5798,5807 ****
+  
+      if-nez v2, :cond_e
+  
+-     const/4 v2, 0x0
+- 
+-     iput-boolean v2, p0, Lcom/android/server/PowerManagerService;->mProximitySensorActive:Z
+- 
+      .end local v11           #oldWakeLockState:I
+      :cond_e
+      :goto_6
+--- 5824,5829 ----
+***************
+*** 5864,5869 ****
+--- 5886,5893 ----
+  
+      goto/16 :goto_3
+  
++     nop
++ 
+      :sswitch_data_0
+      .sparse-switch
+          0x1 -> :sswitch_1
+***************
+*** 5927,5932 ****
+--- 5951,5970 ----
+      throw v0
+  .end method
+  
++ .method callGoToSleepLocked(JI)V
++     .locals 0
++     .parameter "time"
++     .parameter "reason"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     invoke-direct {p0, p1, p2, p3}, Lcom/android/server/PowerManagerService;->goToSleepLocked(JI)V
++ 
++     return-void
++ .end method
++ 
+  .method public clearUserActivityTimeout(JJ)V
+      .locals 9
+      .parameter "now"
+***************
+*** 7896,7901 ****
+--- 7934,7975 ----
+      return-object v0
+  .end method
+  
++ .method getPowerState()I
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget v0, p0, Lcom/android/server/PowerManagerService;->mPowerState:I
++ 
++     return v0
++ .end method
++ 
++ .method getProximitySensorActive()Z
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget-boolean v0, p0, Lcom/android/server/PowerManagerService;->mProximitySensorActive:Z
++ 
++     return v0
++ .end method
++ 
++ .method getScreenBrightnessHandler()Landroid/os/Handler;
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget-object v0, p0, Lcom/android/server/PowerManagerService;->mScreenBrightnessHandler:Landroid/os/Handler;
++ 
++     return-object v0
++ .end method
++ 
+  .method getStayOnConditionsLocked()I
+      .locals 2
+  
+***************
+*** 8854,8859 ****
+--- 8928,8936 ----
+  .method public preventScreenOn(Z)V
+      .locals 6
+      .parameter "prevent"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-object v1, p0, Lcom/android/server/PowerManagerService;->mContext:Landroid/content/Context;
+***************
+*** 8909,8914 ****
+--- 8986,8993 ----
+  
+      invoke-virtual {v1, v3}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+  
++     invoke-static {p0}, Lcom/android/server/PowerManagerService$Injector;->sleepIfProximitySensorActive(Lcom/android/server/PowerManagerService;)V
++ 
+      iget-boolean v1, p0, Lcom/android/server/PowerManagerService;->mProximitySensorActive:Z
+  
+      if-nez v1, :cond_1
+***************
+*** 9818,9823 ****
+--- 9897,9915 ----
+      throw v0
+  .end method
+  
++ .method setProxIgnoredBecauseScreenTurnedOff(Z)V
++     .locals 0
++     .parameter "value"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iput-boolean p1, p0, Lcom/android/server/PowerManagerService;->mProxIgnoredBecauseScreenTurnedOff:Z
++ 
++     return-void
++ .end method
++ 
+  .method public setScreenBrightnessOverride(I)V
+      .locals 3
+      .parameter "brightness"

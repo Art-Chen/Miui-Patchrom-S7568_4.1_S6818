@@ -1,0 +1,64 @@
+*** Resources.smali	2015-04-19 13:46:42.005101384 +0800
+--- Resources.smali	2015-04-19 13:48:10.537104690 +0800
+***************
+*** 3538,3552 ****
+      .end local v4           #dr:Landroid/graphics/drawable/Drawable;
+      .restart local v3       #dr:Landroid/graphics/drawable/Drawable;
+      :cond_5
+!     sget-object v13, Landroid/content/res/Resources;->sPreloadedDrawables:Landroid/util/LongSparseArray;
+! 
+!     invoke-virtual {v13, v9, v10}, Landroid/util/LongSparseArray;->get(J)Ljava/lang/Object;
+  
+!     move-result-object v13
+  
+!     check-cast v13, Landroid/graphics/drawable/Drawable$ConstantState;
+  
+!     move-object v2, v13
+  
+      goto :goto_2
+  
+--- 3630,3642 ----
+      .end local v4           #dr:Landroid/graphics/drawable/Drawable;
+      .restart local v3       #dr:Landroid/graphics/drawable/Drawable;
+      :cond_5
+!     move-object/from16 v0, p0
+  
+!     move/from16 v1, p2
+  
+!     invoke-virtual {v0, v9, v10, v1}, Landroid/content/res/Resources;->getPreloadedDrawable(JI)Landroid/graphics/drawable/Drawable$ConstantState;
+  
+!     move-result-object v2
+  
+      goto :goto_2
+  
+***************
+*** 3710,3722 ****
+      move-result-object v7
+  
+      .local v7, is:Ljava/io/InputStream;
+      const/4 v13, 0x0
+  
+      move-object/from16 v0, p0
+  
+      move-object/from16 v1, p1
+  
+!     invoke-static {v0, v1, v7, v6, v13}, Landroid/graphics/drawable/Drawable;->createFromResourceStream(Landroid/content/res/Resources;Landroid/util/TypedValue;Ljava/io/InputStream;Ljava/lang/String;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/drawable/Drawable;
+  
+      move-result-object v3
+  
+--- 3800,3814 ----
+      move-result-object v7
+  
+      .local v7, is:Ljava/io/InputStream;
++     invoke-static/range {p2 .. p2}, Landroid/content/res/Resources$Injector;->setDrawableId(I)V
++ 
+      const/4 v13, 0x0
+  
+      move-object/from16 v0, p0
+  
+      move-object/from16 v1, p1
+  
+!     invoke-static {v0, v1, v7, v6, v13}, Landroid/content/res/Resources$Injector;->createFromResourceStream(Landroid/content/res/Resources;Landroid/util/TypedValue;Ljava/io/InputStream;Ljava/lang/String;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/drawable/Drawable;
+  
+      move-result-object v3
+  

@@ -1,0 +1,18 @@
+*** INotificationManager$Stub.smali	2015-04-19 13:46:22.409100652 +0800
+--- INotificationManager$Stub.smali	2015-04-19 13:47:51.513103980 +0800
+***************
+*** 480,485 ****
+          0x7 -> :sswitch_7
+          0x8 -> :sswitch_8
+          0x9 -> :sswitch_9
+          0x5f4e5446 -> :sswitch_0
+      .end sparse-switch
+  .end method
+--- 508,514 ----
+          0x7 -> :sswitch_7
+          0x8 -> :sswitch_8
+          0x9 -> :sswitch_9
++         0xa -> :sswitch_a
+          0x5f4e5446 -> :sswitch_0
+      .end sparse-switch
+  .end method

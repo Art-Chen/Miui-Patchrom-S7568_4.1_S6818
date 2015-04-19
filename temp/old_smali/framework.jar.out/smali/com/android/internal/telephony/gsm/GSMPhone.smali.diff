@@ -1,0 +1,197 @@
+*** ./smali/com/android/internal/telephony/gsm/GSMPhone.smali	2015-04-19 13:47:22.297102889 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/telephony/gsm/GSMPhone.smali	2015-04-19 13:48:51.845106233 +0800
+***************
+*** 7,13 ****
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+          Lcom/android/internal/telephony/gsm/GSMPhone$2;,
+!         Lcom/android/internal/telephony/gsm/GSMPhone$NetworkSelectMessage;
+      }
+  .end annotation
+  
+--- 7,14 ----
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+          Lcom/android/internal/telephony/gsm/GSMPhone$2;,
+!         Lcom/android/internal/telephony/gsm/GSMPhone$NetworkSelectMessage;,
+!         Lcom/android/internal/telephony/gsm/GSMPhone$Injector;
+      }
+  .end annotation
+  
+***************
+*** 52,58 ****
+  
+  .field mSST:Lcom/android/internal/telephony/gsm/GsmServiceStateTracker;
+  
+! .field mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+  .field mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+--- 53,59 ----
+  
+  .field mSST:Lcom/android/internal/telephony/gsm/GsmServiceStateTracker;
+  
+! .field mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+  .field mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+***************
+*** 174,184 ****
+  
+      if-nez p4, :cond_1
+  
+!     new-instance v0, Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+!     invoke-direct {v0, p0}, Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/gsm/GSMPhone;)V
+  
+!     iput-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+      new-instance v0, Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+--- 175,185 ----
+  
+      if-nez p4, :cond_1
+  
+!     new-instance v0, Lcom/android/internal/telephony/gsm/MiuiSimPhoneBookInterfaceManager;
+  
+!     invoke-direct {v0, p0}, Lcom/android/internal/telephony/gsm/MiuiSimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/gsm/GSMPhone;)V
+  
+!     iput-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      new-instance v0, Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+***************
+*** 1359,1364 ****
+--- 1360,1369 ----
+  # virtual methods
+  .method public acceptCall()V
+      .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
+      .annotation system Ldalvik/annotation/Throws;
+          value = {
+              Lcom/android/internal/telephony/CallStateException;
+***************
+*** 1366,1371 ****
+--- 1371,1380 ----
+      .end annotation
+  
+      .prologue
++     const/16 v0, 0xf
++ 
++     invoke-virtual {p0, v0}, Lcom/android/internal/telephony/gsm/GSMPhone;->removeMessages(I)V
++ 
+      iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mCT:Lcom/android/internal/telephony/gsm/GsmCallTracker;
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GsmCallTracker;->acceptCall()V
+***************
+*** 1654,1662 ****
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GsmServiceStateTracker;->dispose()V
+  
+!     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+!     invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;->dispose()V
+  
+      iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+--- 1663,1671 ----
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GsmServiceStateTracker;->dispose()V
+  
+!     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+!     invoke-virtual {v0}, Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;->dispose()V
+  
+      iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+***************
+*** 1769,1775 ****
+  
+      move-result-object v0
+  
+!     iget-object v1, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+      invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+  
+--- 1778,1784 ----
+  
+      move-result-object v0
+  
+!     iget-object v1, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+  
+***************
+*** 2229,2238 ****
+--- 2238,2258 ----
+  
+  .method public getDeviceId()Ljava/lang/String;
+      .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mImei:Ljava/lang/String;
+  
++     invoke-static {p0, v0}, Lcom/android/internal/telephony/gsm/GSMPhone$Injector;->checkEmptyImei(Lcom/android/internal/telephony/gsm/GSMPhone;Ljava/lang/String;)Ljava/lang/String;
++ 
++     move-result-object v0
++ 
++     iput-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mImei:Ljava/lang/String;
++ 
++     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mImei:Ljava/lang/String;
++ 
+      return-object v0
+  .end method
+  
+***************
+*** 2286,2292 ****
+      .locals 1
+  
+      .prologue
+!     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+      return-object v0
+  .end method
+--- 2306,2312 ----
+      .locals 1
+  
+      .prologue
+!     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      return-object v0
+  .end method
+***************
+*** 2851,2856 ****
+--- 2871,2880 ----
+  
+      iput-object v9, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mImei:Ljava/lang/String;
+  
++     invoke-virtual {p0}, Lcom/android/internal/telephony/gsm/GSMPhone;->sendDeviceIdReadyBroadcast()V
++ 
++     invoke-virtual {p0}, Lcom/android/internal/telephony/gsm/GSMPhone;->setDeviceIdSystemProperty()V
++ 
+      goto :goto_0
+  
+      .end local v0           #ar:Landroid/os/AsyncResult;
+***************
+*** 3583,3589 ****
+  
+      iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimulatedRadioControl:Lcom/android/internal/telephony/test/SimulatedRadioControl;
+  
+!     iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+  
+      iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  
+--- 3607,3613 ----
+  
+      iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimulatedRadioControl:Lcom/android/internal/telephony/test/SimulatedRadioControl;
+  
+!     iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
+  

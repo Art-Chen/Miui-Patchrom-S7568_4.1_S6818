@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.StatusBar.EventContent" parent="@style/TextAppearance.StatusBar.EventContent">
+        <item name="textSize">18.0dip</item>
+        <item name="textColor">#ffc8c8c8</item>
+    </style>
+    <style name="TextAppearance.StatusBar.EventContent.Title" parent="@style/TextAppearance.StatusBar.EventContent.Title">
+        <item name="textSize">22.0dip</item>
+        <item name="textStyle">normal</item>
+        <item name="textColor">#ffffffff</item>
+    </style>
+    <style name="TextAppearance.StatusBar.EventContent.Time" parent="@style/TextAppearance.StatusBar.EventContent.Time">
+        <item name="textSize">18.0dip</item>
+        <item name="textStyle">normal</item>
+        <item name="textColor">#ffc8c8c8</item>
+    </style>
+</resources>

@@ -1,0 +1,52 @@
+*** ./smali/android/graphics/drawable/DrawableContainer$DrawableContainerState.smali	2015-04-19 13:47:10.069102432 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/graphics/drawable/DrawableContainer$DrawableContainerState.smali	2015-04-19 13:48:37.809105709 +0800
+***************
+*** 68,73 ****
+--- 68,76 ----
+      .parameter "orig"
+      .parameter "owner"
+      .parameter "res"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v5, 0x1
+***************
+*** 210,215 ****
+--- 213,226 ----
+  
+      iput v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mConstantHeight:I
+  
++     iget v3, p1, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mConstantMinimumWidth:I
++ 
++     iput v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mConstantMinimumWidth:I
++ 
++     iget v3, p1, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mConstantMinimumHeight:I
++ 
++     iput v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mConstantMinimumHeight:I
++ 
+      iget-boolean v3, p1, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mHaveOpacity:Z
+  
+      iput-boolean v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mHaveOpacity:Z
+***************
+*** 798,803 ****
+--- 809,826 ----
+      goto :goto_0
+  .end method
+  
++ .method public final getVariablePadding()Z
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget-boolean v0, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mVariablePadding:Z
++ 
++     return v0
++ .end method
++ 
+  .method public growArray(II)V
+      .locals 3
+      .parameter "oldSize"

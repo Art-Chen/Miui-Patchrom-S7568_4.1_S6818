@@ -1,0 +1,57 @@
+*** ./smali/android/widget/MediaController.smali	2015-04-19 13:46:15.917100410 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/widget/MediaController.smali	2015-04-19 13:47:44.601103722 +0800
+***************
+*** 6,12 ****
+  # annotations
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+!         Landroid/widget/MediaController$MediaPlayerControl;
+      }
+  .end annotation
+  
+--- 6,13 ----
+  # annotations
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+!         Landroid/widget/MediaController$MediaPlayerControl;,
+!         Landroid/widget/MediaController$Injector;
+      }
+  .end annotation
+  
+***************
+*** 1185,1190 ****
+--- 1186,1202 ----
+  
+      invoke-virtual {v0, v1}, Landroid/widget/ImageButton;->setImageResource(I)V
+  
++     :goto_1
++     iget-object v0, p0, Landroid/widget/MediaController;->mPlayer:Landroid/widget/MediaController$MediaPlayerControl;
++ 
++     invoke-interface {v0}, Landroid/widget/MediaController$MediaPlayerControl;->isPlaying()Z
++ 
++     move-result v0
++ 
++     iget-object v1, p0, Landroid/widget/MediaController;->mPauseButton:Landroid/widget/ImageButton;
++ 
++     invoke-static {v0, v1}, Landroid/widget/MediaController$Injector;->updatePausePlay(ZLandroid/widget/ImageView;)V
++ 
+      goto :goto_0
+  
+      :cond_2
+***************
+*** 1194,1200 ****
+  
+      invoke-virtual {v0, v1}, Landroid/widget/ImageButton;->setImageResource(I)V
+  
+!     goto :goto_0
+  .end method
+  
+  
+--- 1206,1212 ----
+  
+      invoke-virtual {v0, v1}, Landroid/widget/ImageButton;->setImageResource(I)V
+  
+!     goto :goto_1
+  .end method
+  
+  

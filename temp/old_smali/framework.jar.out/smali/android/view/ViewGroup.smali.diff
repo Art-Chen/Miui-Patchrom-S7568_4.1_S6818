@@ -1,0 +1,229 @@
+*** ./smali/android/view/ViewGroup.smali	2015-04-19 13:46:13.501100319 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/view/ViewGroup.smali	2015-04-19 13:47:42.069103627 +0800
+***************
+*** 116,121 ****
+--- 116,127 ----
+      .end annotation
+  .end field
+  
++ .field mChildSequenceStateTaggingListener:Landroid/view/ViewGroup$ChildSequenceStateTaggingListener;
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ .end field
++ 
+  .field final mChildTransformation:Landroid/view/animation/Transformation;
+  
+  .field private mChildren:[Landroid/view/View;
+***************
+*** 206,211 ****
+--- 212,223 ----
+  
+  .field protected mPersistentDrawingCache:I
+  
++ .field mTagChildrenSequenceState:Z
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ .end field
++ 
+  .field private mTransition:Landroid/animation/LayoutTransition;
+  
+  .field private mTransitioningViews:Ljava/util/ArrayList;
+***************
+*** 545,550 ****
+--- 557,564 ----
+  
+      :cond_1
+      :goto_0
++     invoke-static {p0}, Landroid/view/ViewGroup$Injector;->tagChildSequenceState(Landroid/view/ViewGroup;)V
++ 
+      return-void
+  
+      :cond_2
+***************
+*** 1998,2003 ****
+--- 2012,2023 ----
+      .end local v2           #animateLayoutChanges:Z
+      .end local v3           #attr:I
+      :cond_1
++     invoke-static {p1, p2}, Landroid/view/ViewGroup$Injector;->initTagChildSequenceState(Landroid/content/Context;Landroid/util/AttributeSet;)Z
++ 
++     move-result v6
++ 
++     iput-boolean v6, p0, Landroid/view/ViewGroup;->mTagChildrenSequenceState:Z
++ 
+      invoke-virtual {v1}, Landroid/content/res/TypedArray;->recycle()V
+  
+      return-void
+***************
+*** 2345,2350 ****
+--- 2365,2372 ----
+  
+      :cond_2
+      :goto_1
++     invoke-static {p0}, Landroid/view/ViewGroup$Injector;->tagChildSequenceState(Landroid/view/ViewGroup;)V
++ 
+      return-void
+  
+      :cond_3
+***************
+*** 2485,2490 ****
+--- 2507,2514 ----
+  
+      iput v4, p0, Landroid/view/ViewGroup;->mChildrenCount:I
+  
++     invoke-static {p0}, Landroid/view/ViewGroup$Injector;->tagChildSequenceState(Landroid/view/ViewGroup;)V
++ 
+      goto :goto_0
+  .end method
+  
+***************
+*** 3860,3865 ****
+--- 3884,3890 ----
+      if-gtz v1, :cond_1
+  
+      :cond_0
++     :goto_miui_0
+      return-void
+  
+      :cond_1
+***************
+*** 3874,3880 ****
+  
+      .local v2, i:I
+      :goto_0
+!     if-ltz v2, :cond_0
+  
+      aget-object v3, v0, v2
+  
+--- 3899,3905 ----
+  
+      .local v2, i:I
+      :goto_0
+!     if-ltz v2, :cond_miui_0
+  
+      aget-object v3, v0, v2
+  
+***************
+*** 3885,3899 ****
+      add-int/lit8 v2, v2, -0x1
+  
+      goto :goto_0
+  .end method
+  
+  .method protected detachViewFromParent(I)V
+!     .locals 0
+      .parameter "index"
+  
+      .prologue
+      invoke-direct {p0, p1}, Landroid/view/ViewGroup;->removeFromArray(I)V
+  
+      return-void
+  .end method
+  
+--- 3910,3935 ----
+      add-int/lit8 v2, v2, -0x1
+  
+      goto :goto_0
++ 
++     :cond_miui_0
++     iget-object v3, p0, Landroid/view/ViewGroup;->mFocused:Landroid/view/View;
++ 
++     invoke-static {p0, v3}, Landroid/view/ViewGroup$Injector;->clearChildFocus(Landroid/view/ViewGroup;Landroid/view/View;)V
++ 
++     goto :goto_miui_0
+  .end method
+  
+  .method protected detachViewFromParent(I)V
+!     .locals 1
+      .parameter "index"
+  
+      .prologue
+      invoke-direct {p0, p1}, Landroid/view/ViewGroup;->removeFromArray(I)V
+  
++     iget-object v0, p0, Landroid/view/ViewGroup;->mFocused:Landroid/view/View;
++ 
++     invoke-static {p0, v0}, Landroid/view/ViewGroup$Injector;->clearChildFocus(Landroid/view/ViewGroup;Landroid/view/View;)V
++ 
+      return-void
+  .end method
+  
+***************
+*** 3908,3924 ****
+  
+      invoke-direct {p0, v0}, Landroid/view/ViewGroup;->removeFromArray(I)V
+  
+      return-void
+  .end method
+  
+  .method protected detachViewsFromParent(II)V
+!     .locals 0
+      .parameter "start"
+      .parameter "count"
+  
+      .prologue
+      invoke-direct {p0, p1, p2}, Landroid/view/ViewGroup;->removeFromArray(II)V
+  
+      return-void
+  .end method
+  
+--- 3944,3968 ----
+  
+      invoke-direct {p0, v0}, Landroid/view/ViewGroup;->removeFromArray(I)V
+  
++     iget-object v0, p0, Landroid/view/ViewGroup;->mFocused:Landroid/view/View;
++ 
++     invoke-static {p0, v0}, Landroid/view/ViewGroup$Injector;->clearChildFocus(Landroid/view/ViewGroup;Landroid/view/View;)V
++ 
+      return-void
+  .end method
+  
+  .method protected detachViewsFromParent(II)V
+!     .locals 1
+      .parameter "start"
+      .parameter "count"
+  
+      .prologue
+      invoke-direct {p0, p1, p2}, Landroid/view/ViewGroup;->removeFromArray(II)V
+  
++     iget-object v0, p0, Landroid/view/ViewGroup;->mFocused:Landroid/view/View;
++ 
++     invoke-static {p0, v0}, Landroid/view/ViewGroup$Injector;->clearChildFocus(Landroid/view/ViewGroup;Landroid/view/View;)V
++ 
+      return-void
+  .end method
+  
+***************
+*** 10820,10825 ****
+--- 10864,10871 ----
+      invoke-virtual {p0, p1}, Landroid/view/ViewGroup;->notifyChildOfDrag(Landroid/view/View;)Z
+  
+      :cond_1
++     invoke-static {p0}, Landroid/view/ViewGroup$Injector;->tagChildSequenceState(Landroid/view/ViewGroup;)V
++ 
+      return-void
+  
+      :cond_2
+***************
+*** 12200,12205 ****
+--- 12246,12264 ----
+  
+      return-void
+  .end method
++ 
++ .method public setChildSequenceStateTaggingListener(Landroid/view/ViewGroup$ChildSequenceStateTaggingListener;)V
++     .locals 0
++     .parameter "listener"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iput-object p1, p0, Landroid/view/ViewGroup;->mChildSequenceStateTaggingListener:Landroid/view/ViewGroup$ChildSequenceStateTaggingListener;
++ 
++     return-void
++ .end method
+  
+  .method protected setChildrenDrawingCacheEnabled(Z)V
+      .locals 5

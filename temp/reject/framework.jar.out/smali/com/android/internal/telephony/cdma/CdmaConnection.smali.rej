@@ -1,0 +1,41 @@
+*** CdmaConnection.smali	2015-04-19 13:47:23.929102950 +0800
+--- CdmaConnection.smali	2015-04-19 13:48:53.497106295 +0800
+***************
+*** 1669,1674 ****
+  
+  .method public getRemainingPostDialString()Ljava/lang/String;
+      .locals 6
+  
+      .prologue
+      const/4 v5, 0x0
+--- 1673,1681 ----
+  
+  .method public getRemainingPostDialString()Ljava/lang/String;
+      .locals 6
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v5, 0x0
+***************
+*** 1716,1722 ****
+      move-result-object v1
+  
+      .local v1, subStr:Ljava/lang/String;
+!     if-eqz v1, :cond_1
+  
+      const/16 v3, 0x3b
+  
+--- 1723,1733 ----
+      move-result-object v1
+  
+      .local v1, subStr:Ljava/lang/String;
+!     invoke-static {v1}, Lcom/android/internal/telephony/cdma/CdmaConnection$Injector;->nullifyString(Ljava/lang/String;)Ljava/lang/String;
+! 
+!     move-result-object v3
+! 
+!     if-eqz v3, :cond_1
+  
+      const/16 v3, 0x3b
+  

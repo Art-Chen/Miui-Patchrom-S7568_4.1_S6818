@@ -1,0 +1,53 @@
+*** ./smali/android/net/http/AndroidHttpClient.smali	2015-04-19 13:46:53.485101813 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/android/net/http/AndroidHttpClient.smali	2015-04-19 13:48:21.969105117 +0800
+***************
+*** 10,16 ****
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+          Landroid/net/http/AndroidHttpClient$CurlLogger;,
+!         Landroid/net/http/AndroidHttpClient$LoggingConfiguration;
+      }
+  .end annotation
+  
+--- 10,17 ----
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+          Landroid/net/http/AndroidHttpClient$CurlLogger;,
+!         Landroid/net/http/AndroidHttpClient$LoggingConfiguration;,
+!         Landroid/net/http/AndroidHttpClient$Injector;
+      }
+  .end annotation
+  
+***************
+*** 469,474 ****
+--- 470,478 ----
+      .locals 9
+      .parameter "userAgent"
+      .parameter "context"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v5, 0x0
+***************
+*** 498,504 ****
+  
+      .local v3, sessionCache:Landroid/net/SSLSessionCache;
+      :goto_0
+!     invoke-static {v1, p0}, Lorg/apache/http/params/HttpProtocolParams;->setUserAgent(Lorg/apache/http/params/HttpParams;Ljava/lang/String;)V
+  
+      new-instance v2, Lorg/apache/http/conn/scheme/SchemeRegistry;
+  
+--- 502,512 ----
+  
+      .local v3, sessionCache:Landroid/net/SSLSessionCache;
+      :goto_0
+!     invoke-static {p0}, Landroid/net/http/AndroidHttpClient$Injector;->getUserAgent(Ljava/lang/String;)Ljava/lang/String;
+! 
+!     move-result-object v4
+! 
+!     invoke-static {v1, v4}, Lorg/apache/http/params/HttpProtocolParams;->setUserAgent(Lorg/apache/http/params/HttpParams;Ljava/lang/String;)V
+  
+      new-instance v2, Lorg/apache/http/conn/scheme/SchemeRegistry;
+  

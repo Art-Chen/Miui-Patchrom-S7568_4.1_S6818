@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="keyguard_lockscreen_status_line_clockfont_top_margin">18.0dip</dimen>
+    <dimen name="keyguard_lockscreen_status_line_clockfont_bottom_margin">8.0dip</dimen>
+    <dimen name="tw_searchview_text_size">20.0dip</dimen>
+    <dimen name="notification_text_size">14.0dip</dimen>
+    <dimen name="notification_title_text_size">18.0dip</dimen>
+    <dimen name="notification_subtext_size">12.0dip</dimen>
+    <dimen name="tw_action_bar_title_text_size">22.0dip</dimen>
+</resources>

@@ -1,0 +1,26 @@
+*** ./smali/com/android/server/pm/GrantedPermissions.smali	2015-04-19 13:47:30.593103199 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/services.jar.out/./smali/com/android/server/pm/GrantedPermissions.smali	2015-04-19 13:49:00.313106549 +0800
+***************
+*** 89,97 ****
+  .method setFlags(I)V
+      .locals 1
+      .parameter "pkgFlags"
+  
+      .prologue
+!     const v0, 0x20040001
+  
+      and-int/2addr v0, p1
+  
+--- 89,100 ----
+  .method setFlags(I)V
+      .locals 1
+      .parameter "pkgFlags"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+!     const v0, -0x17fbffff
+  
+      and-int/2addr v0, p1
+  

@@ -1,0 +1,171 @@
+*** ./smali/com/android/internal/telephony/gsm/SIMRecords.smali	2015-04-19 13:47:22.749102906 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/telephony/gsm/SIMRecords.smali	2015-04-19 13:48:52.301106250 +0800
+***************
+*** 7,13 ****
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+          Lcom/android/internal/telephony/gsm/SIMRecords$1;,
+!         Lcom/android/internal/telephony/gsm/SIMRecords$Get_Spn_Fsm_State;
+      }
+  .end annotation
+  
+--- 7,14 ----
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+          Lcom/android/internal/telephony/gsm/SIMRecords$1;,
+!         Lcom/android/internal/telephony/gsm/SIMRecords$Get_Spn_Fsm_State;,
+!         Lcom/android/internal/telephony/gsm/SIMRecords$Injector;
+      }
+  .end annotation
+  
+***************
+*** 892,897 ****
+--- 893,901 ----
+      .parameter "card"
+      .parameter "c"
+      .parameter "ci"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v3, 0x0
+***************
+*** 918,928 ****
+  
+      iput-object v2, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->pnnHomeName:Ljava/lang/String;
+  
+!     new-instance v0, Lcom/android/internal/telephony/AdnRecordCache;
+  
+      iget-object v1, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mFh:Lcom/android/internal/telephony/IccFileHandler;
+  
+!     invoke-direct {v0, v1}, Lcom/android/internal/telephony/AdnRecordCache;-><init>(Lcom/android/internal/telephony/IccFileHandler;)V
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->adnCache:Lcom/android/internal/telephony/AdnRecordCache;
+  
+--- 922,932 ----
+  
+      iput-object v2, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->pnnHomeName:Ljava/lang/String;
+  
+!     new-instance v0, Lcom/android/internal/telephony/MiuiAdnRecordCache;
+  
+      iget-object v1, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mFh:Lcom/android/internal/telephony/IccFileHandler;
+  
+!     invoke-direct {v0, v1}, Lcom/android/internal/telephony/MiuiAdnRecordCache;-><init>(Lcom/android/internal/telephony/IccFileHandler;)V
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->adnCache:Lcom/android/internal/telephony/AdnRecordCache;
+  
+***************
+*** 932,940 ****
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mVmConfig:Lcom/android/internal/telephony/gsm/VoiceMailConstants;
+  
+!     new-instance v0, Lcom/android/internal/telephony/gsm/SpnOverride;
+  
+!     invoke-direct {v0}, Lcom/android/internal/telephony/gsm/SpnOverride;-><init>()V
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mSpnOverride:Lcom/android/internal/telephony/gsm/SpnOverride;
+  
+--- 936,944 ----
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mVmConfig:Lcom/android/internal/telephony/gsm/VoiceMailConstants;
+  
+!     new-instance v0, Lcom/android/internal/telephony/gsm/MiuiSpnOverrideImpl;
+  
+!     invoke-direct {v0}, Lcom/android/internal/telephony/gsm/MiuiSpnOverrideImpl;-><init>()V
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mSpnOverride:Lcom/android/internal/telephony/gsm/SpnOverride;
+  
+***************
+*** 1855,1860 ****
+--- 1859,1867 ----
+  .method private isOnMatchingPlmn(Ljava/lang/String;)Z
+      .locals 5
+      .parameter "plmn"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v3, 0x1
+***************
+*** 1872,1878 ****
+  
+      move-result-object v4
+  
+!     invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+  
+      move-result v4
+  
+--- 1879,1885 ----
+  
+      move-result-object v4
+  
+!     invoke-static {p0, p1, v4}, Lcom/android/internal/telephony/gsm/SIMRecords$Injector;->isMatchingOperator(Lcom/android/internal/telephony/gsm/SIMRecords;Ljava/lang/String;Ljava/lang/String;)Z
+  
+      move-result v4
+  
+***************
+*** 2064,2069 ****
+--- 2071,2079 ----
+  .method private setSpnFromConfig(Ljava/lang/String;)V
+      .locals 1
+      .parameter "carrier"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mSpnOverride:Lcom/android/internal/telephony/gsm/SpnOverride;
+***************
+*** 2074,2086 ****
+  
+      if-eqz v0, :cond_0
+  
+!     iget-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mSpnOverride:Lcom/android/internal/telephony/gsm/SpnOverride;
+  
+!     invoke-virtual {v0, p1}, Lcom/android/internal/telephony/gsm/SpnOverride;->getSpn(Ljava/lang/String;)Ljava/lang/String;
+  
+!     move-result-object v0
+  
+!     iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->spn:Ljava/lang/String;
+  
+      :cond_0
+      return-void
+--- 2084,2098 ----
+  
+      if-eqz v0, :cond_0
+  
+!     #iget-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mSpnOverride:Lcom/android/internal/telephony/gsm/SpnOverride;
+  
+!     #invoke-virtual {v0, p1}, Lcom/android/internal/telephony/gsm/SpnOverride;->getSpn(Ljava/lang/String;)Ljava/lang/String;
+  
+!     #move-result-object v0
+! 
+!     #iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->spn:Ljava/lang/String;
+  
+!     invoke-static {p0}, Lcom/android/internal/telephony/gsm/SIMRecords$Injector;->updateSpnDisplayCondition(Lcom/android/internal/telephony/gsm/SIMRecords;)V
+  
+      :cond_0
+      return-void
+***************
+*** 2664,2669 ****
+--- 2676,2693 ----
+      goto :goto_0
+  .end method
+  
++ .method getSpn()Ljava/lang/String;
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->spn:Ljava/lang/String;
++ 
++     return-object v0
++ .end method
++ 
+  .method public getUsimServiceTable()Lcom/android/internal/telephony/gsm/UsimServiceTable;
+      .locals 1
+  

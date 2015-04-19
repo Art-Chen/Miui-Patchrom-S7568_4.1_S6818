@@ -1,0 +1,60 @@
+*** Installer.smali	2015-04-19 13:47:30.473103194 +0800
+--- Installer.smali	2015-04-19 13:49:00.201106545 +0800
+***************
+*** 1,4 ****
+! .class Lcom/android/server/pm/Installer;
+  .super Ljava/lang/Object;
+  .source "Installer.java"
+  
+--- 1,4 ----
+! .class public Lcom/android/server/pm/Installer;
+  .super Ljava/lang/Object;
+  .source "Installer.java"
+  
+***************
+*** 22,28 ****
+  
+  
+  # direct methods
+! .method constructor <init>()V
+      .locals 1
+  
+      .prologue
+--- 22,28 ----
+  
+  
+  # direct methods
+! .method public constructor <init>()V
+      .locals 1
+  
+      .prologue
+***************
+*** 586,591 ****
+  
+  
+  # virtual methods
+  .method public clearUserData(Ljava/lang/String;I)I
+      .locals 3
+      .parameter "name"
+--- 586,606 ----
+  
+  
+  # virtual methods
++ .method public callExecute(Ljava/lang/String;)I
++     .locals 1
++     .parameter "cmd"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     invoke-direct {p0, p1}, Lcom/android/server/pm/Installer;->execute(Ljava/lang/String;)I
++ 
++     move-result v0
++ 
++     return v0
++ .end method
++ 
+  .method public clearUserData(Ljava/lang/String;I)I
+      .locals 3
+      .parameter "name"

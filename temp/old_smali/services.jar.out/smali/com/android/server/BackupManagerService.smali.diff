@@ -1,0 +1,133 @@
+*** ./smali/com/android/server/BackupManagerService.smali	2015-04-19 13:47:35.937103398 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/services.jar.out/./smali/com/android/server/BackupManagerService.smali	2015-04-19 13:49:05.597106747 +0800
+***************
+*** 31,37 ****
+          Lcom/android/server/BackupManagerService$RestoreParams;,
+          Lcom/android/server/BackupManagerService$RestoreGetSetsParams;,
+          Lcom/android/server/BackupManagerService$ProvisionedObserver;,
+!         Lcom/android/server/BackupManagerService$BackupRequest;
+      }
+  .end annotation
+  
+--- 31,38 ----
+          Lcom/android/server/BackupManagerService$RestoreParams;,
+          Lcom/android/server/BackupManagerService$RestoreGetSetsParams;,
+          Lcom/android/server/BackupManagerService$ProvisionedObserver;,
+!         Lcom/android/server/BackupManagerService$BackupRequest;,
+!         Lcom/android/server/BackupManagerService$Injector;
+      }
+  .end annotation
+  
+***************
+*** 7233,7238 ****
+--- 7234,7242 ----
+      .parameter "doAllApps"
+      .parameter "includeSystem"
+      .parameter "pkgList"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-object v2, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
+***************
+*** 7430,7436 ****
+  
+      const-string v2, "fullback"
+  
+!     invoke-virtual {p0, v11, v2}, Lcom/android/server/BackupManagerService;->startConfirmationUi(ILjava/lang/String;)Z
+  
+      move-result v2
+  
+--- 7434,7440 ----
+  
+      const-string v2, "fullback"
+  
+!     invoke-static {p0, v11, v2}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationUi(Lcom/android/server/BackupManagerService;ILjava/lang/String;)Z
+  
+      move-result v2
+  
+***************
+*** 7510,7516 ****
+  
+      invoke-virtual {v2, v3, v4, v5}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-virtual {p0, v11, v1}, Lcom/android/server/BackupManagerService;->startConfirmationTimeout(ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v2, "BackupManagerService"
+  
+--- 7514,7520 ----
+  
+      invoke-virtual {v2, v3, v4, v5}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-static {p0, v11, v1}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationTimeout(Lcom/android/server/BackupManagerService;ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v2, "BackupManagerService"
+  
+***************
+*** 7564,7569 ****
+--- 7568,7576 ----
+  .method public fullRestore(Landroid/os/ParcelFileDescriptor;)V
+      .locals 9
+      .parameter "fd"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      iget-object v5, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
+***************
+*** 7669,7675 ****
+  
+      const-string v5, "fullrest"
+  
+!     invoke-virtual {p0, v4, v5}, Lcom/android/server/BackupManagerService;->startConfirmationUi(ILjava/lang/String;)Z
+  
+      move-result v5
+  
+--- 7676,7682 ----
+  
+      const-string v5, "fullrest"
+  
+!     invoke-static {p0, v4, v5}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationUi(Lcom/android/server/BackupManagerService;ILjava/lang/String;)Z
+  
+      move-result v5
+  
+***************
+*** 7749,7755 ****
+  
+      invoke-virtual {v5, v6, v7, v8}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-virtual {p0, v4, v3}, Lcom/android/server/BackupManagerService;->startConfirmationTimeout(ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v5, "BackupManagerService"
+  
+--- 7756,7762 ----
+  
+      invoke-virtual {v5, v6, v7, v8}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-static {p0, v4, v3}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationTimeout(Lcom/android/server/BackupManagerService;ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v5, "BackupManagerService"
+  
+***************
+*** 8035,8040 ****
+--- 8042,8059 ----
+      throw v2
+  .end method
+  
++ .method getContext()Landroid/content/Context;
++     .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     iget-object v0, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
++ 
++     return-object v0
++ .end method
++ 
+  .method public getCurrentTransport()Ljava/lang/String;
+      .locals 3
+  

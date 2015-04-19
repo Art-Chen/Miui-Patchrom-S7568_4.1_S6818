@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/location_settings_title"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference android:title="@string/location_network_based" android:key="location_network" android:summary="@string/location_neighborhood_level" />
+    <CheckBoxPreference android:title="@string/location_gps" android:key="location_gps" android:summary="@string/location_street_level" />
+    <CheckBoxPreference android:title="@string/assisted_gps" android:key="assisted_gps" android:summaryOn="@string/assisted_gps_enabled" android:summaryOff="@string/assisted_gps_disabled" />
+    <PreferenceScreen android:persistent="false" android:title="@string/assisted_gps_function_switch" android:key="assisted_gps_function_switch" android:summary="@string/assisted_gps_function_switch_summary" android:dependency="location_gps">
+        <intent android:targetPackage="com.android.settings" android:action="android.intent.action.MAIN" android:targetClass="com.android.settings.AGPSFunctionSwitchList" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/satellite_view" android:key="satellite_view" android:summary="@string/satellite_view_summary" android:dependency="location_gps">
+        <intent android:targetPackage="com.android.settings" android:action="android.intent.action.MAIN" android:targetClass="com.android.settings.SatelliteView" />
+    </PreferenceScreen>
+    <CheckBoxPreference android:title="@string/clock_sync" android:key="clock_sync" android:dependency="location_gps" android:summaryOn="@string/clock_sync_enabled" android:summaryOff="@string/clock_sync_disabled" />
+</PreferenceScreen>

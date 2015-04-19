@@ -1,0 +1,63 @@
+*** PhoneNumberUtils.smali	2015-04-19 13:46:58.213101989 +0800
+--- PhoneNumberUtils.smali	2015-04-19 13:48:26.621105291 +0800
+***************
+*** 1689,1702 ****
+  
+      if-ge v6, v10, :cond_b
+  
+!     invoke-virtual {p0}, Ljava/lang/String;->length()I
+  
+      move-result v10
+  
+      sub-int v2, v10, v7
+  
+      .local v2, effectiveALen:I
+!     invoke-virtual {p1}, Ljava/lang/String;->length()I
+  
+      move-result v10
+  
+--- 1708,1721 ----
+  
+      if-ge v6, v10, :cond_b
+  
+!     invoke-static {p0}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
+  
+      move-result v10
+  
+      sub-int v2, v10, v7
+  
+      .local v2, effectiveALen:I
+!     invoke-static {p1}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
+  
+      move-result v10
+  
+***************
+*** 4131,4136 ****
+  
+      move-result-object p0
+  
+      const-string v8, "ril.ecclist"
+  
+      invoke-static {v8}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
+--- 4160,4180 ----
+  
+      move-result-object p0
+  
++     invoke-static {p0}, Lmiui/telephony/PhoneNumberUtils;->parseNumber(Ljava/lang/String;)Ljava/lang/String;
++ 
++     move-result-object p0
++ 
++     invoke-static {p0, p2}, Lmiui/telephony/PhoneNumberUtils;->isMiuiEmergencyNumber(Ljava/lang/String;Z)Z
++ 
++     move-result v8
++ 
++     if-eqz v8, :cond_ff
++ 
++     move v6, v7
++ 
++     goto :goto_0
++ 
++     :cond_ff
+      const-string v8, "ril.ecclist"
+  
+      invoke-static {v8}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;

@@ -1,0 +1,111 @@
+*** ./smali/com/android/internal/telephony/cdma/CdmaServiceStateTracker.smali	2015-04-19 13:47:23.733102942 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/telephony/cdma/CdmaServiceStateTracker.smali	2015-04-19 13:48:53.257106286 +0800
+***************
+*** 6,12 ****
+  # annotations
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+!         Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker$3;
+      }
+  .end annotation
+  
+--- 6,13 ----
+  # annotations
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+!         Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker$3;,
+!         Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker$LocaleChangedIntentReceiver;
+      }
+  .end annotation
+  
+***************
+*** 60,65 ****
+--- 61,72 ----
+  
+  .field protected mHomeSystemId:[I
+  
++ .field mIntentReceiver:Landroid/content/BroadcastReceiver;
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ .end field
++ 
+  .field private mIsInPrl:Z
+  
+  .field protected mIsMinInfoReady:Z
+***************
+*** 109,114 ****
+--- 116,124 ----
+  .method public constructor <init>(Lcom/android/internal/telephony/cdma/CDMAPhone;)V
+      .locals 8
+      .parameter "phone"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v3, 0x1
+***************
+*** 119,124 ****
+--- 129,140 ----
+  
+      invoke-direct {p0}, Lcom/android/internal/telephony/ServiceStateTracker;-><init>()V
+  
++     new-instance v2, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker$LocaleChangedIntentReceiver;
++ 
++     invoke-direct {v2, p0}, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker$LocaleChangedIntentReceiver;-><init>(Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;)V
++ 
++     iput-object v2, p0, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;->mIntentReceiver:Landroid/content/BroadcastReceiver;
++ 
+      iput v4, p0, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;->mCurrentOtaspMode:I
+  
+      const-string v2, "ro.nitz_update_spacing"
+***************
+*** 373,378 ****
+--- 389,396 ----
+  
+      iput-boolean v3, p0, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;->mNeedToRegForRuimLoaded:Z
+  
++     invoke-virtual {p0}, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;->monitorLocaleChange()V
++ 
+      return-void
+  
+      .end local v0           #airplaneMode:I
+***************
+*** 6372,6377 ****
+--- 6390,6424 ----
+  
+      return-void
+  .end method
++ 
++ .method monitorLocaleChange()V
++     .locals 3
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     new-instance v0, Landroid/content/IntentFilter;
++ 
++     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
++ 
++     .local v0, filter:Landroid/content/IntentFilter;
++     const-string v1, "android.intent.action.LOCALE_CHANGED"
++ 
++     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
++ 
++     iget-object v1, p0, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;->phone:Lcom/android/internal/telephony/cdma/CDMAPhone;
++ 
++     invoke-virtual {v1}, Lcom/android/internal/telephony/cdma/CDMAPhone;->getContext()Landroid/content/Context;
++ 
++     move-result-object v1
++ 
++     iget-object v2, p0, Lcom/android/internal/telephony/cdma/CdmaServiceStateTracker;->mIntentReceiver:Landroid/content/BroadcastReceiver;
++ 
++     invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
++ 
++     return-void
++ .end method
+  
+  .method protected onSignalStrengthResult(Landroid/os/AsyncResult;)V
+      .locals 13

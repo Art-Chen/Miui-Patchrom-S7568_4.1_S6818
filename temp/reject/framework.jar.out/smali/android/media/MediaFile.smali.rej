@@ -1,0 +1,91 @@
+*** MediaFile.smali	2015-04-19 13:46:47.961101606 +0800
+--- MediaFile.smali	2015-04-19 13:48:16.445104911 +0800
+***************
+*** 21,26 ****
+  
+  .field public static final FILE_TYPE_AMR:I = 0x4
+  
+  .field public static final FILE_TYPE_ASF:I = 0x1a
+  
+  .field public static final FILE_TYPE_AVI:I = 0x1d
+--- 22,29 ----
+  
+  .field public static final FILE_TYPE_AMR:I = 0x4
+  
++ .field public static final FILE_TYPE_APE:I = 0x3e9
++ 
+  .field public static final FILE_TYPE_ASF:I = 0x1a
+  
+  .field public static final FILE_TYPE_AVI:I = 0x1d
+***************
+*** 103,108 ****
+  
+  .field private static final FIRST_DRM_FILE_TYPE:I = 0x33
+  
+  .field private static final FIRST_IMAGE_FILE_TYPE:I = 0x1f
+  
+  .field private static final FIRST_MIDI_FILE_TYPE:I = 0xb
+--- 106,113 ----
+  
+  .field private static final FIRST_DRM_FILE_TYPE:I = 0x33
+  
++ .field private static final FIRST_FFMPEG_AUDIO_FILE_TYPE:I = 0x3e9
++ 
+  .field private static final FIRST_IMAGE_FILE_TYPE:I = 0x1f
+  
+  .field private static final FIRST_MIDI_FILE_TYPE:I = 0xb
+***************
+*** 117,122 ****
+  
+  .field private static final LAST_DRM_FILE_TYPE:I = 0x33
+  
+  .field private static final LAST_IMAGE_FILE_TYPE:I = 0x24
+  
+  .field private static final LAST_MIDI_FILE_TYPE:I = 0xd
+--- 122,129 ----
+  
+  .field private static final LAST_DRM_FILE_TYPE:I = 0x33
+  
++ .field private static final LAST_FFMPEG_AUDIO_FILE_TYPE:I = 0x3e9
++ 
+  .field private static final LAST_IMAGE_FILE_TYPE:I = 0x24
+  
+  .field private static final LAST_MIDI_FILE_TYPE:I = 0xd
+***************
+*** 277,283 ****
+  
+      invoke-static {v0, v1, v2}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
+  
+!     invoke-static {}, Landroid/media/MediaFile;->isWMAEnabled()Z
+  
+      move-result v0
+  
+--- 284,290 ----
+  
+      invoke-static {v0, v1, v2}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
+  
+!     invoke-static {}, Landroid/media/MediaFile$Injector;->isWMAEnabled()Z
+  
+      move-result v0
+  
+***************
+*** 1091,1096 ****
+      return v0
+  
+      :cond_2
+      const/4 v0, 0x0
+  
+      goto :goto_0
+--- 1100,1111 ----
+      return v0
+  
+      :cond_2
++     invoke-static {p0}, Landroid/media/MediaFile$Injector;->isFFMpegAudoFileType(I)Z
++ 
++     move-result v1
++ 
++     if-nez v1, :cond_1
++ 
+      const/4 v0, 0x0
+  
+      goto :goto_0

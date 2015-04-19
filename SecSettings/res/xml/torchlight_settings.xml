@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference android:persistent="false" android:title="@string/torchlight_settings" android:key="torchlight_enable" android:summary="@string/torchlight_summary" />
+    <ListPreference android:persistent="false" android:entries="@array/torchlight_timeout_entries" android:title="@string/torchlight_timeout_title" android:key="torchlight_timeout" android:summary="@string/torchlight_timeout_summary" android:dependency="torchlight_enable" android:entryValues="@array/torchlight_timeout_values" />
+</PreferenceScreen>

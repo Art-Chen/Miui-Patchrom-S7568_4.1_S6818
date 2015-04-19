@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="password_keyboard_key_height_numeric">44.0dip</dimen>
+    <dimen name="password_keyboard_horizontalGap">3.0dip</dimen>
+    <dimen name="password_keyboard_verticalGap">4.0dip</dimen>
+    <dimen name="notification_text_size">14.0dip</dimen>
+    <dimen name="notification_title_text_size">18.0dip</dimen>
+    <dimen name="notification_subtext_size">12.0dip</dimen>
+    <dimen name="multiwindow_gap">50.0dip</dimen>
+    <dimen name="multiwindow_def_width">640.0dip</dimen>
+    <dimen name="multiwindow_def_height">480.0dip</dimen>
+    <dimen name="multiwindow_minimized_width">394.0dip</dimen>
+    <dimen name="multiwindow_minimized_height">39.0dip</dimen>
+    <dimen name="tw_clipboard_port_height">231.0dip</dimen>
+    <dimen name="tw_clipboard_land_height">166.0dip</dimen>
+    <dimen name="tw_clipboard_panel_port_height">200.0dip</dimen>
+    <dimen name="tw_clipboard_panel_land_height">135.0dip</dimen>
+    <dimen name="tw_clipitem_width">152.0dip</dimen>
+    <dimen name="tw_clipitem_height">98.0dip</dimen>
+    <dimen name="tw_clipboard_html_image_width">62.0dip</dimen>
+    <dimen name="tw_clipboard_html_image_height">62.0dip</dimen>
+    <dimen name="tw_clipitem_width_land">150.0dip</dimen>
+    <dimen name="tw_clipitem_height_land">66.0dip</dimen>
+    <dimen name="tw_clipboard_html_image_width_land">60.0dip</dimen>
+    <dimen name="tw_clipboard_html_image_height_land">60.0dip</dimen>
+    <dimen name="tw_secondary_text_size">18.0dip</dimen>
+</resources>

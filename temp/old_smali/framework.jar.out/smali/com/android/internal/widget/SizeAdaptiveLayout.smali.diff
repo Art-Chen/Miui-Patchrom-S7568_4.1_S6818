@@ -1,0 +1,19 @@
+*** ./smali/com/android/internal/widget/SizeAdaptiveLayout.smali	2015-04-19 13:47:17.089102694 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/widget/SizeAdaptiveLayout.smali	2015-04-19 13:48:44.601105963 +0800
+***************
+*** 429,435 ****
+      :cond_1
+      iget-object v3, p0, Lcom/android/internal/widget/SizeAdaptiveLayout;->mModestyPanel:Landroid/view/View;
+  
+!     const/high16 v4, -0x100
+  
+      invoke-virtual {v3, v4}, Landroid/view/View;->setBackgroundColor(I)V
+  
+--- 429,435 ----
+      :cond_1
+      iget-object v3, p0, Lcom/android/internal/widget/SizeAdaptiveLayout;->mModestyPanel:Landroid/view/View;
+  
+!     const/high16 v4, 0x0
+  
+      invoke-virtual {v3, v4}, Landroid/view/View;->setBackgroundColor(I)V
+  

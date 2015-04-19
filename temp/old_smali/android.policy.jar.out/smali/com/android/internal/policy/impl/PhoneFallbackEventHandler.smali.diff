@@ -1,0 +1,44 @@
+*** ./smali/com/android/internal/policy/impl/PhoneFallbackEventHandler.smali	2015-04-19 13:47:28.501103120 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/android.policy.jar.out/./smali/com/android/internal/policy/impl/PhoneFallbackEventHandler.smali	2015-04-19 13:48:58.233106472 +0800
+***************
+*** 253,258 ****
+--- 253,268 ----
+      return-object v0
+  .end method
+  
++ .method handleCameraKeyEvent()V
++     .locals 0
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
++     .prologue
++     return-void
++ .end method
++ 
+  .method onKeyDown(ILandroid/view/KeyEvent;)Z
+      .locals 9
+      .parameter "keyCode"
+***************
+*** 570,575 ****
+--- 580,588 ----
+      .locals 5
+      .parameter "keyCode"
+      .parameter "event"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+      const/4 v2, 0x1
+***************
+*** 654,659 ****
+--- 667,674 ----
+  
+      if-nez v3, :cond_2
+  
++     invoke-virtual {p0}, Lcom/android/internal/policy/impl/PhoneFallbackEventHandler;->handleCameraKeyEvent()V
++ 
+      goto :goto_0
+  
+      :sswitch_3

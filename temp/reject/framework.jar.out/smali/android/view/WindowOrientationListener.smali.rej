@@ -1,0 +1,26 @@
+*** WindowOrientationListener.smali	2015-04-19 13:46:13.361100314 +0800
+--- WindowOrientationListener.smali	2015-04-19 13:47:41.949103623 +0800
+***************
+*** 55,63 ****
+  .method public constructor <init>(Landroid/content/Context;)V
+      .locals 1
+      .parameter "context"
+  
+      .prologue
+!     const/4 v0, 0x2
+  
+      invoke-direct {p0, p1, v0}, Landroid/view/WindowOrientationListener;-><init>(Landroid/content/Context;I)V
+  
+--- 55,66 ----
+  .method public constructor <init>(Landroid/content/Context;)V
+      .locals 1
+      .parameter "context"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
+  
+      .prologue
+!     const/4 v0, 0x3
+  
+      invoke-direct {p0, p1, v0}, Landroid/view/WindowOrientationListener;-><init>(Landroid/content/Context;I)V
+  

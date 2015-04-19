@@ -1,0 +1,20 @@
+*** ./smali/com/android/internal/telephony/IccPhoneBookInterfaceManagerProxy.smali	2015-04-19 13:47:24.525102972 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/telephony/IccPhoneBookInterfaceManagerProxy.smali	2015-04-19 13:48:54.197106321 +0800
+***************
+*** 83,88 ****
+--- 83,97 ----
+      return-object v0
+  .end method
+  
++ .method getIccPhoneBookInterfaceManager()Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
++     .locals 1
++ 
++     .prologue
++     iget-object v0, p0, Lcom/android/internal/telephony/IccPhoneBookInterfaceManagerProxy;->mIccPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
++ 
++     return-object v0
++ .end method
++ 
+  .method public setmIccPhoneBookInterfaceManager(Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;)V
+      .locals 0
+      .parameter "iccPhoneBookInterfaceManager"

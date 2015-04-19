@@ -1,0 +1,54 @@
+*** ./smali/com/android/internal/widget/LockSettingsService.smali	2015-04-19 13:47:16.521102673 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/widget/LockSettingsService.smali	2015-04-19 13:48:44.117105944 +0800
+***************
+*** 6,12 ****
+  # annotations
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+!         Lcom/android/internal/widget/LockSettingsService$DatabaseHelper;
+      }
+  .end annotation
+  
+--- 6,13 ----
+  # annotations
+  .annotation system Ldalvik/annotation/MemberClasses;
+      value = {
+!         Lcom/android/internal/widget/LockSettingsService$DatabaseHelper;,
+!         Lcom/android/internal/widget/LockSettingsService$Injector;
+      }
+  .end annotation
+  
+***************
+*** 857,862 ****
+--- 858,867 ----
+      .locals 9
+      .parameter "hash"
+      .parameter "userId"
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
+      .annotation system Ldalvik/annotation/Throws;
+          value = {
+              Landroid/os/RemoteException;
+***************
+*** 912,918 ****
+      .restart local v3       #raf:Ljava/io/RandomAccessFile;
+      .restart local v4       #stored:[B
+      :cond_0
+!     invoke-static {v4, p1}, Ljava/util/Arrays;->equals([B[B)Z
+      :try_end_0
+      .catch Ljava/io/FileNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+      .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1
+--- 917,927 ----
+      .restart local v3       #raf:Ljava/io/RandomAccessFile;
+      .restart local v4       #stored:[B
+      :cond_0
+!     invoke-static {v4, p1}, Lcom/android/internal/widget/LockSettingsService$Injector;->passwordToHash([B[B)[B
+! 
+!     move-result-object v6
+! 
+!     invoke-static {v4, v6}, Ljava/util/Arrays;->equals([B[B)Z
+      :try_end_0
+      .catch Ljava/io/FileNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+      .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1

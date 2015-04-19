@@ -1,0 +1,155 @@
+*** ./smali/com/android/internal/telephony/cdma/CDMAPhone.smali	2015-04-19 13:47:23.333102927 +0800
+--- /home/art-chen/MIUI/v5/s7568/temp/new_smali/framework.jar.out/./smali/com/android/internal/telephony/cdma/CDMAPhone.smali	2015-04-19 13:48:52.885106272 +0800
+***************
+*** 101,107 ****
+  
+  .field mPostDialHandler:Landroid/os/Registrant;
+  
+! .field mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+  .field mRuimSmsInterfaceManager:Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+--- 101,107 ----
+  
+  .field mPostDialHandler:Landroid/os/Registrant;
+  
+! .field mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+  .field mRuimSmsInterfaceManager:Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+***************
+*** 1103,1108 ****
+--- 1103,1112 ----
+  # virtual methods
+  .method public acceptCall()V
+      .locals 1
++     .annotation build Landroid/annotation/MiuiHook;
++         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
++     .end annotation
++ 
+      .annotation system Ldalvik/annotation/Throws;
+          value = {
+              Lcom/android/internal/telephony/CallStateException;
+***************
+*** 1110,1115 ****
+--- 1114,1123 ----
+      .end annotation
+  
+      .prologue
++     const/16 v0, 0xf
++ 
++     invoke-virtual {p0, v0}, Lcom/android/internal/telephony/cdma/CDMAPhone;->removeMessages(I)V
++ 
+      iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mCT:Lcom/android/internal/telephony/cdma/CdmaCallTracker;
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/cdma/CdmaCallTracker;->acceptCall()V
+***************
+*** 1313,1321 ****
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/SMSDispatcher;->dispose()V
+  
+!     iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+!     invoke-virtual {v0}, Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;->dispose()V
+  
+      iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimSmsInterfaceManager:Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+--- 1321,1329 ----
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/SMSDispatcher;->dispose()V
+  
+!     iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+!     invoke-virtual {v0}, Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;->dispose()V
+  
+      iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimSmsInterfaceManager:Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+***************
+*** 1476,1482 ****
+  
+      move-result-object v0
+  
+!     iget-object v1, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+      invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+  
+--- 1484,1490 ----
+  
+      move-result-object v0
+  
+!     iget-object v1, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+  
+***************
+*** 2403,2409 ****
+      .locals 1
+  
+      .prologue
+!     iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+      return-object v0
+  .end method
+--- 2411,2417 ----
+      .locals 1
+  
+      .prologue
+!     iget-object v0, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      return-object v0
+  .end method
+***************
+*** 2934,2939 ****
+--- 2942,2951 ----
+  
+      iput-object v3, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mMeid:Ljava/lang/String;
+  
++     invoke-virtual {p0}, Lcom/android/internal/telephony/cdma/CDMAPhone;->sendDeviceIdReadyBroadcast()V
++ 
++     invoke-virtual {p0}, Lcom/android/internal/telephony/cdma/CDMAPhone;->setDeviceIdSystemProperty()V
++ 
+      goto :goto_0
+  
+      .end local v0           #ar:Landroid/os/AsyncResult;
+***************
+*** 3309,3319 ****
+  
+      iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mDataConnectionTracker:Lcom/android/internal/telephony/DataConnectionTracker;
+  
+!     new-instance v4, Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+!     invoke-direct {v4, p0}, Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/cdma/CDMAPhone;)V
+  
+!     iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+      new-instance v4, Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+--- 3321,3331 ----
+  
+      iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mDataConnectionTracker:Lcom/android/internal/telephony/DataConnectionTracker;
+  
+!     new-instance v4, Lcom/android/internal/telephony/cdma/MiuiRuimPhoneBookInterfaceManager;
+  
+!     invoke-direct {v4, p0}, Lcom/android/internal/telephony/cdma/MiuiRuimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/cdma/CDMAPhone;)V
+  
+!     iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      new-instance v4, Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+***************
+*** 4006,4012 ****
+  
+      invoke-virtual {p0, v0}, Lcom/android/internal/telephony/cdma/CDMAPhone;->log(Ljava/lang/String;)V
+  
+!     iput-object v1, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+      iput-object v1, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimSmsInterfaceManager:Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+--- 4018,4024 ----
+  
+      invoke-virtual {p0, v0}, Lcom/android/internal/telephony/cdma/CDMAPhone;->log(Ljava/lang/String;)V
+  
+!     iput-object v1, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      iput-object v1, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimSmsInterfaceManager:Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  

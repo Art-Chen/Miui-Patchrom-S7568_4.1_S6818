@@ -1,0 +1,50 @@
+*** StaticLayout.smali	2015-04-19 13:46:35.329101135 +0800
+--- StaticLayout.smali	2015-04-19 13:48:00.313104309 +0800
+***************
+*** 1155,1161 ****
+      if-le p0, v2, :cond_0
+  
+      :cond_a
+!     move v0, v1
+  
+      goto :goto_0
+  
+--- 1171,1179 ----
+      if-le p0, v2, :cond_0
+  
+      :cond_a
+!     invoke-static {p0, p1}, Landroid/text/StaticLayout$Injector;->isIdeographic(CZ)Z
+! 
+!     move-result v0
+  
+      goto :goto_0
+  
+***************
+*** 2400,2405 ****
+      move/from16 v42, v101
+  
+      :cond_d
+      const/16 v5, 0x20
+  
+      move/from16 v0, v94
+--- 2418,2437 ----
+      move/from16 v42, v101
+  
+      :cond_d
++     move/from16 v0, v94
++ 
++     move-object/from16 v1, v27
++ 
++     move/from16 v2, v106
++ 
++     move/from16 v3, v120
++ 
++     move/from16 v4, v29
++ 
++     invoke-static {v0, v1, v2, v3, v4}, Landroid/text/StaticLayout$Injector;->validateCJKCharAsSpace(C[CIII)C
++ 
++     move-result v94
++ 
+      const/16 v5, 0x20
+  
+      move/from16 v0, v94

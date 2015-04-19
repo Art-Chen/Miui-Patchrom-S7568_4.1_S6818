@@ -1,0 +1,27 @@
+*** CDMAPhone.smali	2015-04-19 13:47:23.333102927 +0800
+--- CDMAPhone.smali	2015-04-19 13:48:52.885106272 +0800
+***************
+*** 3321,3331 ****
+  
+      iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mDataConnectionTracker:Lcom/android/internal/telephony/DataConnectionTracker;
+  
+!     new-instance v4, Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+!     invoke-direct {v4, p0}, Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/cdma/CDMAPhone;)V
+  
+!     iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/cdma/RuimPhoneBookInterfaceManager;
+  
+      new-instance v4, Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
+--- 3333,3343 ----
+  
+      iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mDataConnectionTracker:Lcom/android/internal/telephony/DataConnectionTracker;
+  
+!     new-instance v4, Lcom/android/internal/telephony/cdma/MiuiRuimPhoneBookInterfaceManager;
+  
+!     invoke-direct {v4, p0}, Lcom/android/internal/telephony/cdma/MiuiRuimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/cdma/CDMAPhone;)V
+  
+!     iput-object v4, p0, Lcom/android/internal/telephony/cdma/CDMAPhone;->mRuimPhoneBookInterfaceManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
+  
+      new-instance v4, Lcom/android/internal/telephony/cdma/RuimSmsInterfaceManager;
+  
