@@ -81,7 +81,10 @@
     #calls: Landroid/widget/QuickContactBadge;->onContactUriChanged()V
     invoke-static {v8}, Landroid/widget/QuickContactBadge;->access$100(Landroid/widget/QuickContactBadge;)V
 
-    .line 309
+    iget-object v8, p0, Landroid/widget/QuickContactBadge$QueryHandler;->this$0:Landroid/widget/QuickContactBadge;
+    invoke-static {v8, v7, v6, v2}, Landroid/widget/QuickContactBadge$Injector;->showQuickContactForStranger(Landroid/widget/QuickContactBadge;ZLandroid/net/Uri;Landroid/net/Uri;)Landroid/net/Uri;
+    move-result-object v2
+
     if-eqz v7, :cond_4
 
     if-eqz v6, :cond_4

@@ -11,7 +11,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/android/internal/view/menu/ActionMenuView$LayoutParams;,
-        Lcom/android/internal/view/menu/ActionMenuView$ActionMenuChildView;
+        Lcom/android/internal/view/menu/ActionMenuView$ActionMenuChildView;,
+        Lcom/android/internal/view/menu/ActionMenuView$Injector;
     }
 .end annotation
 

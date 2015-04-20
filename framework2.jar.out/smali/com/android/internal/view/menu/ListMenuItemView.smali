@@ -6,6 +6,14 @@
 .implements Lcom/android/internal/view/menu/MenuView$ItemView;
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/internal/view/menu/ListMenuItemView$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field private static final TAG:Ljava/lang/String; = "ListMenuItemView"
 
@@ -200,9 +208,17 @@
     :goto_0
     iget-object v1, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mCheckBox:Landroid/widget/CheckBox;
 
+    invoke-static {p0, v1}, Lcom/android/internal/view/menu/ListMenuItemView$Injector;->insertCheckBox(Lcom/android/internal/view/menu/ListMenuItemView;Landroid/widget/CheckBox;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_miui_1
+
+    iget-object v1, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mCheckBox:Landroid/widget/CheckBox;
+
     invoke-virtual {p0, v1}, Lcom/android/internal/view/menu/ListMenuItemView;->addView(Landroid/view/View;)V
 
-    .line 289
+    :cond_miui_1
     return-void
 
     .line 284
@@ -284,9 +300,17 @@
     :goto_0
     iget-object v1, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mRadioButton:Landroid/widget/RadioButton;
 
+    invoke-static {p0, v1}, Lcom/android/internal/view/menu/ListMenuItemView$Injector;->insertRadioButton(Lcom/android/internal/view/menu/ListMenuItemView;Landroid/widget/RadioButton;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_miui_1
+
+    iget-object v1, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mRadioButton:Landroid/widget/RadioButton;
+
     invoke-virtual {p0, v1}, Lcom/android/internal/view/menu/ListMenuItemView;->addView(Landroid/view/View;)V
 
-    .line 274
+    :cond_miui_1
     return-void
 
     .line 268
@@ -534,8 +558,11 @@
 .end method
 
 .method public setCheckable(Z)V
-    .locals 5
+    .locals 6
     .parameter "checkable"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
     const/16 v3, 0x8
@@ -595,6 +622,16 @@
     move-result v4
 
     invoke-virtual {v0, v4}, Landroid/widget/CompoundButton;->setChecked(Z)V
+
+    iget-object v4, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mTitleView:Landroid/widget/TextView;
+
+    iget-object v5, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mItemData:Lcom/android/internal/view/menu/MenuItemImpl;
+
+    invoke-virtual {v5}, Lcom/android/internal/view/menu/MenuItemImpl;->isChecked()Z
+
+    move-result v5
+
+    invoke-static {p0, v4, v5}, Lcom/android/internal/view/menu/ListMenuItemView$Injector;->checkTextColor(Lcom/android/internal/view/menu/ListMenuItemView;Landroid/widget/TextView;Z)V
 
     .line 162
     if-eqz p1, :cond_6
@@ -683,6 +720,9 @@
 .method public setChecked(Z)V
     .locals 2
     .parameter "checked"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
     .line 180
@@ -711,7 +751,10 @@
     :goto_0
     invoke-virtual {v0, p1}, Landroid/widget/CompoundButton;->setChecked(Z)V
 
-    .line 193
+    iget-object v1, p0, Lcom/android/internal/view/menu/ListMenuItemView;->mTitleView:Landroid/widget/TextView;
+
+    invoke-static {p0, v1, p1}, Lcom/android/internal/view/menu/ListMenuItemView$Injector;->checkTextColor(Lcom/android/internal/view/menu/ListMenuItemView;Landroid/widget/TextView;Z)V
+
     return-void
 
     .line 186
