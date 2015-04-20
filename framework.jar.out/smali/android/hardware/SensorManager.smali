@@ -69,7 +69,7 @@
 
 .field public static final LIGHT_FULLMOON:F = 0.25f
 
-.field public static final LIGHT_NO_MOON:F = 0.001f
+.field public static final LIGHT_NO_MOON:F = 0.0010f
 
 .field public static final LIGHT_OVERCAST:F = 10000.0f
 
@@ -254,6 +254,10 @@
 
     .line 1142
     .local v0, coef:F
+    invoke-static {p0}, Landroid/hardware/SensorManager$Injector;->getSeaLevelPressure(F)F
+
+    move-result p0
+
     const v1, 0x472d2a00
 
     const/high16 v2, 0x3f80
@@ -2648,6 +2652,16 @@
 
 
 # virtual methods
+.method public calibrateSensor(Landroid/hardware/Sensor;)Z
+    .locals 1
+    .parameter "sensor"
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
 .method public getDefaultSensor(I)Landroid/hardware/Sensor;
     .locals 2
     .parameter "type"

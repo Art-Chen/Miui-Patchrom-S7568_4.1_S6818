@@ -26,6 +26,12 @@
     .end annotation
 .end field
 
+.field public static final FLAG_ACCESS_CONTROL_PASSWORD:I = -0x80000000
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+.end field
+
 .field public static final FLAG_ALLOW_BACKUP:I = 0x8000
 
 .field public static final FLAG_ALLOW_CLEAR_USER_DATA:I = 0x40
@@ -36,6 +42,7 @@
 
 .field public static final FLAG_DEBUGGABLE:I = 0x2
 
+.field public static final FLAG_DISABLE_AUTOSTART:I = 0x40000000
 .field public static final FLAG_EXTERNAL_STORAGE:I = 0x40000
 
 .field public static final FLAG_FACTORY_TEST:I = 0x10
@@ -53,6 +60,8 @@
 .field public static final FLAG_RESIZEABLE_FOR_SCREENS:I = 0x1000
 
 .field public static final FLAG_RESTORE_ANY_VERSION:I = 0x20000
+
+.field public static final FLAG_SHOW_FLOATING_WINDOW:I = 0x8000000
 
 .field public static final FLAG_STOPPED:I = 0x200000
 
@@ -1093,7 +1102,7 @@
 
     move-result-object v0
 
-    const-string/jumbo v1, "manageSpaceActivityName="
+    const-string v1, "manageSpaceActivityName="
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -1331,7 +1340,7 @@
 
     move-result-object v0
 
-    const v1, 0x10807a7
+    const v1, 0x108081a
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 

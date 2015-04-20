@@ -574,23 +574,23 @@
     .line 740
     .end local v2           #rp:Landroid/sec/enterprise/RestrictionPolicy;
     :goto_0
-    if-nez v1, :cond_0
+    if-nez v1, :cond_1
 
-    .line 742
+    .line 743
     const-string v3, "AudioRecord-Java"
 
     const-string v4, "MICROPHONE IS DISABLED"
 
     invoke-static {v3, v4}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 743
+    .line 744
     invoke-static {}, Landroid/os/Process;->myUid()I
 
     move-result v3
 
     const/16 v4, 0x2710
 
-    if-lt v3, v4, :cond_0
+    if-ge v3, v4, :cond_0
 
     invoke-static {}, Landroid/os/Process;->myUid()I
 
@@ -598,29 +598,30 @@
 
     const/16 v4, 0x4e1f
 
-    if-gt v3, v4, :cond_0
+    if-gt v3, v4, :cond_1
 
-    .line 746
+    .line 747
+    :cond_0
     invoke-static {}, Landroid/os/Process;->myPid()I
 
     move-result v3
 
     invoke-static {v3}, Landroid/os/Process;->killProcess(I)V
 
-    .line 747
+    .line 748
     const/16 v3, 0xa
 
     invoke-static {v3}, Ljava/lang/System;->exit(I)V
 
-    .line 751
-    :cond_0
+    .line 752
+    :cond_1
     return v1
 
-    .line 736
+    .line 737
     :catch_0
     move-exception v0
 
-    .line 737
+    .line 738
     .local v0, e:Ljava/lang/Exception;
     const/4 v1, 0x1
 
@@ -1493,4 +1494,12 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v0
+.end method
+
+.method public setParameters(Ljava/lang/String;)I
+    .locals 1
+
+    const/4 v0, 0x0
+
+    return v0
 .end method

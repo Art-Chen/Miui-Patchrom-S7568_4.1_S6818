@@ -673,7 +673,7 @@
     .line 89
     iget-object v0, p0, Landroid/media/Ringtone;->mUri:Landroid/net/Uri;
 
-    invoke-virtual {p0, v0}, Landroid/media/Ringtone;->setUri(Landroid/net/Uri;)Z
+    invoke-virtual {p0, v0}, Landroid/media/Ringtone;->setUriOrig(Landroid/net/Uri;)Z
 
     .line 90
     return-void
@@ -691,9 +691,47 @@
     return-void
 .end method
 
-.method public setUri(Landroid/net/Uri;)Z
+.method public setUri(Landroid/net/Uri;)V
+    .locals 0
+    .parameter "uri"
+
+    .prologue
+
+    invoke-virtual {p0, p1}, Landroid/media/Ringtone;->setUriOrig(Landroid/net/Uri;)Z
+
+    return-void
+.end method
+
+.method public setUri(Landroid/net/Uri;Landroid/net/Uri;)V
+    .locals 0
+    .parameter "uri"
+    .parameter "defaultUri"
+
+    .prologue
+
+    invoke-virtual {p0, p1, p2}, Landroid/media/Ringtone;->setUriOrig(Landroid/net/Uri;Landroid/net/Uri;)Z
+
+    return-void
+.end method
+
+.method public setUriOrig(Landroid/net/Uri;)Z
+    .locals 1
+    .parameter "uri"
+
+    .prologue
+    const/4 v0, 0x0
+
+    invoke-virtual {p0, p1, v0}, Landroid/media/Ringtone;->setUriOrig(Landroid/net/Uri;Landroid/net/Uri;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public setUriOrig(Landroid/net/Uri;Landroid/net/Uri;)Z
     .locals 6
     .parameter "uri"
+    .parameter "defaultUri"
 
     .prologue
     .line 192
@@ -757,6 +795,18 @@
     .line 222
     :cond_1
     :goto_1
+    iget-object v3, p0, Landroid/media/Ringtone;->mContext:Landroid/content/Context;
+
+    iget-object v4, p0, Landroid/media/Ringtone;->mLocalPlayer:Landroid/media/MediaPlayer;
+
+    iget v5, p0, Landroid/media/Ringtone;->mStreamType:I
+
+    invoke-static {v3, v4, p2, v5}, Landroid/media/Ringtone$Injector;->tryToGetEffectiveLocalPlayer(Landroid/content/Context;Landroid/media/MediaPlayer;Landroid/net/Uri;I)Landroid/media/MediaPlayer;
+
+    move-result-object v3
+
+    iput-object v3, p0, Landroid/media/Ringtone;->mLocalPlayer:Landroid/media/MediaPlayer;
+
     iget-object v3, p0, Landroid/media/Ringtone;->mLocalPlayer:Landroid/media/MediaPlayer;
 
     if-eqz v3, :cond_2

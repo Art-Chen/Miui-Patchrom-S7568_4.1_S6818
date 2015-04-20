@@ -4,9 +4,14 @@
 
 
 # annotations
+.annotation build Landroid/annotation/MiuiHook;
+    value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+.end annotation
+
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Landroid/media/MediaFile$MediaFileType;
+        Landroid/media/MediaFile$MediaFileType;,
+        Landroid/media/MediaFile$Injector;
     }
 .end annotation
 
@@ -21,6 +26,8 @@
 .field public static final FILE_TYPE_AAC:I = 0x8
 
 .field public static final FILE_TYPE_AMR:I = 0x4
+
+.field public static final FILE_TYPE_APE:I = 0x3e9
 
 .field public static final FILE_TYPE_ASF:I = 0x23
 
@@ -128,6 +135,8 @@
 
 .field private static final FIRST_DRM_FILE_TYPE:I = 0x46
 
+.field private static final FIRST_FFMPEG_AUDIO_FILE_TYPE:I = 0x3e9
+
 .field private static final FIRST_IMAGE_FILE_TYPE:I = 0x32
 
 .field private static final FIRST_MIDI_FILE_TYPE:I = 0x14
@@ -145,6 +154,8 @@
 .field private static final LAST_AUDIO_FILE_TYPE:I = 0xd
 
 .field private static final LAST_DRM_FILE_TYPE:I = 0x48
+
+.field private static final LAST_FFMPEG_AUDIO_FILE_TYPE:I = 0x3e9
 
 .field private static final LAST_IMAGE_FILE_TYPE:I = 0x37
 
@@ -522,6 +533,7 @@
 
     invoke-static {v0, v4, v1}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
 
+    invoke-static {}, Landroid/media/MediaFile$Injector;->addAPE()V
     .line 278
     const-string v0, "MPEG"
 
@@ -946,6 +958,7 @@
 
     invoke-static {v0, v1, v2}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
 
+    invoke-static {}, Landroid/media/MediaFile$Injector;->addFLV()V
     .line 335
     const-string v0, "MPEG"
 
@@ -977,6 +990,53 @@
 
     .line 168
     return-void
+.end method
+
+.method private static _isAudioFileType(I)Z
+    .locals 2
+    .parameter "fileType"
+
+    .prologue
+    const/4 v0, 0x1
+
+    .line 433
+    if-lt p0, v0, :cond_0
+
+    const/16 v1, 0xd
+
+    if-le p0, v1, :cond_2
+
+    :cond_0
+    const/16 v1, 0xe
+
+    if-lt p0, v1, :cond_1
+
+    const/16 v1, 0x10
+
+    if-le p0, v1, :cond_2
+
+    :cond_1
+    const/16 v1, 0x11
+
+    if-lt p0, v1, :cond_3
+
+    const/16 v1, 0x12
+
+    if-gt p0, v1, :cond_3
+
+    :cond_2
+    invoke-static {p0}, Landroid/media/MediaFile$Injector;->isFFMpegAudoFileType(I)Z
+
+    move-result v1
+
+    if-nez v1, :cond_1
+    :goto_0
+    return v0
+
+    :cond_3
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method
 
 .method static addFileType(Ljava/lang/String;ILjava/lang/String;)V

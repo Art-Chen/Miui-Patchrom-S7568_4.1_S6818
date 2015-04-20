@@ -4,12 +4,16 @@
 
 
 # annotations
+.annotation build Landroid/annotation/MiuiHook;
+    value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_ACCESS:Landroid/annotation/MiuiHook$MiuiHookType;
+.end annotation
+
 .annotation system Ldalvik/annotation/EnclosingClass;
     value = Landroid/app/DownloadManager;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0xa
+    accessFlags = 0x8
     name = "CursorTranslator"
 .end annotation
 
@@ -27,7 +31,7 @@
     .locals 1
 
     .prologue
-    .line 1767
+    .line 1740
     const-class v0, Landroid/app/DownloadManager;
 
     invoke-virtual {v0}, Ljava/lang/Class;->desiredAssertionStatus()Z
@@ -55,13 +59,13 @@
     .parameter "baseUri"
 
     .prologue
-    .line 1771
+    .line 1744
     invoke-direct {p0, p1}, Landroid/database/CursorWrapper;-><init>(Landroid/database/Cursor;)V
 
-    .line 1772
+    .line 1745
     iput-object p2, p0, Landroid/app/DownloadManager$CursorTranslator;->mBaseUri:Landroid/net/Uri;
 
-    .line 1773
+    .line 1746
     return-void
 .end method
 
@@ -70,7 +74,7 @@
     .parameter "status"
 
     .prologue
-    .line 1844
+    .line 1817
     const/16 v0, 0x190
 
     if-gt v0, p1, :cond_0
@@ -88,72 +92,72 @@
 
     if-ge p1, v0, :cond_2
 
-    .line 1847
+    .line 1820
     :cond_1
     int-to-long v0, p1
 
-    .line 1877
+    .line 1850
     :goto_0
     return-wide v0
 
-    .line 1850
+    .line 1823
     :cond_2
     sparse-switch p1, :sswitch_data_0
 
-    .line 1877
+    .line 1850
     const-wide/16 v0, 0x3e8
 
     goto :goto_0
 
-    .line 1852
+    .line 1825
     :sswitch_0
     const-wide/16 v0, 0x3e9
 
     goto :goto_0
 
-    .line 1856
+    .line 1829
     :sswitch_1
     const-wide/16 v0, 0x3ea
 
     goto :goto_0
 
-    .line 1859
+    .line 1832
     :sswitch_2
     const-wide/16 v0, 0x3ec
 
     goto :goto_0
 
-    .line 1862
+    .line 1835
     :sswitch_3
     const-wide/16 v0, 0x3ed
 
     goto :goto_0
 
-    .line 1865
+    .line 1838
     :sswitch_4
     const-wide/16 v0, 0x3ee
 
     goto :goto_0
 
-    .line 1868
+    .line 1841
     :sswitch_5
     const-wide/16 v0, 0x3ef
 
     goto :goto_0
 
-    .line 1871
+    .line 1844
     :sswitch_6
     const-wide/16 v0, 0x3f0
 
     goto :goto_0
 
-    .line 1874
+    .line 1847
     :sswitch_7
     const-wide/16 v0, 0x3f1
 
     goto :goto_0
 
-    .line 1850
+    .line 1823
     :sswitch_data_0
     .sparse-switch
         0xc6 -> :sswitch_4
@@ -172,7 +176,7 @@
     .locals 7
 
     .prologue
-    .line 1798
+    .line 1771
     const-string v5, "destination"
 
     invoke-virtual {p0, v5}, Landroid/app/DownloadManager$CursorTranslator;->getColumnIndex(Ljava/lang/String;)I
@@ -183,7 +187,7 @@
 
     move-result-wide v0
 
-    .line 1799
+    .line 1772
     .local v0, destinationType:J
     const-wide/16 v5, 0x4
 
@@ -203,7 +207,7 @@
 
     if-nez v5, :cond_2
 
-    .line 1802
+    .line 1775
     :cond_0
     const-string v5, "local_filename"
 
@@ -215,19 +219,19 @@
 
     move-result-object v4
 
-    .line 1803
+    .line 1776
     .local v4, localPath:Ljava/lang/String;
     if-nez v4, :cond_1
 
-    .line 1804
+    .line 1777
     const/4 v5, 0x0
 
-    .line 1811
+    .line 1784
     .end local v4           #localPath:Ljava/lang/String;
     :goto_0
     return-object v5
 
-    .line 1806
+    .line 1779
     .restart local v4       #localPath:Ljava/lang/String;
     :cond_1
     new-instance v5, Ljava/io/File;
@@ -244,7 +248,7 @@
 
     goto :goto_0
 
-    .line 1810
+    .line 1783
     .end local v4           #localPath:Ljava/lang/String;
     :cond_2
     const-string v5, "_id"
@@ -257,7 +261,7 @@
 
     move-result-wide v2
 
-    .line 1811
+    .line 1784
     .local v2, downloadId:J
     iget-object v5, p0, Landroid/app/DownloadManager$CursorTranslator;->mBaseUri:Landroid/net/Uri;
 
@@ -275,36 +279,35 @@
 .method private getPausedReason(I)J
     .locals 2
     .parameter "status"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
-    .line 1828
     packed-switch p1, :pswitch_data_0
 
-    .line 1839
-    const-wide/16 v0, 0x4
+    invoke-static {p1}, Landroid/app/DownloadManager$Injector;->getPausedReason(I)J
+
+    move-result-wide v0
 
     :goto_0
     return-wide v0
 
-    .line 1830
     :pswitch_0
     const-wide/16 v0, 0x1
 
     goto :goto_0
 
-    .line 1833
     :pswitch_1
     const-wide/16 v0, 0x2
 
     goto :goto_0
 
-    .line 1836
     :pswitch_2
     const-wide/16 v0, 0x3
 
     goto :goto_0
 
-    .line 1828
     nop
 
     :pswitch_data_0
@@ -320,20 +323,17 @@
     .parameter "status"
 
     .prologue
-    .line 1815
-    invoke-direct {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
+    invoke-static {p1}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
 
     move-result v0
 
     sparse-switch v0, :sswitch_data_0
 
-    .line 1823
     const-wide/16 v0, 0x0
 
     :goto_0
     return-wide v0
 
-    .line 1817
     :sswitch_0
     invoke-direct {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getErrorCode(I)J
 
@@ -341,7 +341,7 @@
 
     goto :goto_0
 
-    .line 1820
+    .line 1793
     :sswitch_1
     invoke-direct {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getPausedReason(I)J
 
@@ -349,7 +349,7 @@
 
     goto :goto_0
 
-    .line 1815
+    .line 1788
     :sswitch_data_0
     .sparse-switch
         0x4 -> :sswitch_1
@@ -357,21 +357,22 @@
     .end sparse-switch
 .end method
 
-.method private translateStatus(I)I
+.method static translateStatus(I)I
     .locals 1
     .parameter "status"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_ACCESS:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
-    .line 1882
-    packed-switch p1, :pswitch_data_0
+    packed-switch p0, :pswitch_data_0
 
-    .line 1899
     :pswitch_0
     sget-boolean v0, Landroid/app/DownloadManager$CursorTranslator;->$assertionsDisabled:Z
 
     if-nez v0, :cond_0
 
-    invoke-static {p1}, Landroid/provider/Downloads$Impl;->isStatusError(I)Z
+    invoke-static {p0}, Landroid/provider/Downloads$Impl;->isStatusError(I)Z
 
     move-result v0
 
@@ -383,39 +384,39 @@
 
     throw v0
 
-    .line 1884
+    .line 1857
     :pswitch_1
     const/4 v0, 0x1
 
-    .line 1900
+    .line 1873
     :goto_0
     return v0
 
-    .line 1887
+    .line 1860
     :pswitch_2
     const/4 v0, 0x2
 
     goto :goto_0
 
-    .line 1893
+    .line 1866
     :pswitch_3
     const/4 v0, 0x4
 
     goto :goto_0
 
-    .line 1896
+    .line 1869
     :pswitch_4
     const/16 v0, 0x8
 
     goto :goto_0
 
-    .line 1900
+    .line 1873
     :cond_0
     const/16 v0, 0x10
 
     goto :goto_0
 
-    .line 1882
+    .line 1855
     nop
 
     :pswitch_data_0
@@ -436,12 +437,26 @@
 
 
 # virtual methods
+.method callGetLocalUri()Ljava/lang/String;
+    .locals 1
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
+    .prologue
+    invoke-direct {p0}, Landroid/app/DownloadManager$CursorTranslator;->getLocalUri()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public getInt(I)I
     .locals 2
     .parameter "columnIndex"
 
     .prologue
-    .line 1777
+    .line 1750
     invoke-virtual {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getLong(I)J
 
     move-result-wide v0
@@ -456,7 +471,7 @@
     .parameter "columnIndex"
 
     .prologue
-    .line 1782
+    .line 1755
     invoke-virtual {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getColumnName(I)Ljava/lang/String;
 
     move-result-object v0
@@ -469,7 +484,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 1783
+    .line 1756
     const-string/jumbo v0, "status"
 
     invoke-virtual {p0, v0}, Landroid/app/DownloadManager$CursorTranslator;->getColumnIndex(Ljava/lang/String;)I
@@ -484,11 +499,11 @@
 
     move-result-wide v0
 
-    .line 1787
+    .line 1760
     :goto_0
     return-wide v0
 
-    .line 1784
+    .line 1757
     :cond_0
     invoke-virtual {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getColumnName(I)Ljava/lang/String;
 
@@ -502,7 +517,7 @@
 
     if-eqz v0, :cond_1
 
-    .line 1785
+    .line 1758
     const-string/jumbo v0, "status"
 
     invoke-virtual {p0, v0}, Landroid/app/DownloadManager$CursorTranslator;->getColumnIndex(Ljava/lang/String;)I
@@ -513,7 +528,7 @@
 
     move-result v0
 
-    invoke-direct {p0, v0}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
+    invoke-static {v0}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
 
     move-result v0
 
@@ -521,7 +536,7 @@
 
     goto :goto_0
 
-    .line 1787
+    .line 1760
     :cond_1
     invoke-super {p0, p1}, Landroid/database/CursorWrapper;->getLong(I)J
 
@@ -533,9 +548,12 @@
 .method public getString(I)Ljava/lang/String;
     .locals 2
     .parameter "columnIndex"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
-    .line 1793
+    .line 1766
     invoke-virtual {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getColumnName(I)Ljava/lang/String;
 
     move-result-object v0
@@ -548,7 +566,7 @@
 
     if-eqz v0, :cond_0
 
-    invoke-direct {p0}, Landroid/app/DownloadManager$CursorTranslator;->getLocalUri()Ljava/lang/String;
+    invoke-static {p0}, Landroid/app/DownloadManager$Injector;->getLocalUri(Landroid/app/DownloadManager$CursorTranslator;)Ljava/lang/String;
 
     move-result-object v0
 

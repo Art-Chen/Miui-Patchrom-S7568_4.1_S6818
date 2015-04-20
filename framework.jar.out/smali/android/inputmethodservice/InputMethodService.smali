@@ -48,6 +48,7 @@
 .field static final TAG:Ljava/lang/String; = "InputMethodService"
 
 .field private static mCpuLocked:Z
+.field protected static mFloatingForMultiWindow:Z
 
 .field private static mPermissionGranted:Z
 
@@ -172,6 +173,8 @@
     const/4 v1, 0x0
 
     .line 353
+    sput-boolean v1, Landroid/inputmethodservice/InputMethodService;->mFloatingForMultiWindow:Z
+
     const-string v0, "0"
 
     invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I

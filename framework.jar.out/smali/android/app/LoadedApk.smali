@@ -1968,8 +1968,11 @@
 .end method
 
 .method public getResources(Landroid/app/ActivityThread;)Landroid/content/res/Resources;
-    .locals 1
+    .locals 2
     .parameter "mainThread"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
     .line 473
@@ -1977,10 +1980,11 @@
 
     if-nez v0, :cond_0
 
+    iget-object v0, p0, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
     .line 474
-    iget-object v0, p0, Landroid/app/LoadedApk;->mResDir:Ljava/lang/String;
+    iget-object v1, p0, Landroid/app/LoadedApk;->mResDir:Ljava/lang/String;
 
-    invoke-virtual {p1, v0, p0}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
+    invoke-virtual {p1, v0, v1, p0}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
 
     move-result-object v0
 

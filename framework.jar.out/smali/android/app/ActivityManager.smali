@@ -84,6 +84,7 @@
 .field public static final START_FLAG_OPENGL_TRACES:I = 0x4
 
 .field public static final START_FORWARD_AND_REQUEST_CONFLICT:I = -0x3
+.field public static final START_INCOMPATIBLE:I = 0x5
 
 .field public static final START_INTENT_NOT_RESOLVED:I = -0x1
 
@@ -293,6 +294,9 @@
 .method public static isHighEndGfx(Landroid/view/Display;)Z
     .locals 8
     .parameter "display"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
     const/4 v3, 0x1
@@ -345,8 +349,9 @@
 
     if-ge v1, v4, :cond_0
 
-    .line 405
-    const/4 v3, 0x0
+    invoke-static {p0}, Landroid/app/ExtraActivityManager;->isHighEndGfx(Landroid/view/Display;)Z
+
+    move-result v3
 
     goto :goto_0
 .end method

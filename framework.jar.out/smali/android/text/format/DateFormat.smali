@@ -3,6 +3,13 @@
 .source "DateFormat.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Landroid/text/format/DateFormat$Injector;
+    }
+.end annotation
+
 # static fields
 .field public static final AM_PM:C = 'a'
 
@@ -1294,6 +1301,9 @@
 .method public static is24HourFormat(Landroid/content/Context;)Z
     .locals 9
     .parameter "context"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
     const/4 v6, 0x0
@@ -1313,6 +1323,10 @@
 
     .line 207
     .local v5, value:Ljava/lang/String;
+    invoke-static {p0, v5}, Landroid/text/format/DateFormat$Injector;->check24HourFormatForChina(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
+
     if-nez v5, :cond_1
 
     .line 208

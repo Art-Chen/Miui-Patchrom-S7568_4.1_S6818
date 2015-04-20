@@ -5562,7 +5562,7 @@
     if-ge v6, v11, :cond_c
 
     .line 669
-    invoke-virtual {p0}, Ljava/lang/String;->length()I
+    invoke-static {p0}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5570,7 +5570,7 @@
 
     .line 670
     .local v2, effectiveALen:I
-    invoke-virtual {p1}, Ljava/lang/String;->length()I
+    invoke-static {p1}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5674,7 +5674,7 @@
     if-ge v6, v11, :cond_11
 
     .line 685
-    invoke-virtual {p0}, Ljava/lang/String;->length()I
+    invoke-static {p0}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5682,7 +5682,7 @@
 
     .line 686
     .restart local v2       #effectiveALen:I
-    invoke-virtual {p1}, Ljava/lang/String;->length()I
+    invoke-static {p1}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5739,7 +5739,7 @@
     if-ge v6, v11, :cond_15
 
     .line 701
-    invoke-virtual {p0}, Ljava/lang/String;->length()I
+    invoke-static {p0}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5747,7 +5747,7 @@
 
     .line 702
     .restart local v2       #effectiveALen:I
-    invoke-virtual {p1}, Ljava/lang/String;->length()I
+    invoke-static {p1}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5797,7 +5797,7 @@
     if-ge v6, v11, :cond_19
 
     .line 716
-    invoke-virtual {p0}, Ljava/lang/String;->length()I
+    invoke-static {p0}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -5805,7 +5805,7 @@
 
     .line 717
     .restart local v2       #effectiveALen:I
-    invoke-virtual {p1}, Ljava/lang/String;->length()I
+    invoke-static {p1}, Landroid/telephony/PhoneNumberUtils$Injector;->getEffectiveLength(Ljava/lang/String;)I
 
     move-result v11
 
@@ -6306,7 +6306,7 @@
     :cond_14
     move-object/from16 v0, p1
 
-    invoke-static {v0, v10, v4}, Landroid/telephony/PhoneNumberUtils;->checkPrefixIsIgnorable(Ljava/lang/String;II)Z
+    invoke-static {v0, v11, v4}, Landroid/telephony/PhoneNumberUtils;->checkPrefixIsIgnorable(Ljava/lang/String;II)Z
 
     move-result v18
 
@@ -9543,7 +9543,10 @@
     .parameter "defaultCountryIso"
 
     .prologue
-    .line 2061
+    invoke-static {p0}, Lmiui/telephony/PhoneNumberUtils;->removeDashesAndBlanks(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p0
+
     invoke-virtual {p0}, Ljava/lang/String;->length()I
 
     move-result v1
@@ -15251,6 +15254,8 @@
 
     .line 2105
     .local v0, c:C
+    invoke-static {v4, v0, v2}, Landroid/telephony/PhoneNumberUtils$Injector;->appendNonSeparator(Ljava/lang/StringBuilder;CI)V
+
     const/16 v5, 0xa
 
     invoke-static {v0, v5}, Ljava/lang/Character;->digit(CI)I
@@ -17594,4 +17599,19 @@
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_0
+.end method
+
+.method static callIndexOfLastNetworkChar(Ljava/lang/String;)I
+    .locals 1
+    .parameter "a"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
+    .prologue
+    invoke-static {p0}, Landroid/telephony/PhoneNumberUtils;->indexOfLastNetworkChar(Ljava/lang/String;)I
+
+    move-result v0
+
+    return v0
 .end method

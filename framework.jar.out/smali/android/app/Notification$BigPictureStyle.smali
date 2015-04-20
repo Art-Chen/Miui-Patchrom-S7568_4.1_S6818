@@ -27,15 +27,15 @@
     .locals 1
 
     .prologue
-    .line 1944
+    .line 1840
     invoke-direct {p0}, Landroid/app/Notification$Style;-><init>()V
 
-    .line 1942
+    .line 1838
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Landroid/app/Notification$BigPictureStyle;->mBigLargeIconSet:Z
 
-    .line 1945
+    .line 1841
     return-void
 .end method
 
@@ -44,18 +44,18 @@
     .parameter "builder"
 
     .prologue
-    .line 1947
+    .line 1843
     invoke-direct {p0}, Landroid/app/Notification$Style;-><init>()V
 
-    .line 1942
+    .line 1838
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Landroid/app/Notification$BigPictureStyle;->mBigLargeIconSet:Z
 
-    .line 1948
+    .line 1844
     invoke-virtual {p0, p1}, Landroid/app/Notification$BigPictureStyle;->setBuilder(Landroid/app/Notification$Builder;)V
 
-    .line 1949
+    .line 1845
     return-void
 .end method
 
@@ -63,14 +63,14 @@
     .locals 3
 
     .prologue
-    .line 1986
+    .line 1882
     const v1, 0x10900b3
 
     invoke-virtual {p0, v1}, Landroid/app/Notification$BigPictureStyle;->getStandardView(I)Landroid/widget/RemoteViews;
 
     move-result-object v0
 
-    .line 1988
+    .line 1884
     .local v0, contentView:Landroid/widget/RemoteViews;
     const v1, 0x10203ef
 
@@ -78,7 +78,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/widget/RemoteViews;->setImageViewBitmap(ILandroid/graphics/Bitmap;)V
 
-    .line 1990
+    .line 1886
     return-object v0
 .end method
 
@@ -89,15 +89,15 @@
     .parameter "b"
 
     .prologue
-    .line 1980
+    .line 1876
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Landroid/app/Notification$BigPictureStyle;->mBigLargeIconSet:Z
 
-    .line 1981
+    .line 1877
     iput-object p1, p0, Landroid/app/Notification$BigPictureStyle;->mBigLargeIcon:Landroid/graphics/Bitmap;
 
-    .line 1982
+    .line 1878
     return-object p0
 .end method
 
@@ -106,10 +106,10 @@
     .parameter "b"
 
     .prologue
-    .line 1972
+    .line 1868
     iput-object p1, p0, Landroid/app/Notification$BigPictureStyle;->mPicture:Landroid/graphics/Bitmap;
 
-    .line 1973
+    .line 1869
     return-object p0
 .end method
 
@@ -117,32 +117,32 @@
     .locals 3
 
     .prologue
-    .line 1995
+    .line 1891
     invoke-virtual {p0}, Landroid/app/Notification$BigPictureStyle;->checkBuilder()V
 
-    .line 1996
+    .line 1892
     iget-object v1, p0, Landroid/app/Notification$BigPictureStyle;->mBuilder:Landroid/app/Notification$Builder;
 
     #calls: Landroid/app/Notification$Builder;->buildUnstyled()Landroid/app/Notification;
-    invoke-static {v1}, Landroid/app/Notification$Builder;->access$600(Landroid/app/Notification$Builder;)Landroid/app/Notification;
+    invoke-static {v1}, Landroid/app/Notification$Builder;->access$500(Landroid/app/Notification$Builder;)Landroid/app/Notification;
 
     move-result-object v0
 
-    .line 1997
+    .line 1893
     .local v0, wip:Landroid/app/Notification;
     iget-boolean v1, p0, Landroid/app/Notification$BigPictureStyle;->mBigLargeIconSet:Z
 
     if-eqz v1, :cond_0
 
-    .line 1998
+    .line 1894
     iget-object v1, p0, Landroid/app/Notification$BigPictureStyle;->mBuilder:Landroid/app/Notification$Builder;
 
     iget-object v2, p0, Landroid/app/Notification$BigPictureStyle;->mBigLargeIcon:Landroid/graphics/Bitmap;
 
     #setter for: Landroid/app/Notification$Builder;->mLargeIcon:Landroid/graphics/Bitmap;
-    invoke-static {v1, v2}, Landroid/app/Notification$Builder;->access$702(Landroid/app/Notification$Builder;Landroid/graphics/Bitmap;)Landroid/graphics/Bitmap;
+    invoke-static {v1, v2}, Landroid/app/Notification$Builder;->access$602(Landroid/app/Notification$Builder;Landroid/graphics/Bitmap;)Landroid/graphics/Bitmap;
 
-    .line 2000
+    .line 1896
     :cond_0
     invoke-direct {p0}, Landroid/app/Notification$BigPictureStyle;->makeBigContentView()Landroid/widget/RemoteViews;
 
@@ -150,7 +150,7 @@
 
     iput-object v1, v0, Landroid/app/Notification;->bigContentView:Landroid/widget/RemoteViews;
 
-    .line 2001
+    .line 1897
     return-object v0
 .end method
 
@@ -159,10 +159,10 @@
     .parameter "title"
 
     .prologue
-    .line 1956
+    .line 1852
     invoke-virtual {p0, p1}, Landroid/app/Notification$BigPictureStyle;->internalSetBigContentTitle(Ljava/lang/CharSequence;)V
 
-    .line 1957
+    .line 1853
     return-object p0
 .end method
 
@@ -171,9 +171,9 @@
     .parameter "cs"
 
     .prologue
-    .line 1964
+    .line 1860
     invoke-virtual {p0, p1}, Landroid/app/Notification$BigPictureStyle;->internalSetSummaryText(Ljava/lang/CharSequence;)V
 
-    .line 1965
+    .line 1861
     return-object p0
 .end method

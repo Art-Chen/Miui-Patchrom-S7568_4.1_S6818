@@ -21,7 +21,8 @@
         Landroid/content/pm/PackageParser$ParseComponentArgs;,
         Landroid/content/pm/PackageParser$ParsePackageItemArgs;,
         Landroid/content/pm/PackageParser$SplitPermissionInfo;,
-        Landroid/content/pm/PackageParser$NewPermissionInfo;
+        Landroid/content/pm/PackageParser$NewPermissionInfo;,
+        Landroid/content/pm/PackageParser$Injector;
     }
 .end annotation
 
@@ -6714,6 +6715,8 @@
     .line 2030
     .end local v38           #tagName:Ljava/lang/String;
     :cond_27
+    invoke-direct/range {p0 .. p1}, Landroid/content/pm/PackageParser;->enableWM(Landroid/content/pm/PackageParser$Package;)V
+
     const/4 v3, 0x1
 
     goto/16 :goto_0
@@ -6943,6 +6946,10 @@
     .parameter "outInfo"
     .parameter "outError"
     .parameter "isActivity"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Lorg/xmlpull/v1/XmlPullParserException;,
@@ -6974,9 +6981,15 @@
 
     .line 3010
     .local v7, priority:I
+    move/from16 v0, p4
+
+    invoke-static {v0, v7}, Landroid/content/pm/PackageParser$Injector;->checkPriority(II)I
+
+    move-result v13
+
     move-object/from16 v0, p5
 
-    invoke-virtual {v0, v7}, Landroid/content/pm/PackageParser$IntentInfo;->setPriority(I)V
+    invoke-virtual {v0, v13}, Landroid/content/pm/PackageParser$IntentInfo;->setPriority(I)V
 
     .line 3012
     const/4 v13, 0x0
@@ -7453,6 +7466,12 @@
 
     iput-boolean v13, v0, Landroid/content/pm/PackageParser$IntentInfo;->hasDefault:Z
 
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p5
+
+    invoke-direct {v0, v1}, Landroid/content/pm/PackageParser;->enableMultiWindow(Landroid/content/pm/PackageParser$IntentInfo;)V
+
     .line 3134
     const/4 v13, 0x1
 
@@ -7734,6 +7753,10 @@
     .parameter "parser"
     .parameter "flags"
     .parameter "outError"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Lorg/xmlpull/v1/XmlPullParserException;,
@@ -7931,6 +7954,12 @@
     move-object/from16 v0, v38
 
     invoke-static {v0, v3}, Landroid/content/pm/PackageParser;->validateName(Ljava/lang/String;Z)Ljava/lang/String;
+
+    move-result-object v3
+
+    move-object/from16 v0, v34
+
+    invoke-static {v0, v3}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v29
 
@@ -10223,6 +10252,10 @@
     .parameter "attrs"
     .parameter "flags"
     .parameter "outError"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;,
@@ -10331,6 +10364,10 @@
 
     invoke-static {v4, v9}, Landroid/content/pm/PackageParser;->validateName(Ljava/lang/String;Z)Ljava/lang/String;
 
+    move-result-object v9
+
+    invoke-static {v4, v9}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
     move-result-object v3
 
     .line 868
@@ -10389,6 +10426,12 @@
 
     .line 874
     .local v2, installLocation:I
+    const/4 v11, 0x0
+
+    .local v11, versionCode:I
+    const/4 v10, 0x0
+
+    .local v10, numFound:I
     const/4 v1, 0x0
 
     .local v1, i:I
@@ -10412,7 +10455,7 @@
 
     move-result v9
 
-    if-eqz v9, :cond_a
+    if-eqz v9, :cond_miui_0
 
     .line 877
     const/4 v9, -0x1
@@ -10421,7 +10464,32 @@
 
     move-result v2
 
-    .line 884
+    add-int/lit8 v10, v10, 0x1
+
+    goto :cond_miui_1
+
+    :cond_miui_0
+    const-string v9, "versionCode"
+
+    invoke-virtual {v0, v9}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v9
+
+    if-eqz v9, :cond_miui_1
+
+    const/4 v9, -0x1
+
+    invoke-interface {p2, v1, v9}, Landroid/util/AttributeSet;->getAttributeIntValue(II)I
+
+    move-result v11
+
+    add-int/lit8 v10, v10, 0x1
+
+    :cond_miui_1
+    const/4 v9, 0x2
+
+    if-lt v10, v9, :cond_a
+
     .end local v0           #attr:Ljava/lang/String;
     :cond_7
     invoke-interface {p1}, Lorg/xmlpull/v1/XmlPullParser;->getDepth()I
@@ -10522,7 +10590,7 @@
 
     move-result-object v10
 
-    invoke-direct {v9, v10, v2, v8}, Landroid/content/pm/PackageParser$PackageLite;-><init>(Ljava/lang/String;ILjava/util/List;)V
+    invoke-direct {v9, v10, v11, v2, v8}, Landroid/content/pm/PackageParser$PackageLite;-><init>(Ljava/lang/String;IILjava/util/List;)V
 
     goto/16 :goto_0
 .end method
@@ -10888,6 +10956,10 @@
     .parameter "attrs"
     .parameter "flags"
     .parameter "outError"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;,
@@ -10978,6 +11050,10 @@
     .line 832
     :cond_5
     invoke-static {v1, v7}, Landroid/content/pm/PackageParser;->validateName(Ljava/lang/String;Z)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v1, v4}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
@@ -14286,7 +14362,20 @@
     .local v13, localCerts:[Ljava/security/cert/Certificate;
     if-nez v13, :cond_5
 
-    .line 644
+    move-object/from16 v0, p1
+
+    iget-object v0, v0, Landroid/content/pm/PackageParser$Package;->packageName:Ljava/lang/String;
+
+    move-object/from16 v18, v0
+
+    move-object/from16 v0, v18
+
+    invoke-static {v12, v0}, Lmiui/content/pm/ExtraPackageManager;->isTrustedAppEntry(Ljava/util/jar/JarEntry;Ljava/lang/String;)Z
+
+    move-result v18
+
+    if-nez v18, :cond_3
+
     const-string v18, "PackageParser"
 
     new-instance v19, Ljava/lang/StringBuilder;
@@ -15006,6 +15095,9 @@
     .parameter "destCodePath"
     .parameter "metrics"
     .parameter "flags"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
     .line 475
@@ -15183,7 +15275,7 @@
 
     move-object/from16 v1, p3
 
-    invoke-direct {v0, v5, v1, v6}, Landroid/content/res/Resources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
+    invoke-direct {v0, v5, v1, v6}, Landroid/content/res/MiuiResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
     :try_end_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
 
@@ -15591,4 +15683,79 @@
 
     .line 246
     return-void
+.end method
+.method private enableMultiWindow(Landroid/content/pm/PackageParser$IntentInfo;)V
+    .locals 2
+    .parameter "outInfo"
+
+    .prologue
+    const-string v0, "android.intent.category.MULTIWINDOW_LAUNCHER"
+
+    .local v0, CATEGORY_WM:Ljava/lang/String;
+    const-string v1, "android.intent.category.LAUNCHER"
+
+    invoke-virtual {p1, v1}, Landroid/content/pm/PackageParser$IntentInfo;->hasCategory(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    const-string v1, "android.intent.category.MULTIWINDOW_LAUNCHER"
+
+    invoke-virtual {p1, v1}, Landroid/content/pm/PackageParser$IntentInfo;->hasCategory(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    const-string v1, "android.intent.category.MULTIWINDOW_LAUNCHER"
+
+    invoke-virtual {p1, v1}, Landroid/content/pm/PackageParser$IntentInfo;->addCategory(Ljava/lang/String;)V
+
+    :cond_0
+    return-void
+.end method
+
+.method private enableWM(Landroid/content/pm/PackageParser$Package;)V
+    .locals 3
+    .parameter "owner"
+
+    .prologue
+    iget-object v0, p1, Landroid/content/pm/PackageParser$Package;->activities:Ljava/util/ArrayList;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p1, Landroid/content/pm/PackageParser$Package;->activities:Ljava/util/ArrayList;
+
+    invoke-virtual {v0}, Ljava/util/ArrayList;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
+    iget-object v0, p1, Landroid/content/pm/PackageParser$Package;->mAppMetaData:Landroid/os/Bundle;
+
+    if-nez v0, :cond_2
+
+    new-instance v0, Landroid/os/Bundle;
+
+    invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
+
+    iput-object v0, p1, Landroid/content/pm/PackageParser$Package;->mAppMetaData:Landroid/os/Bundle;
+
+    :cond_2
+    iget-object v0, p1, Landroid/content/pm/PackageParser$Package;->mAppMetaData:Landroid/os/Bundle;
+
+    const-string v1, "com.sec.android.support.multiwindow"
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v0, v1, v2}, Landroid/os/Bundle;->putBoolean(Ljava/lang/String;Z)V
+
+    goto :goto_0
 .end method

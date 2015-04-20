@@ -394,18 +394,34 @@
 
     if-eqz v4, :cond_9
 
+    iget-object v4, p0, Landroid/media/MediaRouter$Static;->mCurRoutesInfo:Landroid/media/AudioRoutesInfo;
+
+    iget v4, v4, Landroid/media/AudioRoutesInfo;->mMainType:I
+
+    const/4 v5, 0x4
+
+    if-eq v4, v5, :cond_9
+
+    iget-object v4, p0, Landroid/media/MediaRouter$Static;->mCurRoutesInfo:Landroid/media/AudioRoutesInfo;
+
+    iget v4, v4, Landroid/media/AudioRoutesInfo;->mMainType:I
+
+    const/16 v5, 0x8
+
+    if-eq v4, v5, :cond_9
+
     iget-object v4, p0, Landroid/media/MediaRouter$Static;->mSelectedRoute:Landroid/media/MediaRouter$RouteInfo;
 
     iget-object v5, p0, Landroid/media/MediaRouter$Static;->mBluetoothA2dpRoute:Landroid/media/MediaRouter$RouteInfo;
 
     if-ne v4, v5, :cond_9
 
-    .line 160
+    .line 163
     iget-object v4, p0, Landroid/media/MediaRouter$Static;->mDefaultAudio:Landroid/media/MediaRouter$RouteInfo;
 
     invoke-static {v6, v4}, Landroid/media/MediaRouter;->selectRouteStatic(ILandroid/media/MediaRouter$RouteInfo;)V
 
-    .line 166
+    .line 169
     :cond_3
     :goto_3
     return-void
@@ -438,7 +454,7 @@
     const v3, 0x10407bc
 
     .restart local v3       #name:I
-    goto :goto_0
+    goto/16 :goto_0
 
     .line 124
     .end local v3           #name:I
@@ -446,7 +462,7 @@
     const v3, 0x10407b9
 
     .restart local v3       #name:I
-    goto :goto_0
+    goto/16 :goto_0
 
     .line 133
     .end local v3           #name:I
@@ -465,7 +481,7 @@
     const/4 v0, 0x0
 
     .restart local v0       #a2dpEnabled:Z
-    goto :goto_1
+    goto/16 :goto_1
 
     .line 148
     .end local v1           #e:Landroid/os/RemoteException;
@@ -513,7 +529,7 @@
 
     goto :goto_2
 
-    .line 161
+    .line 164
     :cond_9
     iget-object v4, p0, Landroid/media/MediaRouter$Static;->mCurRoutesInfo:Landroid/media/AudioRoutesInfo;
 
@@ -529,7 +545,7 @@
 
     if-eqz v0, :cond_3
 
-    .line 163
+    .line 166
     iget-object v4, p0, Landroid/media/MediaRouter$Static;->mBluetoothA2dpRoute:Landroid/media/MediaRouter$RouteInfo;
 
     invoke-static {v6, v4}, Landroid/media/MediaRouter;->selectRouteStatic(ILandroid/media/MediaRouter$RouteInfo;)V
