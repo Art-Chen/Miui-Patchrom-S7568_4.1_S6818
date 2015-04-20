@@ -25,13 +25,13 @@
     .parameter "handler"
 
     .prologue
-    .line 965
+    .line 1059
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$SettingsObserverForSPen;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 966
+    .line 1060
     invoke-direct {p0, p2}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 967
+    .line 1061
     return-void
 .end method
 
@@ -43,7 +43,7 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 970
+    .line 1064
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$SettingsObserverForSPen;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
@@ -52,7 +52,7 @@
 
     move-result-object v0
 
-    .line 971
+    .line 1065
     .local v0, resolver:Landroid/content/ContentResolver;
     const-string v1, "lock_screen_quick_note"
 
@@ -62,7 +62,7 @@
 
     invoke-virtual {v0, v1, v2, p0}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
-    .line 972
+    .line 1066
     const-string v1, "haptic_feedback_enabled"
 
     invoke-static {v1}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
@@ -71,7 +71,7 @@
 
     invoke-virtual {v0, v1, v2, p0}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
-    .line 973
+    .line 1067
     return-void
 .end method
 
@@ -84,7 +84,7 @@
 
     const/4 v3, 0x0
 
-    .line 975
+    .line 1069
     iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$SettingsObserverForSPen;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v4, v4, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
@@ -103,7 +103,7 @@
 
     move v0, v2
 
-    .line 976
+    .line 1070
     .local v0, SNoteEnable:Z
     :goto_0
     iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$SettingsObserverForSPen;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
@@ -112,7 +112,7 @@
 
     invoke-virtual {v4, v0}, Lcom/android/internal/widget/SPenGestureView;->setDoubleTapStateBySettingMenu(Z)V
 
-    .line 978
+    .line 1072
     iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$SettingsObserverForSPen;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v4, v4, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
@@ -131,7 +131,7 @@
 
     move v1, v2
 
-    .line 979
+    .line 1073
     .local v1, bHapticEnabled:Z
     :goto_1
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$SettingsObserverForSPen;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
@@ -140,7 +140,7 @@
 
     invoke-virtual {v2, v1}, Lcom/android/internal/widget/SPenGestureView;->setHapticEnabled(Z)V
 
-    .line 980
+    .line 1074
     return-void
 
     .end local v0           #SNoteEnable:Z
@@ -148,13 +148,13 @@
     :cond_0
     move v0, v3
 
-    .line 975
+    .line 1069
     goto :goto_0
 
     .restart local v0       #SNoteEnable:Z
     :cond_1
     move v1, v3
 
-    .line 978
+    .line 1072
     goto :goto_1
 .end method

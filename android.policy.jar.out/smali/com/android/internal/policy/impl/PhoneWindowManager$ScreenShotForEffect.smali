@@ -30,20 +30,20 @@
     .parameter "shotEvent"
 
     .prologue
-    .line 1537
+    .line 1672
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1535
+    .line 1670
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->mShotEvent:I
 
-    .line 1538
+    .line 1673
     iput p2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->mShotEvent:I
 
-    .line 1539
+    .line 1674
     return-void
 .end method
 
@@ -53,10 +53,10 @@
     .locals 5
 
     .prologue
-    .line 1542
+    .line 1677
     const/4 v1, 0x1
 
-    .line 1544
+    .line 1679
     .local v1, isScreenCaptureEnabled:Z
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -64,11 +64,11 @@
 
     if-nez v2, :cond_0
 
-    .line 1579
+    .line 1714
     :goto_0
     return-void
 
-    .line 1547
+    .line 1682
     :cond_0
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -76,7 +76,7 @@
 
     if-nez v2, :cond_1
 
-    .line 1548
+    .line 1683
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     const-string v3, "statusbar"
@@ -91,7 +91,7 @@
 
     iput-object v3, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mStatusBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 1551
+    .line 1686
     :cond_1
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -99,7 +99,7 @@
 
     if-eqz v2, :cond_2
 
-    .line 1553
+    .line 1688
     :try_start_0
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -111,22 +111,22 @@
 
     move-result v1
 
-    .line 1561
+    .line 1696
     :cond_2
     :goto_1
     if-eqz v1, :cond_4
 
-    .line 1562
+    .line 1697
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$800(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
     move-result-object v2
 
     if-nez v2, :cond_3
 
-    .line 1563
+    .line 1698
     iget-object v3, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
@@ -142,24 +142,24 @@
     check-cast v2, Landroid/app/enterprise/EnterpriseDeviceManager;
 
     #setter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v3, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$802(Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/app/enterprise/EnterpriseDeviceManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v3, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$902(Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/app/enterprise/EnterpriseDeviceManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 1565
+    .line 1700
     :cond_3
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$800(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
     move-result-object v2
 
     if-eqz v2, :cond_4
 
-    .line 1566
+    .line 1701
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$800(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
     move-result-object v2
 
@@ -175,42 +175,42 @@
 
     if-nez v2, :cond_4
 
-    .line 1567
+    .line 1702
     const-string v2, "WindowManager"
 
     const-string v3, "MDM: Screen Capture Disabled"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1568
+    .line 1703
     const/4 v1, 0x0
 
-    .line 1572
+    .line 1707
     :cond_4
     if-eqz v1, :cond_5
 
-    .line 1573
+    .line 1708
     const-string v2, "WindowManager"
 
     const-string v3, "take screen shot with effect"
 
     invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1574
+    .line 1709
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget v3, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->mShotEvent:I
 
     #calls: Lcom/android/internal/policy/impl/PhoneWindowManager;->takeScreenshot(I)V
-    invoke-static {v2, v3}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;I)V
+    invoke-static {v2, v3}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$1000(Lcom/android/internal/policy/impl/PhoneWindowManager;I)V
 
     goto :goto_0
 
-    .line 1554
+    .line 1689
     :catch_0
     move-exception v0
 
-    .line 1555
+    .line 1690
     .local v0, e:Landroid/os/RemoteException;
     const-string v2, "WindowManager"
 
@@ -218,19 +218,19 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1556
+    .line 1691
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$ScreenShotForEffect;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     const/4 v3, 0x0
 
     iput-object v3, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mStatusBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 1557
+    .line 1692
     const/4 v1, 0x1
 
     goto :goto_1
 
-    .line 1577
+    .line 1712
     .end local v0           #e:Landroid/os/RemoteException;
     :cond_5
     const-string v2, "WindowManager"

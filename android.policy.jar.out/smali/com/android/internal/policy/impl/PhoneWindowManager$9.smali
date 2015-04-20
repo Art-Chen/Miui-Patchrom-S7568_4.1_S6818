@@ -27,7 +27,7 @@
     .parameter
 
     .prologue
-    .line 1613
+    .line 1758
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
@@ -38,25 +38,122 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 8
 
     .prologue
-    const/4 v2, 0x0
+    const/4 v7, 0x0
 
-    .line 1615
-    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    const/16 v6, 0x1b
 
-    const/4 v1, 0x1
+    const/4 v5, 0x0
 
-    iput-boolean v1, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSearchKeyShortcutPending:Z
+    .line 1760
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 1616
-    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
 
-    const/4 v1, 0x0
+    invoke-virtual {v2}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->isShowing()Z
 
-    invoke-virtual {v0, v1, v2, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->performHapticFeedbackLw(Landroid/view/WindowManagerPolicy$WindowState;IZ)Z
+    move-result v2
 
-    .line 1617
+    if-eqz v2, :cond_3
+
+    .line 1763
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
+
+    invoke-virtual {v2, v6, v5}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->onWakeKeyWhenKeyguardShowingTq(IZ)Z
+
+    .line 1776
+    :cond_0
+    :goto_0
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-boolean v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mCameraSpecialized:Z
+
+    if-eqz v2, :cond_2
+
+    .line 1777
+    sget-boolean v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->SAFE_DEBUG:Z
+
+    if-eqz v2, :cond_1
+
+    const-string v2, "WindowManager"
+
+    const-string v3, "set wakeup reason by camerakey"
+
+    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1778
+    :cond_1
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    const/16 v3, 0x3ea
+
+    iput v3, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenOnReason:I
+
+    .line 1782
+    :cond_2
+    new-instance v0, Landroid/view/KeyEvent;
+
+    invoke-direct {v0, v5, v6}, Landroid/view/KeyEvent;-><init>(II)V
+
+    .line 1783
+    .local v0, cameraKeyDown:Landroid/view/KeyEvent;
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.CAMERA_BUTTON"
+
+    invoke-direct {v1, v2, v7}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    .line 1784
+    .local v1, intent:Landroid/content/Intent;
+    const-string v2, "android.intent.extra.KEY_EVENT"
+
+    invoke-virtual {v1, v2, v0}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
+
+    .line 1785
+    const-string v2, "com.sec.android.app.camera"
+
+    const-string v3, "com.sec.android.app.camera.CameraButtonIntentReceiver"
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    .line 1787
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v2, v1, v7}, Landroid/content/Context;->sendOrderedBroadcast(Landroid/content/Intent;Ljava/lang/String;)V
+
+    .line 1788
     return-void
+
+    .line 1768
+    .end local v0           #cameraKeyDown:Landroid/view/KeyEvent;
+    .end local v1           #intent:Landroid/content/Intent;
+    :cond_3
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
+
+    invoke-virtual {v2, v6, v5}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->isWakeKeyWhenKeyguardHiding(IZ)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_0
+
+    .line 1770
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$9;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPowerManager:Landroid/os/LocalPowerManager;
+
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v3
+
+    invoke-interface {v2, v3, v4, v5, v5}, Landroid/os/LocalPowerManager;->userActivity(JZI)V
+
+    goto :goto_0
 .end method

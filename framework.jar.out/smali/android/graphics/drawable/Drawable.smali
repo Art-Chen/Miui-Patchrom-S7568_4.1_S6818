@@ -35,12 +35,6 @@
 
 .field private mImagePath:Ljava/lang/String;
 
-.field mId:I
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-.end field
-
 .field private mLevel:I
 
 .field private mStateSet:[I
@@ -69,32 +63,36 @@
     .prologue
     const/4 v1, 0x0
 
+    .line 118
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
 
+    .line 121
     sget-object v0, Landroid/util/StateSet;->WILD_CARD:[I
 
     iput-object v0, p0, Landroid/graphics/drawable/Drawable;->mStateSet:[I
 
+    .line 122
     iput v1, p0, Landroid/graphics/drawable/Drawable;->mLevel:I
 
+    .line 123
     iput v1, p0, Landroid/graphics/drawable/Drawable;->mChangingConfigurations:I
 
+    .line 124
     sget-object v0, Landroid/graphics/drawable/Drawable;->ZERO_BOUNDS_RECT:Landroid/graphics/Rect;
 
     iput-object v0, p0, Landroid/graphics/drawable/Drawable;->mBounds:Landroid/graphics/Rect;
 
+    .line 125
     const/4 v0, 0x0
 
     iput-object v0, p0, Landroid/graphics/drawable/Drawable;->mCallback:Ljava/lang/ref/WeakReference;
 
+    .line 126
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Landroid/graphics/drawable/Drawable;->mVisible:Z
 
-    const/4 v0, -0x1
-
-    iput v0, p0, Landroid/graphics/drawable/Drawable;->mId:I
-
+    .line 980
     return-void
 .end method
 
@@ -295,58 +293,6 @@
     invoke-virtual {v7, p3}, Landroid/graphics/drawable/Drawable;->setImagePath(Ljava/lang/String;)V
 
     goto :goto_0
-.end method
-
-.method public static createFromResourceStreamAndCloseStream(Landroid/content/res/Resources;Landroid/util/TypedValue;Ljava/io/InputStream;Ljava/lang/String;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/drawable/Drawable;
-    .locals 2
-    .parameter "res"
-    .parameter "value"
-    .parameter "is"
-    .parameter "srcName"
-    .parameter "opts"
-
-    .prologue
-    :try_start_0
-    invoke-static {p0, p1, p2, p3, p4}, Landroid/graphics/drawable/Drawable;->createFromResourceStream(Landroid/content/res/Resources;Landroid/util/TypedValue;Ljava/io/InputStream;Ljava/lang/String;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/drawable/Drawable;
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    move-result-object v0
-
-    if-eqz p2, :cond_0
-
-    :try_start_1
-    invoke-virtual {p2}, Ljava/io/InputStream;->close()V
-    :try_end_1
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
-
-    :cond_0
-    :goto_0
-    return-object v0
-
-    :catchall_0
-    move-exception v0
-
-    if-eqz p2, :cond_1
-
-    :try_start_2
-    invoke-virtual {p2}, Ljava/io/InputStream;->close()V
-    :try_end_2
-    .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_2} :catch_1
-
-    :cond_1
-    :goto_1
-    throw v0
-
-    :catch_0
-    move-exception v1
-
-    goto :goto_0
-
-    :catch_1
-    move-exception v1
-
-    goto :goto_1
 .end method
 
 .method public static createFromStream(Ljava/io/InputStream;Ljava/lang/String;)Landroid/graphics/drawable/Drawable;
@@ -1049,18 +995,6 @@
     return-object v0
 .end method
 
-.method public getId()I
-    .locals 1
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    iget v0, p0, Landroid/graphics/drawable/Drawable;->mId:I
-
-    return v0
-.end method
-
 .method public getIntrinsicHeight()I
     .locals 1
 
@@ -1622,19 +1556,6 @@
 
     .line 142
     :cond_0
-    return-void
-.end method
-
-.method public setId(I)V
-    .locals 0
-    .parameter "id"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    iput p1, p0, Landroid/graphics/drawable/Drawable;->mId:I
-
     return-void
 .end method
 

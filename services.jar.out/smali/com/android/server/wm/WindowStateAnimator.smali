@@ -104,12 +104,6 @@
 
 .field mLocalAnimating:Z
 
-.field mMiuiHidden:Z
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-.end field
-
 .field mPendingDestroySurface:Landroid/view/Surface;
 
 .field final mPolicy:Landroid/view/WindowManagerPolicy;

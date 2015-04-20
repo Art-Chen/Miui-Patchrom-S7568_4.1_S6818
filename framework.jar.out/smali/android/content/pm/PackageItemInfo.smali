@@ -374,7 +374,7 @@
 .end method
 
 .method public loadIcon(Landroid/content/pm/PackageManager;)Landroid/graphics/drawable/Drawable;
-    .locals 5
+    .locals 4
     .parameter "pm"
 
     .prologue
@@ -383,9 +383,9 @@
 
     .line 145
     .local v0, dr:Landroid/graphics/drawable/Drawable;
-    #iget v1, p0, Landroid/content/pm/PackageItemInfo;->icon:I
+    iget v1, p0, Landroid/content/pm/PackageItemInfo;->icon:I
 
-    #if-eqz v1, :cond_2
+    if-eqz v1, :cond_2
 
     .line 146
     iget-object v1, p0, Landroid/content/pm/PackageItemInfo;->name:Ljava/lang/String;
@@ -418,15 +418,13 @@
     :cond_1
     iget-object v1, p0, Landroid/content/pm/PackageItemInfo;->packageName:Ljava/lang/String;
 
-    iget-object v2, p0, Landroid/content/pm/PackageItemInfo;->name:Ljava/lang/String;
-
-    iget v3, p0, Landroid/content/pm/PackageItemInfo;->icon:I
+    iget v2, p0, Landroid/content/pm/PackageItemInfo;->icon:I
 
     invoke-virtual {p0}, Landroid/content/pm/PackageItemInfo;->getApplicationInfo()Landroid/content/pm/ApplicationInfo;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {p1, v1, v2, v3, v4}, Landroid/app/MiuiThemeHelper;->getDrawable(Landroid/content/pm/PackageManager;Ljava/lang/String;Ljava/lang/String;ILandroid/content/pm/ApplicationInfo;)Landroid/graphics/drawable/Drawable;
+    invoke-virtual {p1, v1, v2, v3}, Landroid/content/pm/PackageManager;->getDrawable(Ljava/lang/String;ILandroid/content/pm/ApplicationInfo;)Landroid/graphics/drawable/Drawable;
 
     move-result-object v0
 

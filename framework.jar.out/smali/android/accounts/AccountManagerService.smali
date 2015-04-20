@@ -15,8 +15,7 @@
         Landroid/accounts/AccountManagerService$GetAccountsByTypeAndFeatureSession;,
         Landroid/accounts/AccountManagerService$RemoveAccountSession;,
         Landroid/accounts/AccountManagerService$TestFeaturesSession;,
-        Landroid/accounts/AccountManagerService$UserAccounts;,
-        Landroid/accounts/AccountManagerService$Injector;
+        Landroid/accounts/AccountManagerService$UserAccounts;
     }
 .end annotation
 
@@ -2785,9 +2784,6 @@
     .locals 5
     .parameter "accountType"
     .parameter "callingUid"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     const/4 v3, 0x0
@@ -2840,7 +2836,7 @@
 
     iget v4, v1, Landroid/content/pm/RegisteredServicesCache$ServiceInfo;->uid:I
 
-    invoke-static {v2, v4, p2, p1}, Landroid/accounts/AccountManagerService$Injector;->checkSignatures(Landroid/content/pm/PackageManager;IILjava/lang/String;)I
+    invoke-virtual {v2, v4, p2}, Landroid/content/pm/PackageManager;->checkSignatures(II)I
 
     move-result v2
 

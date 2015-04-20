@@ -8,11 +8,8 @@
 
 
 # direct methods
-.method protected constructor <init>()V
+.method private constructor <init>()V
     .locals 0
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_ACCESS:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     .line 31

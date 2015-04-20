@@ -115,8 +115,6 @@
 
 .field public deleteIntent:Landroid/app/PendingIntent;
 
-.field public extraNotification:Lmiui/app/ExtraNotification;
-
 .field private extras:Landroid/os/Bundle;
 
 .field public flags:I
@@ -206,12 +204,6 @@
     :goto_0
     iput-object v0, p0, Landroid/app/Notification;->stringNamesMap:Ljava/util/Map;
 
-    new-instance v0, Lmiui/app/ExtraNotification;
-
-    invoke-direct {v0}, Lmiui/app/ExtraNotification;-><init>()V
-
-    iput-object v0, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
-
     .line 242
     const/4 v0, -0x1
 
@@ -262,12 +254,6 @@
 
     :goto_0
     iput-object v0, p0, Landroid/app/Notification;->stringNamesMap:Ljava/util/Map;
-
-    new-instance v0, Lmiui/app/ExtraNotification;
-
-    invoke-direct {v0}, Lmiui/app/ExtraNotification;-><init>()V
-
-    iput-object v0, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
 
     .line 242
     const/4 v0, -0x1
@@ -321,12 +307,6 @@
     :goto_0
     iput-object v0, p0, Landroid/app/Notification;->stringNamesMap:Ljava/util/Map;
 
-    new-instance v0, Lmiui/app/ExtraNotification;
-
-    invoke-direct {v0}, Lmiui/app/ExtraNotification;-><init>()V
-
-    iput-object v0, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
-
     .line 242
     const/4 v0, -0x1
 
@@ -365,12 +345,6 @@
     .prologue
     .line 624
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
-
-    new-instance v5, Lmiui/app/ExtraNotification;
-
-    invoke-direct {v5}, Lmiui/app/ExtraNotification;-><init>()V
-
-    iput-object v5, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
 
     .line 71
     sget-boolean v5, Landroid/os/Build;->IS_SYSTEM_SECURE:Z
@@ -736,10 +710,6 @@
     move-result-wide v5
 
     iput-wide v5, p0, Landroid/app/Notification;->threadId:J
-
-    iget-object v5, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
-
-    invoke-virtual {v5, p1}, Lmiui/app/ExtraNotification;->readFromParcel(Landroid/os/Parcel;)V
 
     .line 694
     sget-boolean v5, Landroid/os/Build;->IS_SYSTEM_SECURE:Z
@@ -1139,12 +1109,7 @@
 
     iput-wide v7, v2, Landroid/app/Notification;->threadId:J
 
-    iget-object v7, v2, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
-
-    iget-object v8, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
-
-    invoke-virtual {v7, v8}, Lmiui/app/ExtraNotification;->setTo(Lmiui/app/ExtraNotification;)V
-
+    .line 783
     return-object v2
 .end method
 
@@ -2004,12 +1969,6 @@
     iget-wide v3, p0, Landroid/app/Notification;->threadId:J
 
     invoke-virtual {p1, v3, v4}, Landroid/os/Parcel;->writeLong(J)V
-
-    iget-object v3, p0, Landroid/app/Notification;->extraNotification:Lmiui/app/ExtraNotification;
-
-    invoke-virtual {v3, p1, p2}, Lmiui/app/ExtraNotification;->writeToParcel(Landroid/os/Parcel;I)V
-
-    return-void
 
     .line 899
     sget-boolean v3, Landroid/os/Build;->IS_SYSTEM_SECURE:Z

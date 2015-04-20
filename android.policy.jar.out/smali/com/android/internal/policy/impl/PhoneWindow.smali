@@ -1838,13 +1838,12 @@
 
     .line 3393
     :cond_b
+    
+    iget-object v13, p0, Lcom/android/internal/policy/impl/PhoneWindow;->mActionBar:Lcom/android/internal/widget/ActionBarView;
+
+    invoke-static {p0, v13}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->handleStartingWindow(Lcom/android/internal/policy/impl/PhoneWindow;Lcom/android/internal/widget/ActionBarView;)V
+
     const/4 v8, 0x0
-    
-    move-object/from16 v0, p0
-    
-    iget-object v13, v0, Lcom/android/internal/policy/impl/PhoneWindow;->mActionBar:Lcom/android/internal/widget/ActionBarView;
-    
-    invoke-static {v0, v13}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->handleStartingWindow(Lcom/android/internal/policy/impl/PhoneWindow;Lcom/android/internal/widget/ActionBarView;)V
 
     .line 3394
     .local v8, splitActionBar:Z
@@ -2656,7 +2655,7 @@
 
     iget-object v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->createdPanelView:Landroid/view/View;
 
-    if-eqz v4, :cond_miui_0
+    if-eqz v4, :cond_11
 
     .line 687
     move-object/from16 v0, p1
@@ -2682,18 +2681,8 @@
 
     goto/16 :goto_5
 
-    .line 708
-    .local v2, lp:Landroid/view/WindowManager$LayoutParams;
+    .end local v2           #lp:Landroid/view/ViewGroup$LayoutParams;
     :cond_11
-    move-object/from16 v0, p1
-
-    iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->gravity:I
-
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->gravity:I
-
-    goto :goto_6
-
-    :cond_miui_0
     move-object/from16 v0, p1
 
     iget-object v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->decorView:Lcom/android/internal/policy/impl/PhoneWindow$DecorView;
@@ -2703,11 +2692,11 @@
     move-result-object v2
 
     .restart local v2       #lp:Landroid/view/ViewGroup$LayoutParams;
-    if-eqz v2, :cond_miui_1
+    if-eqz v2, :cond_10
 
     iget v3, v2, Landroid/view/ViewGroup$LayoutParams;->width:I
 
-    :cond_miui_1
+    :cond_10
     move-object/from16 v0, p1
 
     iget-object v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->decorView:Lcom/android/internal/policy/impl/PhoneWindow$DecorView;
@@ -2718,7 +2707,17 @@
 
     if-nez v4, :cond_a
 
-    goto :goto_0
+    goto/16 :goto_0
+
+    .local v2, lp:Landroid/view/WindowManager$LayoutParams;
+    :cond_12
+    move-object/from16 v0, p1
+
+    iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->gravity:I
+
+    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->gravity:I
+
+    goto :goto_6
 .end method
 
 .method private openPanelsAfterRestore()V
@@ -5336,6 +5335,7 @@
     invoke-static/range {v19 .. v19}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->getActionBarResourceId(Landroid/content/Context;)I
 
     move-result v10
+
     .restart local v10       #layoutResource:I
     goto/16 :goto_8
 

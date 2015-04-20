@@ -27,7 +27,7 @@
     .parameter
 
     .prologue
-    .line 1487
+    .line 1622
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -43,10 +43,10 @@
     .prologue
     const/4 v5, 0x1
 
-    .line 1491
+    .line 1626
     const/4 v1, 0x1
 
-    .line 1493
+    .line 1628
     .local v1, isScreenCaptureEnabled:Z
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -54,11 +54,11 @@
 
     if-nez v2, :cond_0
 
-    .line 1530
+    .line 1665
     :goto_0
     return-void
 
-    .line 1496
+    .line 1631
     :cond_0
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -66,7 +66,7 @@
 
     if-nez v2, :cond_1
 
-    .line 1497
+    .line 1632
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     const-string v3, "statusbar"
@@ -81,7 +81,7 @@
 
     iput-object v3, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mStatusBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 1500
+    .line 1635
     :cond_1
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -89,7 +89,7 @@
 
     if-eqz v2, :cond_2
 
-    .line 1502
+    .line 1637
     :try_start_0
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -101,22 +101,22 @@
 
     move-result v1
 
-    .line 1510
+    .line 1645
     :cond_2
     :goto_1
     if-eqz v1, :cond_4
 
-    .line 1511
+    .line 1646
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$800(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
     move-result-object v2
 
     if-nez v2, :cond_3
 
-    .line 1512
+    .line 1647
     iget-object v3, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
@@ -132,24 +132,24 @@
     check-cast v2, Landroid/app/enterprise/EnterpriseDeviceManager;
 
     #setter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v3, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$802(Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/app/enterprise/EnterpriseDeviceManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v3, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$902(Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/app/enterprise/EnterpriseDeviceManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 1514
+    .line 1649
     :cond_3
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$800(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
     move-result-object v2
 
     if-eqz v2, :cond_4
 
-    .line 1515
+    .line 1650
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$800(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/app/enterprise/EnterpriseDeviceManager;
 
     move-result-object v2
 
@@ -163,40 +163,40 @@
 
     if-nez v2, :cond_4
 
-    .line 1516
+    .line 1651
     const-string v2, "WindowManager"
 
     const-string v3, "MDM: Screen Capture Disabled"
 
     invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1517
+    .line 1652
     const/4 v1, 0x0
 
-    .line 1522
+    .line 1657
     :cond_4
     if-eqz v1, :cond_5
 
-    .line 1523
+    .line 1658
     const-string v2, "WindowManager"
 
     const-string v3, "take screen shot"
 
     invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1524
+    .line 1659
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     #calls: Lcom/android/internal/policy/impl/PhoneWindowManager;->takeScreenshot(I)V
-    invoke-static {v2, v5}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$900(Lcom/android/internal/policy/impl/PhoneWindowManager;I)V
+    invoke-static {v2, v5}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$1000(Lcom/android/internal/policy/impl/PhoneWindowManager;I)V
 
     goto :goto_0
 
-    .line 1503
+    .line 1638
     :catch_0
     move-exception v0
 
-    .line 1504
+    .line 1639
     .local v0, e:Landroid/os/RemoteException;
     const-string v2, "WindowManager"
 
@@ -204,19 +204,19 @@
 
     invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1505
+    .line 1640
     iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$7;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     const/4 v3, 0x0
 
     iput-object v3, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mStatusBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 1506
+    .line 1641
     const/4 v1, 0x1
 
     goto :goto_1
 
-    .line 1527
+    .line 1662
     .end local v0           #e:Landroid/os/RemoteException;
     :cond_5
     const-string v2, "WindowManager"

@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 6602
+    .line 7241
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$24;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,38 +40,49 @@
     .parameter "intent"
 
     .prologue
-    const/4 v0, 0x0
-
-    .line 6604
-    const-string v1, "android.intent.action.BATTERY_CHANGED"
-
+    .line 7243
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v0
 
-    invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    .line 7244
+    .local v0, action:Ljava/lang/String;
+    const-string v1, "android.intent.action.SINGLE_SCREEN_CAPTURE_ON"
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v1
 
     if-eqz v1, :cond_1
 
-    .line 6605
+    .line 7245
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$24;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    const-string v2, "plugged"
+    const/4 v2, 0x1
 
-    invoke-virtual {p2, v2, v0}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+    iput-boolean v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenCaptureOn:Z
 
-    move-result v2
-
-    if-eqz v2, :cond_0
-
-    const/4 v0, 0x1
-
+    .line 7249
     :cond_0
-    iput-boolean v0, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPluggedIn:Z
-
-    .line 6608
-    :cond_1
+    :goto_0
     return-void
+
+    .line 7246
+    :cond_1
+    const-string v1, "android.intent.action.SINGLE_SCREEN_CAPTURE_OFF"
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 7247
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$24;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    const/4 v2, 0x0
+
+    iput-boolean v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenCaptureOn:Z
+
+    goto :goto_0
 .end method

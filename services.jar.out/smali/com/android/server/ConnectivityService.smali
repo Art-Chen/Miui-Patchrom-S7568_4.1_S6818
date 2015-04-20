@@ -239,9 +239,6 @@
     .parameter "netd"
     .parameter "statsService"
     .parameter "policyManager"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     .line 422
@@ -15962,9 +15959,6 @@
     .parameter "networkType"
     .parameter "feature"
     .parameter "binder"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     .line 1242

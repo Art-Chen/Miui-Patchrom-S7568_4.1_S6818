@@ -8,8 +8,7 @@
     value = {
         Lcom/android/internal/telephony/SMSDispatcher$KoreanAddressSeparator;,
         Lcom/android/internal/telephony/SMSDispatcher$ConfirmDialogListener;,
-        Lcom/android/internal/telephony/SMSDispatcher$SmsTracker;,
-        Lcom/android/internal/telephony/SMSDispatcher$Injector;
+        Lcom/android/internal/telephony/SMSDispatcher$SmsTracker;
     }
 .end annotation
 
@@ -2641,12 +2640,6 @@
     move-object/from16 v0, p0
 
     iget-object v3, v0, Lcom/android/internal/telephony/SMSDispatcher;->mWapPush:Lcom/android/internal/telephony/WapPushOverSms;
-
-    move-object/from16 v1, p1
-
-    invoke-virtual {v1}, Lcom/android/internal/telephony/SmsMessageBase;->getOriginatingAddress()Ljava/lang/String;
-
-    move-result-object v3
 
     invoke-virtual {v3, v12}, Lcom/android/internal/telephony/WapPushOverSms;->dispatchWapPdu([B)I
 
@@ -7648,9 +7641,7 @@
 
     iget-object v3, v0, Lcom/android/internal/telephony/SMSDispatcher;->mWapPush:Lcom/android/internal/telephony/WapPushOverSms;
 
-    move-object/from16 v0, p2
-
-    invoke-virtual {v3, v13, v0}, Lcom/android/internal/telephony/WapPushOverSms;->dispatchWapPdu([BLjava/lang/String;)I
+    invoke-virtual {v3, v13}, Lcom/android/internal/telephony/WapPushOverSms;->dispatchWapPdu([B)I
 
     move-result v3
 
@@ -7769,9 +7760,7 @@
 
     move-result-object v4
 
-    move-object/from16 v0, p2
-
-    invoke-virtual {v3, v4, v0}, Lcom/android/internal/telephony/WapPushOverSms;->dispatchWapPdu([BLjava/lang/String;)I
+    invoke-virtual {v3, v4}, Lcom/android/internal/telephony/WapPushOverSms;->dispatchWapPdu([B)I
 
     move-result v3
 

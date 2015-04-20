@@ -36,8 +36,6 @@
 
 .field final mAttachedWindow:Lcom/android/server/wm/WindowState;
 
-.field mAttrFlagsSaved:Z
-
 .field final mAttrs:Landroid/view/WindowManager$LayoutParams;
 
 .field final mBaseLayer:I
@@ -81,8 +79,6 @@
 
 .field mExiting:Z
 
-.field final mFloatingWindowAllowed:Z
-
 .field final mFrame:Landroid/graphics/Rect;
 
 .field final mGivenContentInsets:Landroid/graphics/Rect;
@@ -102,8 +98,6 @@
 .field mHaveFrame:Z
 
 .field mInputChannel:Landroid/view/InputChannel;
-
-.field mInputChannelSaved:Landroid/view/InputChannel;
 
 .field final mInputWindowHandle:Lcom/android/server/input/InputWindowHandle;
 
@@ -693,111 +687,131 @@
 
     iput-object v5, p0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
 
+    .line 352
     iget-object v5, p0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
 
     iget v6, p7, Landroid/view/WindowManager$LayoutParams;->alpha:F
 
     iput v6, v5, Lcom/android/server/wm/WindowStateAnimator;->mAlpha:F
 
+    .line 354
     move-object v1, p0
 
+    .line 355
     .local v1, appWin:Lcom/android/server/wm/WindowState;
     :goto_7
     iget-object v5, v1, Lcom/android/server/wm/WindowState;->mAttachedWindow:Lcom/android/server/wm/WindowState;
 
     if-eqz v5, :cond_f
 
+    .line 356
     iget-object v1, v1, Lcom/android/server/wm/WindowState;->mAttachedWindow:Lcom/android/server/wm/WindowState;
 
     goto :goto_7
 
+    .line 289
     .end local v1           #appWin:Lcom/android/server/wm/WindowState;
     :cond_2
     const/4 v5, 0x0
 
     goto/16 :goto_0
 
+    .line 295
     :catch_0
     move-exception v3
 
+    .line 296
     .local v3, e:Landroid/os/RemoteException;
     const/4 v5, 0x0
 
     iput-object v5, p0, Lcom/android/server/wm/WindowState;->mDeathRecipient:Lcom/android/server/wm/WindowState$DeathRecipient;
 
+    .line 297
     const/4 v5, 0x0
 
     iput-object v5, p0, Lcom/android/server/wm/WindowState;->mAttachedWindow:Lcom/android/server/wm/WindowState;
 
+    .line 298
     const/4 v5, 0x0
 
     iput-boolean v5, p0, Lcom/android/server/wm/WindowState;->mLayoutAttached:Z
 
+    .line 299
     const/4 v5, 0x0
 
     iput-boolean v5, p0, Lcom/android/server/wm/WindowState;->mIsImWindow:Z
 
+    .line 300
     const/4 v5, 0x0
 
     iput-boolean v5, p0, Lcom/android/server/wm/WindowState;->mIsWallpaper:Z
 
+    .line 301
     const/4 v5, 0x0
 
     iput-boolean v5, p0, Lcom/android/server/wm/WindowState;->mIsFloatingLayer:Z
 
+    .line 303
     const/4 v5, 0x0
 
     iput-boolean v5, p0, Lcom/android/server/wm/WindowState;->mIsControlBar:Z
 
+    .line 305
     const/4 v5, 0x0
 
     iput v5, p0, Lcom/android/server/wm/WindowState;->mBaseLayer:I
 
+    .line 306
     const/4 v5, 0x0
 
     iput v5, p0, Lcom/android/server/wm/WindowState;->mSubLayer:I
 
+    .line 307
     const/4 v5, 0x0
 
     iput-object v5, p0, Lcom/android/server/wm/WindowState;->mInputWindowHandle:Lcom/android/server/input/InputWindowHandle;
 
+    .line 308
     const/4 v5, 0x0
 
     iput-object v5, p0, Lcom/android/server/wm/WindowState;->mWinAnimator:Lcom/android/server/wm/WindowStateAnimator;
 
-    const/4 v5, 0x0
-
-    iput-boolean v5, p0, Lcom/android/server/wm/WindowState;->mFloatingWindowAllowed:Z
-
+    .line 378
     .end local v3           #e:Landroid/os/RemoteException;
     :goto_8
     return-void
 
+    .line 324
     :cond_3
     const/4 v5, 0x0
 
     goto :goto_1
 
+    .line 326
     :cond_4
     const/4 v5, 0x0
 
     goto :goto_2
 
+    .line 328
     :cond_5
     const/4 v5, 0x0
 
     goto :goto_3
 
+    .line 329
     :cond_6
     const/4 v5, 0x0
 
     goto :goto_4
 
+    .line 331
     :cond_7
     const/4 v5, 0x0
 
     goto :goto_5
 
+    .line 336
     :cond_8
     iget-object v5, p0, Lcom/android/server/wm/WindowState;->mPolicy:Landroid/view/WindowManagerPolicy;
 

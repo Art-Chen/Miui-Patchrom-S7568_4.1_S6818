@@ -6,8 +6,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/server/net/NetworkPolicyManagerService$XmlUtils;,
-        Lcom/android/server/net/NetworkPolicyManagerService$Injector;
+        Lcom/android/server/net/NetworkPolicyManagerService$XmlUtils;
     }
 .end annotation
 
@@ -952,11 +951,8 @@
 .end method
 
 .method private static buildViewDataUsageIntent(Landroid/net/NetworkTemplate;)Landroid/content/Intent;
-    .locals 2
+    .locals 4
     .parameter "template"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     .line 2079
@@ -966,9 +962,15 @@
 
     .line 2080
     .local v0, intent:Landroid/content/Intent;
-    const-string v1, "android.intent.action.VIEW_DATA_USAGE_SUMMARY"
+    new-instance v1, Landroid/content/ComponentName;
 
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
+    const-string v2, "com.android.settings"
+
+    const-string v3, "com.android.settings.Settings$DataUsageSummaryActivity"
+
+    invoke-direct {v1, v2, v3}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
+
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
 
     .line 2082
     const/high16 v1, 0x1000
@@ -1636,20 +1638,31 @@
 
     packed-switch v1, :pswitch_data_2
 
+    .line 778
     const/4 v14, 0x0
 
+    .line 782
     .restart local v14       #title:Ljava/lang/CharSequence;
     :goto_3
+    const/4 v1, 0x1
+
+    invoke-virtual {v8, v1}, Landroid/app/Notification$Builder;->setOngoing(Z)Landroid/app/Notification$Builder;
+
+    .line 783
     const v1, 0x1080078
 
     invoke-virtual {v8, v1}, Landroid/app/Notification$Builder;->setSmallIcon(I)Landroid/app/Notification$Builder;
 
+    .line 784
     invoke-virtual {v8, v14}, Landroid/app/Notification$Builder;->setTicker(Ljava/lang/CharSequence;)Landroid/app/Notification$Builder;
 
+    .line 785
     invoke-virtual {v8, v14}, Landroid/app/Notification$Builder;->setContentTitle(Ljava/lang/CharSequence;)Landroid/app/Notification$Builder;
 
+    .line 786
     invoke-virtual {v8, v7}, Landroid/app/Notification$Builder;->setContentText(Ljava/lang/CharSequence;)Landroid/app/Notification$Builder;
 
+    .line 788
     move-object/from16 v0, p1
 
     iget-object v1, v0, Landroid/net/NetworkPolicy;->template:Landroid/net/NetworkTemplate;
@@ -1895,42 +1908,6 @@
     .line 839
     :catch_0
     move-exception v0
-
-    goto :goto_0
-.end method
-
-.method private enqueueValidNotification(Landroid/net/NetworkPolicy;IJ)V
-    .locals 2
-    .parameter "policy"
-    .parameter "type"
-    .parameter "totalBytes"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    invoke-static {p2}, Lcom/android/server/net/NetworkPolicyManagerService$Injector;->isIntervalValid(I)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
-    invoke-static {p2}, Lcom/android/server/net/NetworkPolicyManagerService$Injector;->setInterval(I)V
-
-    invoke-direct {p0, p1, p2, p3, p4}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueNotification(Landroid/net/NetworkPolicy;IJ)V
-
-    :goto_0
-    return-void
-
-    :cond_0
-    invoke-direct {p0, p1, p2}, Lcom/android/server/net/NetworkPolicyManagerService;->buildNotificationTag(Landroid/net/NetworkPolicy;I)Ljava/lang/String;
-
-    move-result-object v0
-
-    .local v0, tag:Ljava/lang/String;
-    iget-object v1, p0, Lcom/android/server/net/NetworkPolicyManagerService;->mActiveNotifs:Ljava/util/HashSet;
-
-    invoke-virtual {v1, v0}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
 
     goto :goto_0
 .end method
@@ -2418,26 +2395,21 @@
     .parameter "template"
     .parameter "start"
     .parameter "end"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     const-wide/16 v7, 0x0
 
     .line 2024
     :try_start_0
-    iget-object v1, p0, Lcom/android/server/net/NetworkPolicyManagerService;->mNetworkStats:Landroid/net/INetworkStatsService;
+    iget-object v0, p0, Lcom/android/server/net/NetworkPolicyManagerService;->mNetworkStats:Landroid/net/INetworkStatsService;
 
-    move-object v0, p0
+    move-object v1, p1
 
-    move-object v2, p1
+    move-wide v2, p2
 
-    move-wide v3, p2
+    move-wide v4, p4
 
-    move-wide v5, p4
-
-    invoke-static/range {v0 .. v6}, Lcom/android/server/net/NetworkPolicyManagerService$Injector;->getNetworkTotalBytes(Lcom/android/server/net/NetworkPolicyManagerService;Landroid/net/INetworkStatsService;Landroid/net/NetworkTemplate;JJ)J
+    invoke-interface/range {v0 .. v5}, Landroid/net/INetworkStatsService;->getNetworkTotalBytes(Landroid/net/NetworkTemplate;JJ)J
     :try_end_0
     .catch Ljava/lang/RuntimeException; {:try_start_0 .. :try_end_0} :catch_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_1
@@ -3807,14 +3779,14 @@
     .parameter "enabled"
 
     .prologue
-    invoke-static {p0, p1, p2}, Lcom/android/server/net/NetworkPolicyManagerService$Injector;->setNetworkTemplateEnabled(Lcom/android/server/net/NetworkPolicyManagerService;Landroid/net/NetworkTemplate;Z)V
-
+    .line 926
     iget-object v1, p0, Lcom/android/server/net/NetworkPolicyManagerService;->mContext:Landroid/content/Context;
 
     invoke-static {v1}, Landroid/telephony/TelephonyManager;->from(Landroid/content/Context;)Landroid/telephony/TelephonyManager;
 
     move-result-object v0
 
+    .line 928
     .local v0, tele:Landroid/telephony/TelephonyManager;
     invoke-virtual {p1}, Landroid/net/NetworkTemplate;->getMatchRule()I
 
@@ -3885,8 +3857,6 @@
     invoke-direct {p0, v1, p2}, Lcom/android/server/net/NetworkPolicyManagerService;->setPolicyDataEnable(IZ)V
 
     goto :goto_0
-
-    nop
 
     .line 928
     :pswitch_data_0
@@ -4994,34 +4964,40 @@
 
     if-eqz v0, :cond_2
 
+    .line 618
     iget-wide v0, v10, Landroid/net/NetworkPolicy;->lastLimitSnooze:J
 
     cmp-long v0, v0, v2
 
     if-ltz v0, :cond_1
 
+    .line 619
     const/4 v0, 0x3
 
-    invoke-direct {p0, v10, v0, v12, v13}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueValidNotification(Landroid/net/NetworkPolicy;IJ)V
+    invoke-direct {p0, v10, v0, v12, v13}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueNotification(Landroid/net/NetworkPolicy;IJ)V
 
     goto :goto_0
 
+    .line 621
     :cond_1
     const/4 v0, 0x2
 
-    invoke-direct {p0, v10, v0, v12, v13}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueValidNotification(Landroid/net/NetworkPolicy;IJ)V
+    invoke-direct {p0, v10, v0, v12, v13}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueNotification(Landroid/net/NetworkPolicy;IJ)V
 
+    .line 622
     iget-object v0, v10, Landroid/net/NetworkPolicy;->template:Landroid/net/NetworkTemplate;
 
     invoke-direct {p0, v0}, Lcom/android/server/net/NetworkPolicyManagerService;->notifyOverLimitLocked(Landroid/net/NetworkTemplate;)V
 
     goto :goto_0
 
+    .line 626
     :cond_2
     iget-object v0, v10, Landroid/net/NetworkPolicy;->template:Landroid/net/NetworkTemplate;
 
     invoke-direct {p0, v0}, Lcom/android/server/net/NetworkPolicyManagerService;->notifyUnderLimitLocked(Landroid/net/NetworkTemplate;)V
 
+    .line 628
     invoke-virtual {v10, v12, v13}, Landroid/net/NetworkPolicy;->isOverWarning(J)Z
 
     move-result v0
@@ -5034,12 +5010,14 @@
 
     if-gez v0, :cond_0
 
+    .line 629
     const/4 v0, 0x1
 
-    invoke-direct {p0, v10, v0, v12, v13}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueValidNotification(Landroid/net/NetworkPolicy;IJ)V
+    invoke-direct {p0, v10, v0, v12, v13}, Lcom/android/server/net/NetworkPolicyManagerService;->enqueueNotification(Landroid/net/NetworkPolicy;IJ)V
 
     goto :goto_0
 
+    .line 635
     .end local v2           #start:J
     .end local v4           #end:J
     .end local v10           #policy:Landroid/net/NetworkPolicy;
@@ -6518,18 +6496,6 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v4
-.end method
-
-.method getContext()Landroid/content/Context;
-    .locals 1
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    iget-object v0, p0, Lcom/android/server/net/NetworkPolicyManagerService;->mContext:Landroid/content/Context;
-
-    return-object v0
 .end method
 
 .method public getNetworkPolicies()[Landroid/net/NetworkPolicy;

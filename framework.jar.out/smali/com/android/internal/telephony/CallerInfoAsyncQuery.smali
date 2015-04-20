@@ -10,8 +10,7 @@
         Lcom/android/internal/telephony/CallerInfoAsyncQuery$CallerInfoAsyncQueryHandler;,
         Lcom/android/internal/telephony/CallerInfoAsyncQuery$QueryPoolException;,
         Lcom/android/internal/telephony/CallerInfoAsyncQuery$CookieWrapper;,
-        Lcom/android/internal/telephony/CallerInfoAsyncQuery$OnQueryCompleteListener;,
-        Lcom/android/internal/telephony/CallerInfoAsyncQuery$Injector;
+        Lcom/android/internal/telephony/CallerInfoAsyncQuery$OnQueryCompleteListener;
     }
 .end annotation
 
@@ -265,9 +264,6 @@
     .parameter "number"
     .parameter "listener"
     .parameter "cookie"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     .line 379

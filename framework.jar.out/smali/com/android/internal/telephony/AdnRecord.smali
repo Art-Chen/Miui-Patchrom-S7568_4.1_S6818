@@ -6,14 +6,6 @@
 .implements Landroid/os/Parcelable;
 
 
-# annotations
-.annotation system Ldalvik/annotation/MemberClasses;
-    value = {
-        Lcom/android/internal/telephony/AdnRecord$Injector;
-    }
-.end annotation
-
-
 # static fields
 .field static final ADN_BCD_NUMBER_LENGTH:I = 0x0
 
@@ -50,7 +42,7 @@
 
 .field static final MAX_EXT_CALLED_PARTY_LENGTH:I = 0xa
 
-.field static final MAX_NUMBER_SIZE_BYTES:I = 0xff
+.field static final MAX_NUMBER_SIZE_BYTES:I = 0xb
 
 
 # instance fields
@@ -447,25 +439,9 @@
     return-void
 .end method
 
-.method static callStringCompareNullEqualsEmpty(Ljava/lang/String;Ljava/lang/String;)Z
-    .locals 1
-    .parameter "s1"
-    .parameter "s2"
-
-    .prologue
-    invoke-static {p0, p1}, Lcom/android/internal/telephony/AdnRecord;->stringCompareNullEqualsEmpty(Ljava/lang/String;Ljava/lang/String;)Z
-
-    move-result v0
-
-    return v0
-.end method
-
 .method private parseRecord([B)V
     .locals 6
     .parameter "record"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     const/4 v5, 0x0
@@ -484,22 +460,27 @@
 
     iput-object v3, p0, Lcom/android/internal/telephony/AdnRecord;->alphaTag:Ljava/lang/String;
 
+    .line 484
     array-length v3, p1
 
     add-int/lit8 v1, v3, -0xe
 
+    .line 486
     .local v1, footerOffset:I
     aget-byte v3, p1, v1
 
     and-int/lit16 v2, v3, 0xff
 
+    .line 488
     .local v2, numberLength:I
-    const/16 v3, 0xff
+    const/16 v3, 0xb
 
     if-le v2, v3, :cond_0
 
+    .line 491
     const/16 v2, 0xb
 
+    .line 504
     :cond_0
     add-int/lit8 v3, v1, 0x1
 
@@ -542,10 +523,6 @@
     const-string v3, "GSM"
 
     const-string v4, "Error parsing AdnRecord"
-
-    invoke-static {p0, v4}, Lcom/android/internal/telephony/AdnRecord$Injector;->adnRecordError(Lcom/android/internal/telephony/AdnRecord;Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v4
 
     invoke-static {v3, v4, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
@@ -702,9 +679,6 @@
 .method public buildAdnString(I)[B
     .locals 11
     .parameter "recordSize"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     const/4 v6, 0x0
@@ -941,7 +915,15 @@
     :cond_8
     iget-object v6, p0, Lcom/android/internal/telephony/AdnRecord;->alphaTag:Ljava/lang/String;
 
-    invoke-static {v0, v6, v4}, Lcom/android/internal/telephony/MiuiAdnUtils;->encodeAlphaTag([BLjava/lang/String;I)Z
+    invoke-static {v6}, Lcom/android/internal/telephony/GsmAlphabet;->stringToGsm8BitPacked(Ljava/lang/String;)[B
+
+    move-result-object v2
+
+    .line 432
+    .local v2, byteTag:[B
+    array-length v6, v2
+
+    invoke-static {v2, v7, v0, v7, v6}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
     .end local v1           #bcdNumber:[B
     .end local v2           #byteTag:[B

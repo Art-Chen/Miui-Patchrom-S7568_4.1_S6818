@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="has_button">false</bool>
-    <bool name="has_led">true</bool>
+    <bool name="has_button">true</bool>
+    <bool name="has_led">false</bool>
     <bool name="mass_storage_enable">false</bool>
-    <bool name="has_volume_wake">false</bool>
-	<bool name="emulated_available_internal_memroy">false</bool>
+    <bool name="has_volume_wake">true</bool>
+	<bool name="emulated_available_internal_memroy">ture</bool>
 </resources>

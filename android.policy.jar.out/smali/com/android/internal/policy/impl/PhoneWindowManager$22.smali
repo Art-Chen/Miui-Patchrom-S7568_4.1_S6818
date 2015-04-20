@@ -1,11 +1,14 @@
 .class Lcom/android/internal/policy/impl/PhoneWindowManager$22;
-.super Landroid/content/BroadcastReceiver;
+.super Ljava/lang/Object;
 .source "PhoneWindowManager.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/android/internal/policy/impl/PhoneWindowManager;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/android/internal/policy/impl/PhoneWindowManager;->changeMPDecision(Z)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -17,72 +20,88 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
+.field final synthetic val$isTopFullscreen:Z
+
 
 # direct methods
-.method constructor <init>(Lcom/android/internal/policy/impl/PhoneWindowManager;)V
+.method constructor <init>(Lcom/android/internal/policy/impl/PhoneWindowManager;Z)V
     .locals 0
+    .parameter
     .parameter
 
     .prologue
-    .line 6565
+    .line 5880
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$22;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
+    iput-boolean p2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$22;->val$isTopFullscreen:Z
+
+    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
-    .locals 3
-    .parameter "context"
-    .parameter "intent"
+.method public run()V
+    .locals 4
 
     .prologue
-    .line 6567
-    invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 6568
-    .local v0, action:Ljava/lang/String;
-    const-string v1, "android.intent.action.SINGLE_SCREEN_CAPTURE_ON"
-
-    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    .line 6569
+    .line 5882
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$22;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    const/4 v2, 0x1
-
-    iput-boolean v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenCaptureOn:Z
-
-    .line 6573
-    :cond_0
-    :goto_0
-    return-void
-
-    .line 6570
-    :cond_1
-    const-string v1, "android.intent.action.SINGLE_SCREEN_CAPTURE_OFF"
-
-    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v1
+    iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
 
     if-eqz v1, :cond_0
 
-    .line 6571
+    .line 5883
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$22;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    const/4 v2, 0x0
+    iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
 
-    iput-boolean v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenCaptureOn:Z
+    const-string v2, "CustomFrequencyManagerService"
 
-    goto :goto_0
+    invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/os/CustomFrequencyManager;
+
+    .line 5885
+    .local v0, mFreqManager:Landroid/os/CustomFrequencyManager;
+    if-eqz v0, :cond_0
+
+    .line 5886
+    const-string v1, "WindowManager"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "changeMPDecision:: onTopAppChanged() = "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-boolean v3, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$22;->val$isTopFullscreen:Z
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 5887
+    iget-boolean v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$22;->val$isTopFullscreen:Z
+
+    invoke-virtual {v0, v1}, Landroid/os/CustomFrequencyManager;->onTopAppChanged(Z)V
+
+    .line 5890
+    .end local v0           #mFreqManager:Landroid/os/CustomFrequencyManager;
+    :cond_0
+    return-void
 .end method

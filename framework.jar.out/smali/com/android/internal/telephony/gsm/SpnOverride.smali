@@ -861,7 +861,7 @@
     goto :goto_0
 .end method
 
-.method getSpn_samsung(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+.method getSpn(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     .locals 2
     .parameter "carrier"
     .parameter "imsi"
@@ -889,42 +889,4 @@
     const/4 v1, 0x0
 
     goto :goto_0
-.end method
-
-.method getSpn(Ljava/lang/String;)Ljava/lang/String;
-    .locals 1
-    .parameter "carrier"
-
-    .prologue
-    invoke-direct {p0, p1, p1}, Lcom/android/internal/telephony/gsm/SpnOverride;->getMatchingSpnOverrideInfo(Ljava/lang/String;Ljava/lang/String;)Lcom/android/internal/telephony/gsm/SpnOverride$SpnOverrideInfo;
-
-    move-result-object v0
-
-    .local v0, soi:Lcom/android/internal/telephony/gsm/SpnOverride$SpnOverrideInfo;
-    if-eqz v0, :cond_0
-
-    invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/SpnOverride$SpnOverrideInfo;->getSpn()Ljava/lang/String;
-
-    move-result-object v1
-
-    :goto_0
-    return-object v1
-
-    :cond_0
-    const/4 v1, 0x0
-
-    goto :goto_0
-.end method
-
-.method getSpn(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-    .locals 1
-    .parameter "carrier"
-    .parameter "spn"
-
-    .prologue
-    invoke-virtual {p0, p1}, Lcom/android/internal/telephony/gsm/SpnOverride;->getSpn(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    return-object v0
 .end method

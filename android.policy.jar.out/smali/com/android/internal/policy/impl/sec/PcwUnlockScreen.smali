@@ -633,7 +633,7 @@
     .prologue
     const/4 v9, 0x0
 
-    const v8, 0x1030128
+    const v8, 0x103006e
 
     const/4 v7, 0x0
 

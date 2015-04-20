@@ -23,6 +23,7 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/android/internal/policy/impl/PhoneWindow$DecorView$SearchActionModeCallbackWrapper;,
         Lcom/android/internal/policy/impl/PhoneWindow$DecorView$ActionModeCallbackWrapper;
     }
 .end annotation

@@ -26,13 +26,13 @@
     .parameter "looper"
 
     .prologue
-    .line 539
+    .line 598
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 540
+    .line 599
     invoke-direct {p0, p2, p3}, Landroid/view/InputEventReceiver;-><init>(Landroid/view/InputChannel;Landroid/os/Looper;)V
 
-    .line 541
+    .line 600
     return-void
 .end method
 
@@ -45,16 +45,16 @@
     .prologue
     const/4 v7, 0x0
 
-    .line 545
+    .line 604
     const/4 v4, 0x0
 
-    .line 546
+    .line 605
     .local v4, handled:Z
     iget-object v8, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v3, v8, Lcom/android/internal/policy/impl/PhoneWindowManager;->mFocusedWindow:Landroid/view/WindowManagerPolicy$WindowState;
 
-    .line 547
+    .line 606
     .local v3, focusedWindow:Landroid/view/WindowManagerPolicy$WindowState;
     if-eqz v3, :cond_5
 
@@ -62,7 +62,7 @@
 
     move-result-object v1
 
-    .line 549
+    .line 608
     .local v1, attrs:Landroid/view/WindowManager$LayoutParams;
     :goto_0
     if-eqz v1, :cond_6
@@ -75,12 +75,12 @@
 
     const/4 v6, 0x1
 
-    .line 552
+    .line 611
     .local v6, isStatusBarWindow:Z
     :goto_1
     const/4 v5, 0x1
 
-    .line 553
+    .line 612
     .local v5, isStatusBarExpandEnabled:Z
     iget-object v8, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -88,7 +88,7 @@
 
     if-nez v8, :cond_0
 
-    .line 554
+    .line 613
     iget-object v8, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     const-string v9, "statusbar"
@@ -103,7 +103,7 @@
 
     iput-object v9, v8, Lcom/android/internal/policy/impl/PhoneWindowManager;->mStatusBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 557
+    .line 616
     :cond_0
     iget-object v8, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -111,7 +111,7 @@
 
     if-eqz v8, :cond_1
 
-    .line 559
+    .line 618
     :try_start_0
     iget-object v8, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -123,7 +123,7 @@
 
     move-result v5
 
-    .line 568
+    .line 627
     :cond_1
     :goto_2
     if-eqz v1, :cond_4
@@ -135,7 +135,7 @@
 
     if-nez v7, :cond_4
 
-    .line 569
+    .line 628
     instance-of v7, p1, Landroid/view/MotionEvent;
 
     if-eqz v7, :cond_4
@@ -148,14 +148,14 @@
 
     if-eqz v7, :cond_4
 
-    .line 571
+    .line 630
     iget-object v7, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v7, v7, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPointerInterceptView:Lcom/android/internal/policy/impl/PointerInterceptView;
 
     if-nez v7, :cond_2
 
-    .line 572
+    .line 631
     iget-object v7, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     new-instance v8, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver$1;
@@ -168,7 +168,7 @@
 
     iput-object v8, v7, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPointerInterceptView:Lcom/android/internal/policy/impl/PointerInterceptView;
 
-    .line 585
+    .line 644
     :cond_2
     iget-object v7, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -178,7 +178,7 @@
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_1
 
-    .line 586
+    .line 645
     :try_start_2
     iget-object v7, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -186,7 +186,7 @@
 
     if-eqz v7, :cond_3
 
-    .line 587
+    .line 646
     iget-object v7, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v9, v7, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPointerInterceptView:Lcom/android/internal/policy/impl/PointerInterceptView;
@@ -199,20 +199,20 @@
 
     invoke-virtual {v9, v7, v6, v5}, Lcom/android/internal/policy/impl/PointerInterceptView;->addPointerEvent(Landroid/view/MotionEvent;ZZ)V
 
-    .line 590
+    .line 649
     :cond_3
     const/4 v4, 0x1
 
-    .line 591
+    .line 650
     monitor-exit v8
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
-    .line 595
+    .line 654
     :cond_4
     invoke-virtual {p0, p1, v4}, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->finishInputEvent(Landroid/view/InputEvent;Z)V
 
-    .line 597
+    .line 656
     return-void
 
     .end local v1           #attrs:Landroid/view/WindowManager$LayoutParams;
@@ -221,23 +221,23 @@
     :cond_5
     move-object v1, v7
 
-    .line 547
+    .line 606
     goto :goto_0
 
-    .line 549
+    .line 608
     .restart local v1       #attrs:Landroid/view/WindowManager$LayoutParams;
     :cond_6
     const/4 v6, 0x0
 
     goto :goto_1
 
-    .line 560
+    .line 619
     .restart local v5       #isStatusBarExpandEnabled:Z
     .restart local v6       #isStatusBarWindow:Z
     :catch_0
     move-exception v2
 
-    .line 561
+    .line 620
     .local v2, e:Landroid/os/RemoteException;
     const-string v8, "WindowManager"
 
@@ -245,17 +245,17 @@
 
     invoke-static {v8, v9}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 562
+    .line 621
     iget-object v8, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$PointerInterceptInputEventReceiver;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iput-object v7, v8, Lcom/android/internal/policy/impl/PhoneWindowManager;->mStatusBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 563
+    .line 622
     const/4 v5, 0x1
 
     goto :goto_2
 
-    .line 591
+    .line 650
     .end local v2           #e:Landroid/os/RemoteException;
     :catchall_0
     move-exception v7
@@ -270,7 +270,7 @@
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_1
 
-    .line 595
+    .line 654
     :catchall_1
     move-exception v7
 

@@ -11,8 +11,7 @@
     value = {
         Lcom/android/internal/app/ResolverActivity$ItemLongClickListener;,
         Lcom/android/internal/app/ResolverActivity$ResolveListAdapter;,
-        Lcom/android/internal/app/ResolverActivity$DisplayResolveInfo;,
-        Lcom/android/internal/app/ResolverActivity$Injector;
+        Lcom/android/internal/app/ResolverActivity$DisplayResolveInfo;
     }
 .end annotation
 
@@ -172,33 +171,6 @@
     iget v0, p0, Lcom/android/internal/app/ResolverActivity;->mIconSize:I
 
     return v0
-.end method
-
-.method private checkOption(Z)Z
-    .locals 1
-    .parameter "alwaysUseOption"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    if-eqz p1, :cond_0
-
-    invoke-static {p0}, Lmiui/util/UiUtils;->isV5Ui(Landroid/content/Context;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_0
-
-    const/4 v0, 0x1
-
-    :goto_0
-    return v0
-
-    :cond_0
-    const/4 v0, 0x0
-
-    goto :goto_0
 .end method
 
 .method private makeMyIntent()Landroid/content/Intent;
@@ -572,7 +544,13 @@
     iput-boolean v0, p0, Lcom/android/internal/app/ResolverActivity;->mAlwaysUseOption:Z
 
     .line 143
-    invoke-static/range {p0 .. p0}, Lcom/android/internal/app/ResolverActivity$Injector;->getMaxColumns(Lcom/android/internal/app/ResolverActivity;)I
+    invoke-virtual {p0}, Lcom/android/internal/app/ResolverActivity;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    const v2, 0x10e0036
+
+    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v1
 
@@ -738,17 +716,6 @@
     .line 230
     :cond_1
     :goto_3
-    iget-object v0, v10, Lcom/android/internal/app/AlertController$AlertParams;->mView:Landroid/view/View;
-
-    if-eqz v0, :cond_miui_00
-
-    move-object/from16 v0, p0
-
-    move/from16 v2, p6
-
-    invoke-static {v0, v2}, Lcom/android/internal/app/ResolverActivity$Injector;->initialize(Lcom/android/internal/app/ResolverActivity;Z)V
-
-    :cond_miui_00
     return-void
 
     .line 138
@@ -779,7 +746,7 @@
 
     .line 157
     :cond_3
-    const v1, 0x60d003e
+    const v1, 0x103031c
 
     invoke-virtual {p0, v1}, Lcom/android/internal/app/ResolverActivity;->setTheme(I)V
 
@@ -887,24 +854,23 @@
 
     iput-object v1, v9, Lcom/android/internal/app/AlertController$AlertParams;->mPositiveButtonText:Ljava/lang/CharSequence;
 
+    .line 198
     iget-object v1, p0, Lcom/android/internal/app/ResolverActivity;->mDialogListener:Landroid/content/DialogInterface$OnClickListener;
 
     iput-object v1, v9, Lcom/android/internal/app/AlertController$AlertParams;->mPositiveButtonListener:Landroid/content/DialogInterface$OnClickListener;
 
+    .line 202
     :cond_5
     invoke-virtual {p0}, Lcom/android/internal/app/ResolverActivity;->resizeGrid()V
 
+    .line 213
     :goto_5
     invoke-virtual {p0}, Lcom/android/internal/app/ResolverActivity;->setupAlert()V
 
-    move/from16 v0, p6
+    .line 215
+    if-eqz p6, :cond_1
 
-    invoke-direct {p0, v0}, Lcom/android/internal/app/ResolverActivity;->checkOption(Z)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
+    .line 216
     const v1, 0x10202a7
 
     invoke-virtual {p0, v1}, Lcom/android/internal/app/ResolverActivity;->findViewById(I)Landroid/view/View;
@@ -1937,19 +1903,6 @@
     invoke-virtual {v1, v2}, Landroid/widget/GridView;->setNumColumns(I)V
 
     .line 235
-    return-void
-.end method
-
-.method setAlwaysUseOption(Z)V
-    .locals 0
-    .parameter "alwaysUseOption"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    iput-boolean p1, p0, Lcom/android/internal/app/ResolverActivity;->mAlwaysUseOption:Z
-
     return-void
 .end method
 

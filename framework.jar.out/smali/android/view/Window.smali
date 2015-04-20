@@ -324,16 +324,6 @@
 .method public abstract addContentView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 .end method
 
-.method public addExtraFlags(I)V
-    .locals 0
-    .parameter "flags"
-
-    .prologue
-    invoke-virtual {p0, p1, p1}, Landroid/view/Window;->setExtraFlags(II)V
-
-    return-void
-.end method
-
 .method public addFlags(I)V
     .locals 0
     .parameter "flags"
@@ -347,18 +337,6 @@
 .end method
 
 .method public abstract alwaysReadCloseOnTouchAttr()V
-.end method
-
-.method public clearExtraFlags(I)V
-    .locals 1
-    .parameter "flags"
-
-    .prologue
-    const/4 v0, 0x0
-
-    invoke-virtual {p0, v0, p1}, Landroid/view/Window;->setExtraFlags(II)V
-    
-    return-void
 .end method
 
 .method public clearFlags(I)V
@@ -645,21 +623,6 @@
     .prologue
     .line 1276
     iget-boolean v0, p0, Landroid/view/Window;->mNoWindowDecor:Z
-
-    return v0
-.end method
-
-.method public isHardwareAccelerated()Z
-    .locals 1
-
-    .prologue
-    invoke-virtual {p0}, Landroid/view/Window;->getWindowManager()Landroid/view/WindowManager;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Landroid/view/WindowManager;->isHardwareAccelerated()Z
-
-    move-result v0
 
     return v0
 .end method
@@ -1107,41 +1070,6 @@
 .end method
 
 .method public abstract setFeatureInt(II)V
-.end method
-
-.method public setExtraFlags(II)V
-    .locals 3
-    .parameter "flags"
-    .parameter "mask"
-
-    .prologue
-    invoke-virtual {p0}, Landroid/view/Window;->getAttributes()Landroid/view/WindowManager$LayoutParams;
-
-    move-result-object v0
-
-    .local v0, attrs:Landroid/view/WindowManager$LayoutParams;
-    iget v1, v0, Landroid/view/WindowManager$LayoutParams;->extraFlags:I
-
-    xor-int/lit8 v2, p2, -0x1
-
-    and-int/2addr v1, v2
-
-    and-int v2, p1, p2
-
-    or-int/2addr v1, v2
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->extraFlags:I
-
-    iget-object v1, p0, Landroid/view/Window;->mCallback:Landroid/view/Window$Callback;
-
-    if-eqz v1, :cond_0
-
-    iget-object v1, p0, Landroid/view/Window;->mCallback:Landroid/view/Window$Callback;
-
-    invoke-interface {v1, v0}, Landroid/view/Window$Callback;->onWindowAttributesChanged(Landroid/view/WindowManager$LayoutParams;)V
-
-    :cond_0
-    return-void
 .end method
 
 .method public setFlags(II)V

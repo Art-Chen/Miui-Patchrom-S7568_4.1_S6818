@@ -32,7 +32,6 @@
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    :cond_miui_2
     return-void
 .end method
 

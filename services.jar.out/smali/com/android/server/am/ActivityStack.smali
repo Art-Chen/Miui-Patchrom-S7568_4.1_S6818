@@ -11876,9 +11876,6 @@
     .locals 7
     .parameter "r"
     .parameter "globalChanges"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
     const/4 v3, 0x1
@@ -11984,16 +11981,6 @@
 
     .line 6315
     :cond_7
-    iget-object v5, p1, Lcom/android/server/am/ActivityRecord;->info:Landroid/content/pm/ActivityInfo;
-
-    iget-object v5, v5, Landroid/content/pm/ActivityInfo;->packageName:Ljava/lang/String;
-
-    invoke-static {v5, v0, v1}, Landroid/app/MiuiThemeHelper;->needRestartActivity(Ljava/lang/String;ILandroid/content/res/Configuration;)Z
-
-    move-result v5
-
-    if-nez v5, :cond_0
-
     iget v5, p1, Lcom/android/server/am/ActivityRecord;->configChangeFlags:I
 
     or-int/2addr v5, v0
@@ -23920,19 +23907,6 @@
 
     .line 4125
     .local v12, aInfo:Landroid/content/pm/ActivityInfo;
-    move-object/from16 v0, p0
-
-    invoke-direct {v0, v12}, Lcom/android/server/am/ActivityStack;->checkRunningCompatibility(Landroid/content/pm/ActivityInfo;)Z
-
-    move-result v2
-
-    if-nez v2, :cond_miui_0
-
-    const/4 v2, 0x5
-
-    return v2
-
-    :cond_miui_0
     if-eqz v12, :cond_1
 
     move-object/from16 v0, p0
@@ -27632,44 +27606,4 @@
 
     .line 2760
     return-void
-.end method
-
-.method private checkRunningCompatibility(Landroid/content/pm/ActivityInfo;)Z
-    .locals 2
-    .parameter "aInfo"
-
-    .prologue
-    iget-object v0, p0, Lcom/android/server/am/ActivityStack;->mService:Lcom/android/server/am/ActivityManagerService;
-
-    iget-boolean v0, v0, Lcom/android/server/am/ActivityManagerService;->mSystemReady:Z
-
-    if-eqz v0, :cond_1
-
-    iget-object v1, p0, Lcom/android/server/am/ActivityStack;->mContext:Landroid/content/Context;
-
-    if-eqz p1, :cond_0
-
-    iget-object v0, p1, Landroid/content/pm/ActivityInfo;->applicationInfo:Landroid/content/pm/ApplicationInfo;
-
-    :goto_0
-    invoke-static {v1, v0}, Lcom/android/server/am/ExtraActivityManagerService;->checkRunningCompatibility(Landroid/content/Context;Landroid/content/pm/ApplicationInfo;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_1
-
-    const/4 v0, 0x0
-
-    :goto_1
-    return v0
-
-    :cond_0
-    const/4 v0, 0x0
-
-    goto :goto_0
-
-    :cond_1
-    const/4 v0, 0x1
-
-    goto :goto_1
 .end method

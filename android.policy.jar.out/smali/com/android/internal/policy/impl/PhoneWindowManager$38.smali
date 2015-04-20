@@ -7,8 +7,8 @@
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/internal/policy/impl/PhoneWindowManager;->updateMultiWindowTrayBar(Z)V
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/internal/policy/impl/PhoneWindowManager;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,20 +20,15 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-.field final synthetic val$bInit:Z
-
 
 # direct methods
-.method constructor <init>(Lcom/android/internal/policy/impl/PhoneWindowManager;Z)V
+.method constructor <init>(Lcom/android/internal/policy/impl/PhoneWindowManager;)V
     .locals 0
-    .parameter
     .parameter
 
     .prologue
-    .line 8472
+    .line 8037
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    iput-boolean p2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->val$bInit:Z
 
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
 
@@ -43,60 +38,48 @@
 
 # virtual methods
 .method public run()V
-    .locals 3
+    .locals 2
 
     .prologue
-    .line 8474
-    iget-boolean v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->val$bInit:Z
+    .line 8039
+    monitor-enter p0
 
-    if-eqz v1, :cond_0
+    .line 8041
+    :try_start_0
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 8475
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    iget-object v0, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/KeyguardViewMediator;
 
-    #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mMultiWindowUIIntent:Landroid/content/Intent;
-    invoke-static {v1}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$1200(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/content/Intent;
+    if-eqz v0, :cond_0
 
-    move-result-object v1
+    .line 8042
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    invoke-virtual {v1}, Landroid/content/Intent;->clone()Ljava/lang/Object;
+    iget-object v0, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/KeyguardViewMediator;
 
-    move-result-object v0
+    invoke-virtual {v0}, Lcom/android/internal/policy/impl/KeyguardViewMediator;->doKeyguardTimeout()V
 
-    check-cast v0, Landroid/content/Intent;
+    .line 8044
+    :cond_0
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 8476
-    .local v0, initIntent:Landroid/content/Intent;
-    const-string v1, "com.sec.android.multiwindow.ui.init"
+    const/4 v1, 0x0
 
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
+    iput-boolean v1, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mLockScreenTimerActive:Z
 
-    .line 8477
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    .line 8045
+    monitor-exit p0
 
-    iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v1, v0}, Landroid/content/Context;->startService(Landroid/content/Intent;)Landroid/content/ComponentName;
-
-    .line 8481
-    .end local v0           #initIntent:Landroid/content/Intent;
-    :goto_0
+    .line 8046
     return-void
 
-    .line 8479
-    :cond_0
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    .line 8045
+    :catchall_0
+    move-exception v0
 
-    iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
+    monitor-exit p0
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$38;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    #getter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mMultiWindowUIIntent:Landroid/content/Intent;
-    invoke-static {v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$1200(Lcom/android/internal/policy/impl/PhoneWindowManager;)Landroid/content/Intent;
-
-    move-result-object v2
-
-    invoke-virtual {v1, v2}, Landroid/content/Context;->startService(Landroid/content/Intent;)Landroid/content/ComponentName;
-
-    goto :goto_0
+    throw v0
 .end method

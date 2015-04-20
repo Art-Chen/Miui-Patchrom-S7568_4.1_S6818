@@ -27,7 +27,7 @@
     .parameter
 
     .prologue
-    .line 1379
+    .line 1507
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$5;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
@@ -41,14 +41,14 @@
     .locals 4
 
     .prologue
-    .line 1382
+    .line 1510
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$5;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     const/4 v2, 0x0
 
     iput-boolean v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPowerKeyHandled:Z
 
-    .line 1383
+    .line 1511
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$5;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mWindowManagerFuncs:Landroid/view/WindowManagerPolicy$WindowManagerFuncs;
@@ -57,27 +57,27 @@
 
     move-result v0
 
-    .line 1384
+    .line 1512
     .local v0, state:I
     const/4 v1, 0x2
 
     if-ne v0, v1, :cond_2
 
-    .line 1385
+    .line 1513
     const-string v1, "FakeShutdown"
 
     const-string v2, "start fakebootup."
 
     invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1387
+    .line 1515
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$5;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     iget-boolean v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mCameraSpecialized:Z
 
     if-eqz v1, :cond_1
 
-    .line 1388
+    .line 1516
     sget-boolean v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->SAFE_DEBUG:Z
 
     if-eqz v1, :cond_0
@@ -88,7 +88,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1389
+    .line 1517
     :cond_0
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$5;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -96,7 +96,7 @@
 
     iput v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenOnReason:I
 
-    .line 1392
+    .line 1520
     :cond_1
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$5;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
@@ -104,11 +104,11 @@
 
     invoke-interface {v1}, Landroid/view/WindowManagerPolicy$WindowManagerFuncs;->fakebootup()V
 
-    .line 1396
+    .line 1524
     :goto_0
     return-void
 
-    .line 1394
+    .line 1522
     :cond_2
     const-string v1, "FakeShutdown"
 

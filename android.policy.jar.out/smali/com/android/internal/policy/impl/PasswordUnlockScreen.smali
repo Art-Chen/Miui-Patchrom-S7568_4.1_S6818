@@ -269,7 +269,6 @@
 
     invoke-virtual {v1, p0}, Landroid/widget/EditText;->setOnKeyListener(Landroid/view/View$OnKeyListener;)V
 
-    .line 166
     invoke-static {}, Lcom/android/internal/policy/impl/sec/SamsungLockScreenProperties;->isVZWDevice()Z
 
     move-result v1
@@ -452,12 +451,14 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/EditText;->setKeyListener(Landroid/text/method/KeyListener;)V
 
+    .line 247
     iget-object v1, p0, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->mPasswordEntry:Landroid/widget/EditText;
 
     const v2, 0x800081
 
     invoke-virtual {v1, v2}, Landroid/widget/EditText;->setInputType(I)V
 
+    .line 252
     invoke-virtual {p0}, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->getContext()Landroid/content/Context;
 
     move-result-object v1
@@ -1317,9 +1318,7 @@
 
 .method private verifyPasswordAndUnlock()V
     .locals 14
-     .annotation build Landroid/annotation/MiuiHook;
-         value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-     .end annotation
+
     .prologue
     .line 418
     iget-object v11, p0, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->mPasswordEntry:Landroid/widget/EditText;
@@ -1494,7 +1493,6 @@
 
     invoke-virtual {v11, v12}, Lcom/android/internal/policy/impl/KeyguardStatusViewManager;->setInstructionText(Ljava/lang/String;)V
 
-    .line 446
     invoke-static {p0, v4}, Lcom/android/internal/policy/impl/PasswordUnlockScreen$Injector;->clearPinLockForFindDevice(Lcom/android/internal/policy/impl/PasswordUnlockScreen;Ljava/lang/String;)V
 
 
@@ -1620,43 +1618,6 @@
 
 
 # virtual methods
-.method checkImmOnResume()V
-    .locals 3
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
-    .prologue
-    invoke-direct {p0}, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->showImmOnResume()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
-    invoke-virtual {p0}, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->getContext()Landroid/content/Context;
-
-    move-result-object v1
-
-    const-string v2, "input_method"
-
-    invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/view/inputmethod/InputMethodManager;
-
-    .local v0, imm:Landroid/view/inputmethod/InputMethodManager;
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->mPasswordEntry:Landroid/widget/EditText;
-
-    const/4 v2, 0x1
-
-    invoke-virtual {v0, v1, v2}, Landroid/view/inputmethod/InputMethodManager;->showSoftInput(Landroid/view/View;I)Z
-
-    .end local v0           #imm:Landroid/view/inputmethod/InputMethodManager;
-    :cond_0
-    return-void
-.end method
-
 .method public cleanUp()V
     .locals 1
 
@@ -1733,17 +1694,23 @@
 .end method
 
 .method public needsInput()Z
-    .locals 1
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
+    .locals 2
 
     .prologue
-    invoke-virtual {p0}, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->isAlphaOrDefaultImeIsCustomizedForMiui()Z
+    const/4 v0, 0x1
 
-    move-result v0
+    .line 372
+    iget v1, p0, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->mCreationHardKeyboardHidden:I
 
+    if-ne v1, v0, :cond_0
+
+    :goto_0
     return v0
+
+    :cond_0
+    iget-boolean v0, p0, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->mIsAlpha:Z
+
+    goto :goto_0
 .end method
 
 .method protected onAttachedToWindow()V
@@ -2000,8 +1967,6 @@
     invoke-virtual {v3}, Landroid/widget/EditText;->requestFocus()Z
 
     invoke-direct {p0}, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->showImmOnResume()V
-
-
     .line 392
     invoke-direct {p0}, Lcom/android/internal/policy/impl/PasswordUnlockScreen;->isDeviceDisabledForMaxFailedAttempt()Z
 
@@ -2056,7 +2021,6 @@
 
     goto :goto_0
 .end method
-
 .method verifyPassword(Ljava/lang/String;)V
     .locals 2
     .parameter "password"
@@ -2094,6 +2058,7 @@
     :cond_0
     return-void
 .end method
+
 .method private showImmOnResume()V
     .locals 4
     .annotation build Landroid/annotation/MiuiHook;

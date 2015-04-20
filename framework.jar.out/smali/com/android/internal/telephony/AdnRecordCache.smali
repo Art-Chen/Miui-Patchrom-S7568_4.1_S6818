@@ -1,4 +1,4 @@
-.class public Lcom/android/internal/telephony/AdnRecordCache;
+.class public final Lcom/android/internal/telephony/AdnRecordCache;
 .super Landroid/os/Handler;
 .source "AdnRecordCache.java"
 

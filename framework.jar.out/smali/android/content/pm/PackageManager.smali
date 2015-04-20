@@ -14,22 +14,13 @@
 # static fields
 .field public static final ACTION_CLEAN_EXTERNAL_STORAGE:Ljava/lang/String; = "android.content.pm.CLEAN_EXTERNAL_STORAGE"
 
-.field public static final COMPONENT_ENABLED_STATE_ACCESS_CONTROL:I = -0x80000000
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-.end field
-
 .field public static final COMPONENT_ENABLED_STATE_DEFAULT:I = 0x0
 
 .field public static final COMPONENT_ENABLED_STATE_DISABLED:I = 0x2
 
 .field public static final COMPONENT_ENABLED_STATE_DISABLED_USER:I = 0x3
 
-.field public static final COMPONENT_ENABLED_STATE_DISABLE_AUTOSTART:I = 0x40000000
 .field public static final COMPONENT_ENABLED_STATE_ENABLED:I = 0x1
-
-.field public static final COMPONENT_ENABLED_STATE_SHOW_FLOATING_WINDOW:I = 0x8000000
 
 .field public static final DELETE_FAILED_DEVICE_POLICY_MANAGER:I = -0x2
 
@@ -189,18 +180,6 @@
 
 .field public static final GET_URI_PERMISSION_PATTERNS:I = 0x800
 
-.field public static final HAS_ACTIVITY:I = 0x20000
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-.end field
-
-.field public static final HAS_ACTIVITY_OR_SERVICES:I = 0x40000
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_FIELD:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-.end field
-
 .field public static final INSTALL_ALLOW_TEST:I = 0x4
 
 .field public static final INSTALL_EXTERNAL:I = 0x8
@@ -210,8 +189,6 @@
 .field public static final INSTALL_FAILED_CONFLICTING_PROVIDER:I = -0xd
 
 .field public static final INSTALL_FAILED_CONTAINER_ERROR:I = -0x12
-
-.field public static final INSTALL_FAILED_CONTAIN_VIRUS:I = -0x19
 
 .field public static final INSTALL_FAILED_CPU_ABI_INCOMPATIBLE:I = -0x10
 
@@ -246,8 +223,6 @@
 .field public static final INSTALL_FAILED_REPLACE_COULDNT_DELETE:I = -0xa
 
 .field public static final INSTALL_FAILED_SHARED_USER_INCOMPATIBLE:I = -0x8
-
-.field public static final INSTALL_FAILED_SYSTEM_INCOMPATIBLE:I = -0x1a
 
 .field public static final INSTALL_FAILED_TEST_ONLY:I = -0xf
 

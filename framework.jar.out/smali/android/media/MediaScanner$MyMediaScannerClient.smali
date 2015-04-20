@@ -324,10 +324,6 @@
     .parameter "alarms"
     .parameter "music"
     .parameter "podcasts"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
-
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/os/RemoteException;
@@ -908,22 +904,7 @@
     :goto_6
     if-eqz v38, :cond_31
 
-    #start
-    move-object/from16 v0, p0
-
-    iget-object v6, v0, Landroid/media/MediaScanner$MyMediaScannerClient;->this$0:Landroid/media/MediaScanner;
-
-    move-object/from16 v1, p1
-
-    move/from16 v2, p2
-
-    move/from16 v3, p4
-
-    move/from16 v4, p5
-
-    invoke-static {v6, v1, v2, v3, v4}, Landroid/media/MediaScanner$Injector;->setAllSettingsIfNotSet(Landroid/media/MediaScanner;Landroid/media/MediaScanner$FileEntry;ZZZ)V
-    #end
-## mobily by Art_Chen
+    .line 1282
     if-eqz p4, :cond_32
 
     .line 1283
@@ -4075,7 +4056,7 @@
 
     move-object/from16 v0, p1
 
-    invoke-virtual {v3, v0}, Landroid/media/MediaScanner;->fastMakeEntryFor(Ljava/lang/String;)Landroid/media/MediaScanner$FileEntry;
+    invoke-virtual {v3, v0}, Landroid/media/MediaScanner;->makeEntryFor(Ljava/lang/String;)Landroid/media/MediaScanner$FileEntry;
 
     move-result-object v2
 

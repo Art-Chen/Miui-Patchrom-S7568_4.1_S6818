@@ -1900,264 +1900,6 @@
     .parameter "userId"
 
     .prologue
-    iget-object v1, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    monitor-enter v1
-
-    if-nez p1, :cond_0
-
-    const/4 v0, 0x1
-
-    :try_start_0
-    monitor-exit v1
-
-    :goto_0
-    return v0
-
-    :cond_0
-    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
-
-    invoke-static {v0, p1}, Lcom/android/internal/util/ArrayUtils;->contains([II)Z
-
-    move-result v0
-
-    monitor-exit v1
-
-    goto :goto_0
-
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
-.end method
-
-.method public getUser(I)Landroid/content/pm/UserInfo;
-    .locals 3
-    .parameter "userId"
-
-    .prologue
-    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    monitor-enter v2
-
-    :try_start_0
-    iget-object v1, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    invoke-virtual {v1, p1}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/content/pm/UserInfo;
-
-    .local v0, info:Landroid/content/pm/UserInfo;
-    monitor-exit v2
-
-    return-object v0
-
-    .end local v0           #info:Landroid/content/pm/UserInfo;
-    :catchall_0
-    move-exception v1
-
-    monitor-exit v2
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v1
-.end method
-
-.method getUserIds()[I
-    .locals 1
-
-    .prologue
-    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
-
-    return-object v0
-.end method
-
-.method public getUsers()Ljava/util/List;
-    .locals 4
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()",
-            "Ljava/util/List",
-            "<",
-            "Landroid/content/pm/UserInfo;",
-            ">;"
-        }
-    .end annotation
-
-    .prologue
-    iget-object v3, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    monitor-enter v3
-
-    :try_start_0
-    new-instance v1, Ljava/util/ArrayList;
-
-    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    invoke-virtual {v2}, Landroid/util/SparseArray;->size()I
-
-    move-result v2
-
-    invoke-direct {v1, v2}, Ljava/util/ArrayList;-><init>(I)V
-
-    .local v1, users:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/UserInfo;>;"
-    const/4 v0, 0x0
-
-    .local v0, i:I
-    :goto_0
-    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    invoke-virtual {v2}, Landroid/util/SparseArray;->size()I
-
-    move-result v2
-
-    if-ge v0, v2, :cond_0
-
-    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
-
-    invoke-virtual {v2, v0}, Landroid/util/SparseArray;->valueAt(I)Ljava/lang/Object;
-
-    move-result-object v2
-
-    invoke-virtual {v1, v2}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    add-int/lit8 v0, v0, 0x1
-
-    goto :goto_0
-
-    :cond_0
-    monitor-exit v3
-
-    return-object v1
-
-    .end local v0           #i:I
-    .end local v1           #users:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/UserInfo;>;"
-    :catchall_0
-    move-exception v2
-
-    monitor-exit v3
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v2
-.end method
-
-.method public installPackageForAllUsers(Ljava/lang/String;I)V
-    .locals 6
-    .parameter "packageName"
-    .parameter "uid"
-
-    .prologue
-    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
-
-    .local v0, arr$:[I
-    array-length v2, v0
-
-    .local v2, len$:I
-    const/4 v1, 0x0
-
-    .local v1, i$:I
-    :goto_0
-    if-ge v1, v2, :cond_1
-
-    aget v3, v0, v1
-
-    .local v3, userId:I
-    if-nez v3, :cond_0
-
-    :goto_1
-    add-int/lit8 v1, v1, 0x1
-
-    goto :goto_0
-
-    :cond_0
-    iget-object v4, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
-
-    invoke-static {v3, p2}, Landroid/os/UserId;->getUid(II)I
-
-    move-result v5
-
-    invoke-virtual {v4, p1, v5, v3}, Lcom/android/server/pm/Installer;->createUserData(Ljava/lang/String;II)I
-
-    goto :goto_1
-
-    .end local v3           #userId:I
-    :cond_1
-    return-void
-.end method
-
-.method removePackageFolders(I)Z
-    .locals 2
-    .parameter "id"
-
-    .prologue
-    const/4 v1, 0x1
-
-    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
-
-    if-nez v0, :cond_0
-
-    :goto_0
-    return v1
-
-    :cond_0
-    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
-
-    invoke-virtual {v0, p1}, Lcom/android/server/pm/Installer;->removeUserDataDirs(I)I
-
-    goto :goto_0
-.end method
-
-.method public removePackageForAllUsers(Ljava/lang/String;)V
-    .locals 5
-    .parameter "packageName"
-
-    .prologue
-    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
-
-    .local v0, arr$:[I
-    array-length v2, v0
-
-    .local v2, len$:I
-    const/4 v1, 0x0
-
-    .local v1, i$:I
-    :goto_0
-    if-ge v1, v2, :cond_1
-
-    aget v3, v0, v1
-
-    .local v3, userId:I
-    if-nez v3, :cond_0
-
-    :goto_1
-    add-int/lit8 v1, v1, 0x1
-
-    goto :goto_0
-
-    :cond_0
-    iget-object v4, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
-
-    invoke-virtual {v4, p1, v3}, Lcom/android/server/pm/Installer;->remove(Ljava/lang/String;I)I
-
-    goto :goto_1
-
-    .end local v3           #userId:I
-    :cond_1
-    return-void
-.end method
-
-.method public removeUser(I)Z
-    .locals 2
-    .parameter "id"
-
-    .prologue
     .line 112
     iget-object v1, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
 
@@ -2165,7 +1907,9 @@
 
     .line 113
     :try_start_0
-    invoke-direct {p0, p1}, Lcom/android/server/pm/UserManager;->removeUserLocked(I)Z
+    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
+
+    invoke-static {v0, p1}, Lcom/android/internal/util/ArrayUtils;->contains([II)Z
 
     move-result v0
 
@@ -2184,10 +1928,9 @@
     throw v0
 .end method
 
-.method public updateUserName(ILjava/lang/String;)V
+.method public getUser(I)Landroid/content/pm/UserInfo;
     .locals 3
     .parameter "userId"
-    .parameter "name"
 
     .prologue
     .line 105
@@ -2196,6 +1939,281 @@
     monitor-enter v2
 
     .line 106
+    :try_start_0
+    iget-object v1, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    invoke-virtual {v1, p1}, Landroid/util/SparseArray;->get(I)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/content/pm/UserInfo;
+
+    .line 107
+    .local v0, info:Landroid/content/pm/UserInfo;
+    monitor-exit v2
+
+    return-object v0
+
+    .line 108
+    .end local v0           #info:Landroid/content/pm/UserInfo;
+    :catchall_0
+    move-exception v1
+
+    monitor-exit v2
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v1
+.end method
+
+.method getUserIds()[I
+    .locals 1
+
+    .prologue
+    .line 133
+    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
+
+    return-object v0
+.end method
+
+.method public getUsers()Ljava/util/List;
+    .locals 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List",
+            "<",
+            "Landroid/content/pm/UserInfo;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    .line 95
+    iget-object v3, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    monitor-enter v3
+
+    .line 96
+    :try_start_0
+    new-instance v1, Ljava/util/ArrayList;
+
+    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    invoke-virtual {v2}, Landroid/util/SparseArray;->size()I
+
+    move-result v2
+
+    invoke-direct {v1, v2}, Ljava/util/ArrayList;-><init>(I)V
+
+    .line 97
+    .local v1, users:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/UserInfo;>;"
+    const/4 v0, 0x0
+
+    .local v0, i:I
+    :goto_0
+    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    invoke-virtual {v2}, Landroid/util/SparseArray;->size()I
+
+    move-result v2
+
+    if-ge v0, v2, :cond_0
+
+    .line 98
+    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    invoke-virtual {v2, v0}, Landroid/util/SparseArray;->valueAt(I)Ljava/lang/Object;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    .line 97
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_0
+
+    .line 100
+    :cond_0
+    monitor-exit v3
+
+    return-object v1
+
+    .line 101
+    .end local v0           #i:I
+    .end local v1           #users:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/UserInfo;>;"
+    :catchall_0
+    move-exception v2
+
+    monitor-exit v3
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v2
+.end method
+
+.method public installPackageForAllUsers(Ljava/lang/String;I)V
+    .locals 6
+    .parameter "packageName"
+    .parameter "uid"
+
+    .prologue
+    .line 388
+    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
+
+    .local v0, arr$:[I
+    array-length v2, v0
+
+    .local v2, len$:I
+    const/4 v1, 0x0
+
+    .local v1, i$:I
+    :goto_0
+    if-ge v1, v2, :cond_1
+
+    aget v3, v0, v1
+
+    .line 390
+    .local v3, userId:I
+    if-nez v3, :cond_0
+
+    .line 388
+    :goto_1
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    .line 392
+    :cond_0
+    iget-object v4, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
+
+    invoke-static {v3, p2}, Landroid/os/UserId;->getUid(II)I
+
+    move-result v5
+
+    invoke-virtual {v4, p1, v5, v3}, Lcom/android/server/pm/Installer;->createUserData(Ljava/lang/String;II)I
+
+    goto :goto_1
+
+    .line 395
+    .end local v3           #userId:I
+    :cond_1
+    return-void
+.end method
+
+.method removePackageFolders(I)Z
+    .locals 2
+    .parameter "id"
+
+    .prologue
+    const/4 v1, 0x1
+
+    .line 460
+    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
+
+    if-nez v0, :cond_0
+
+    .line 463
+    :goto_0
+    return v1
+
+    .line 462
+    :cond_0
+    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
+
+    invoke-virtual {v0, p1}, Lcom/android/server/pm/Installer;->removeUserDataDirs(I)I
+
+    goto :goto_0
+.end method
+
+.method public removePackageForAllUsers(Ljava/lang/String;)V
+    .locals 5
+    .parameter "packageName"
+
+    .prologue
+    .line 407
+    iget-object v0, p0, Lcom/android/server/pm/UserManager;->mUserIds:[I
+
+    .local v0, arr$:[I
+    array-length v2, v0
+
+    .local v2, len$:I
+    const/4 v1, 0x0
+
+    .local v1, i$:I
+    :goto_0
+    if-ge v1, v2, :cond_1
+
+    aget v3, v0, v1
+
+    .line 409
+    .local v3, userId:I
+    if-nez v3, :cond_0
+
+    .line 407
+    :goto_1
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    .line 411
+    :cond_0
+    iget-object v4, p0, Lcom/android/server/pm/UserManager;->mInstaller:Lcom/android/server/pm/Installer;
+
+    invoke-virtual {v4, p1, v3}, Lcom/android/server/pm/Installer;->remove(Ljava/lang/String;I)I
+
+    goto :goto_1
+
+    .line 413
+    .end local v3           #userId:I
+    :cond_1
+    return-void
+.end method
+
+.method public removeUser(I)Z
+    .locals 2
+    .parameter "id"
+
+    .prologue
+    .line 365
+    iget-object v1, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    monitor-enter v1
+
+    .line 366
+    :try_start_0
+    invoke-direct {p0, p1}, Lcom/android/server/pm/UserManager;->removeUserLocked(I)Z
+
+    move-result v0
+
+    monitor-exit v1
+
+    return v0
+
+    .line 367
+    :catchall_0
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v0
+.end method
+
+.method public updateUserName(ILjava/lang/String;)V
+    .locals 3
+    .parameter "userId"
+    .parameter "name"
+
+    .prologue
+    .line 118
+    iget-object v2, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
+
+    monitor-enter v2
+
+    .line 119
     :try_start_0
     iget-object v1, p0, Lcom/android/server/pm/UserManager;->mUsers:Landroid/util/SparseArray;
 

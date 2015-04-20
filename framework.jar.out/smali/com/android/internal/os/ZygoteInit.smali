@@ -599,13 +599,14 @@
     .parameter "argv"
 
     .prologue
+    .line 762
     :try_start_0
     invoke-static {}, Lcom/android/internal/os/SamplingProfilerIntegration;->start()V
 
-    invoke-static {}, Lmiui/security/SecurityManager;->init()V
-
+    .line 764
     invoke-static {}, Lcom/android/internal/os/ZygoteInit;->registerZygoteSocket()V
 
+    .line 765
     const/16 v3, 0xbcc
 
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J

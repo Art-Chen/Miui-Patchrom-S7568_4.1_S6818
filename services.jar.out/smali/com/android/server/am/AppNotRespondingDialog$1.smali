@@ -37,37 +37,22 @@
 .method public handleMessage(Landroid/os/Message;)V
     .locals 8
     .parameter "msg"
-    .annotation build Landroid/annotation/MiuiHook;
-        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
-    .end annotation
 
     .prologue
-    const/4 v5, 0x0
-
-    iget-object v3, p0, Lcom/android/server/am/AppNotRespondingDialog$1;->this$0:Lcom/android/server/am/AppNotRespondingDialog;
-
-    invoke-virtual {v3}, Lcom/android/server/am/AppNotRespondingDialog;->getContext()Landroid/content/Context;
-
-    move-result-object v3
-
-    iget-object v4, p0, Lcom/android/server/am/AppNotRespondingDialog$1;->this$0:Lcom/android/server/am/AppNotRespondingDialog;
-
-    invoke-virtual {v4}, Lcom/android/server/am/AppNotRespondingDialog;->getProc()Lcom/android/server/am/ProcessRecord;
-
-    move-result-object v4
-
-    invoke-static {v3, v4, v5}, Lcom/android/server/am/MiuiErrorReport;->sendAnrErrorReport(Landroid/content/Context;Lcom/android/server/am/ProcessRecord;Z)V
-
+    .line 160
     const/4 v1, 0x0
 
+    .line 161
     .local v1, appErrorIntent:Landroid/content/Intent;
     iget v3, p1, Landroid/os/Message;->what:I
 
     packed-switch v3, :pswitch_data_0
 
+    .line 186
     :goto_0
     if-eqz v1, :cond_0
 
+    .line 188
     :try_start_0
     iget-object v3, p0, Lcom/android/server/am/AppNotRespondingDialog$1;->this$0:Lcom/android/server/am/AppNotRespondingDialog;
 

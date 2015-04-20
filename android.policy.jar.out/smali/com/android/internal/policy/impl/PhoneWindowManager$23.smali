@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 6576
+    .line 7221
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -35,24 +35,13 @@
 
 # virtual methods
 .method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
-    .locals 6
+    .locals 4
     .parameter "context"
     .parameter "intent"
 
     .prologue
-    const/4 v5, 0x0
-
-    const/4 v4, 0x1
-
-    .line 6578
-    const-string v1, "WindowManager"
-
-    const-string v2, "ACTION_USBHID_MOUSE_EVENT Received..."
-
-    invoke-static {v1, v2}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 6579
-    const-string v1, "android.intent.action.USBHID_MOUSE_EVENT"
+    .line 7223
+    const-string v1, "android.intent.action.DOCK_EVENT"
 
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
@@ -62,83 +51,40 @@
 
     move-result v1
 
-    if-eqz v1, :cond_2
+    if-eqz v1, :cond_1
 
-    .line 6580
+    .line 7224
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    const-string v2, "android.intent.extra.device_state"
+    const-string v2, "android.intent.extra.DOCK_STATE"
 
-    invoke-virtual {p2, v2, v5}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+    const/4 v3, 0x0
+
+    invoke-virtual {p2, v2, v3}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
 
     move-result v2
 
-    iput v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mMouseConnectedDock:I
+    iput v2, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mDockMode:I
 
-    .line 6582
-    const-string v1, "WindowManager"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "ACTION_USBHID_MOUSE_EVENT Received.status  :  "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    iget-object v3, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    iget v3, v3, Lcom/android/internal/policy/impl/PhoneWindowManager;->mMouseConnectedDock:I
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v1, v2}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 6583
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    iget v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mMouseConnectedDock:I
-
-    if-ne v4, v1, :cond_1
-
-    .line 6584
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    iput-boolean v4, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mMouseDockedFlag:Z
-
-    .line 6597
+    .line 7236
     :cond_0
     :goto_0
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    invoke-virtual {v1, v4}, Lcom/android/internal/policy/impl/PhoneWindowManager;->updateRotation(Z)V
+    const/4 v2, 0x1
 
-    .line 6598
+    invoke-virtual {v1, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->updateRotation(Z)V
+
+    .line 7237
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-virtual {v1}, Lcom/android/internal/policy/impl/PhoneWindowManager;->updateOrientationListenerLp()V
 
-    .line 6599
+    .line 7238
     return-void
 
-    .line 6586
+    .line 7228
     :cond_1
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    iput-boolean v5, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mMouseDockedFlag:Z
-
-    goto :goto_0
-
-    .line 6589
-    :cond_2
     :try_start_0
     const-string v1, "uimode"
 
@@ -150,11 +96,11 @@
 
     move-result-object v0
 
-    .line 6591
+    .line 7230
     .local v0, uiModeService:Landroid/app/IUiModeManager;
     if-eqz v0, :cond_0
 
-    .line 6592
+    .line 7231
     iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$23;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-interface {v0}, Landroid/app/IUiModeManager;->getCurrentModeType()I
@@ -167,7 +113,7 @@
 
     goto :goto_0
 
-    .line 6594
+    .line 7233
     .end local v0           #uiModeService:Landroid/app/IUiModeManager;
     :catch_0
     move-exception v1

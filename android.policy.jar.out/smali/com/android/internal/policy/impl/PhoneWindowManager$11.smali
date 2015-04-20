@@ -27,7 +27,7 @@
     .parameter
 
     .prologue
-    .line 1638
+    .line 1933
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
@@ -38,122 +38,215 @@
 
 # virtual methods
 .method public run()V
-    .locals 8
+    .locals 7
 
     .prologue
-    const/4 v7, 0x0
+    const/4 v2, 0x1
 
-    const/16 v6, 0x1b
+    const/4 v4, 0x0
 
-    const/4 v5, 0x0
+    .line 1938
+    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 1640
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    iget-object v5, v5, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
 
-    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    invoke-virtual {v2}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->isShowing()Z
+    move-result-object v5
 
-    move-result v2
+    const-string v6, "torchlight_enable"
 
-    if-eqz v2, :cond_3
+    invoke-static {v5, v6, v4}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    .line 1643
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    move-result v5
 
-    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
+    if-eqz v5, :cond_2
 
-    invoke-virtual {v2, v6, v5}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->onWakeKeyWhenKeyguardShowingTq(IZ)Z
-
-    .line 1656
-    :cond_0
+    .line 1939
+    .local v2, torchEnable:Z
     :goto_0
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    iget-boolean v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mCameraSpecialized:Z
+    iget-object v4, v4, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
 
-    if-eqz v2, :cond_2
+    invoke-virtual {v4}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    .line 1657
-    sget-boolean v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->SAFE_DEBUG:Z
+    move-result-object v4
 
-    if-eqz v2, :cond_1
+    const-string v5, "torchlight_timeout"
 
-    const-string v2, "WindowManager"
+    const/16 v6, 0x7530
 
-    const-string v3, "set wakeup reason by camerakey"
+    invoke-static {v4, v5, v6}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v3
 
-    .line 1658
-    :cond_1
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    .line 1940
+    .local v3, torchTimeOut:I
+    div-int/lit16 v3, v3, 0x3e8
 
-    const/16 v3, 0x3ea
+    .line 1942
+    const-string v4, "WindowManager"
 
-    iput v3, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mScreenOnReason:I
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    .line 1662
-    :cond_2
-    new-instance v0, Landroid/view/KeyEvent;
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-direct {v0, v5, v6}, Landroid/view/KeyEvent;-><init>(II)V
+    const-string v6, "torchEnable = "
 
-    .line 1663
-    .local v0, cameraKeyDown:Landroid/view/KeyEvent;
-    new-instance v1, Landroid/content/Intent;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v2, "android.intent.action.CAMERA_BUTTON"
+    move-result-object v5
 
-    invoke-direct {v1, v2, v7}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    .line 1664
-    .local v1, intent:Landroid/content/Intent;
-    const-string v2, "android.intent.extra.KEY_EVENT"
+    move-result-object v5
 
-    invoke-virtual {v1, v2, v0}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
+    const-string v6, " torchTimeOut : "
 
-    .line 1665
-    const-string v2, "com.sec.android.app.camera"
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v3, "com.sec.android.app.camera.CameraButtonIntentReceiver"
+    move-result-object v5
 
-    invoke-virtual {v1, v2, v3}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+    invoke-virtual {v5, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    .line 1667
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    move-result-object v5
 
-    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
+    const-string v6, " sec"
 
-    invoke-virtual {v2, v1, v7}, Landroid/content/Context;->sendOrderedBroadcast(Landroid/content/Intent;Ljava/lang/String;)V
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1668
-    return-void
+    move-result-object v5
 
-    .line 1648
-    .end local v0           #cameraKeyDown:Landroid/view/KeyEvent;
-    .end local v1           #intent:Landroid/content/Intent;
-    :cond_3
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
+    move-result-object v5
 
-    invoke-virtual {v2, v6, v5}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->isWakeKeyWhenKeyguardHiding(IZ)Z
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    move-result v2
+    .line 1944
+    const-string v4, "ro.build.product"
+
+    invoke-static {v4}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
+    const-string v5, "skomer"
+
+    invoke-virtual {v4, v5}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_0
 
     if-eqz v2, :cond_0
 
-    .line 1650
-    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    .line 1946
+    :try_start_0
+    invoke-static {}, Lcom/android/internal/policy/impl/PhoneWindowManager;->getTelephonyService()Lcom/android/internal/telephony/ITelephony;
 
-    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPowerManager:Landroid/os/LocalPowerManager;
+    move-result-object v1
 
-    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+    .line 1947
+    .local v1, phoneServ:Lcom/android/internal/telephony/ITelephony;
+    if-eqz v1, :cond_3
 
-    move-result-wide v3
+    .line 1948
+    invoke-interface {v1}, Lcom/android/internal/telephony/ITelephony;->isRinging()Z
 
-    invoke-interface {v2, v3, v4, v5, v5}, Landroid/os/LocalPowerManager;->userActivity(JZI)V
+    move-result v4
 
-    goto :goto_0
+    if-nez v4, :cond_0
+
+    .line 1949
+    const-string v4, "WindowManager"
+
+    const-string v5, "interceptKeyTq: VOLUME UP key-long press while keyguard: Torchlight on!"
+
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1950
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    const/4 v5, 0x1
+
+    iput-boolean v5, v4, Lcom/android/internal/policy/impl/PhoneWindowManager;->mTorchlightOn:Z
+
+    .line 1951
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    invoke-virtual {v4, v3}, Lcom/android/internal/policy/impl/PhoneWindowManager;->TorchModeFlashSet(I)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 1961
+    .end local v1           #phoneServ:Lcom/android/internal/telephony/ITelephony;
+    :cond_0
+    :goto_1
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v4, v4, Lcom/android/internal/policy/impl/PhoneWindowManager;->mBroadcastWakeLock:Landroid/os/PowerManager$WakeLock;
+
+    invoke-virtual {v4}, Landroid/os/PowerManager$WakeLock;->isHeld()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_1
+
+    .line 1962
+    const-string v4, "WindowManager"
+
+    const-string v5, "Release torch wake lock after light on"
+
+    invoke-static {v4, v5}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 1963
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$11;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v4, v4, Lcom/android/internal/policy/impl/PhoneWindowManager;->mBroadcastWakeLock:Landroid/os/PowerManager$WakeLock;
+
+    invoke-virtual {v4}, Landroid/os/PowerManager$WakeLock;->release()V
+
+    .line 1965
+    :cond_1
+    return-void
+
+    .end local v2           #torchEnable:Z
+    .end local v3           #torchTimeOut:I
+    :cond_2
+    move v2, v4
+
+    .line 1938
+    goto/16 :goto_0
+
+    .line 1954
+    .restart local v1       #phoneServ:Lcom/android/internal/telephony/ITelephony;
+    .restart local v2       #torchEnable:Z
+    .restart local v3       #torchTimeOut:I
+    :cond_3
+    :try_start_1
+    const-string v4, "WindowManager"
+
+    const-string v5, "VOLUME button: Unable to find ITelephony interface"
+
+    invoke-static {v4, v5}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_1
+    .catch Landroid/os/RemoteException; {:try_start_1 .. :try_end_1} :catch_0
+
+    goto :goto_1
+
+    .line 1956
+    .end local v1           #phoneServ:Lcom/android/internal/telephony/ITelephony;
+    :catch_0
+    move-exception v0
+
+    .line 1957
+    .local v0, ex:Landroid/os/RemoteException;
+    const-string v4, "WindowManager"
+
+    const-string v5, "VOLUME button: RemoteException from getTelephonyService()"
+
+    invoke-static {v4, v5, v0}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_1
 .end method

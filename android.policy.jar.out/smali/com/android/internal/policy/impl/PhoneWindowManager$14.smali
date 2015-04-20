@@ -3,12 +3,12 @@
 .source "PhoneWindowManager.java"
 
 # interfaces
-.implements Landroid/view/WindowManagerPolicy$OnKeyguardExitResult;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/internal/policy/impl/PhoneWindowManager;->launchHomeFromHotKey()V
+    value = Lcom/android/internal/policy/impl/PhoneWindowManager;->updateSettings()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,7 +20,6 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-.field final synthetic val$screenOnListener:Landroid/view/WindowManagerPolicy$ScreenOnListener;
 
 # direct methods
 .method constructor <init>(Lcom/android/internal/policy/impl/PhoneWindowManager;)V
@@ -28,7 +27,7 @@
     .parameter
 
     .prologue
-    .line 3933
+    .line 2479
     iput-object p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$14;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
     invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
@@ -38,54 +37,52 @@
 
 
 # virtual methods
-.method public onKeyguardExitResult(Z)V
-    .locals 2
-    .parameter "success"
+.method public run()V
+    .locals 3
 
     .prologue
-    .line 3935
-    if-eqz p1, :cond_0
+    .line 2481
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$14;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    .line 3937
-    :try_start_0
-    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
+    iget-object v2, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$14;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
 
-    move-result-object v0
+    iget-object v2, v2, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
 
-    invoke-interface {v0}, Landroid/app/IActivityManager;->stopAppSwitches()V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+    invoke-virtual {v2}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    .line 3940
-    :goto_0
-    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$14;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    move-result-object v2
 
-    const-string v1, "homekey"
+    invoke-virtual {v2}, Landroid/content/res/Resources;->getConfiguration()Landroid/content/res/Configuration;
 
-    invoke-virtual {v0, v1}, Lcom/android/internal/policy/impl/PhoneWindowManager;->sendCloseSystemWindows(Ljava/lang/String;)V
+    move-result-object v2
 
-    .line 3941
-    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$14;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+    iget v2, v2, Landroid/content/res/Configuration;->arrange:I
 
-    invoke-virtual {v0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->startDockOrHome()V
+    #setter for: Lcom/android/internal/policy/impl/PhoneWindowManager;->mPreMultiWindowArrangemode:I
+    invoke-static {v1, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->access$1202(Lcom/android/internal/policy/impl/PhoneWindowManager;I)I
 
-    .line 3946
-    :goto_1
+    .line 2482
+    new-instance v0, Landroid/content/Intent;
+
+    const-string v1, "com.sec.android.action.ARRANGE_FREESTYLE_WINDOWS"
+
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    .line 2483
+    .local v0, arrangeIntent:Landroid/content/Intent;
+    const-string v1, "com.sec.android.extra.ARRAGE_MODE"
+
+    const/16 v2, 0x200
+
+    invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+
+    .line 2484
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$14;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-object v1, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v1, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
+
+    .line 2485
     return-void
-
-    .line 3944
-    :cond_0
-    const-string v0, "WindowManager"
-
-    const-string v1, "Disabled Home Launching Case #2"
-
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto :goto_1
-
-    .line 3938
-    :catch_0
-    move-exception v0
-
-    goto :goto_0
 .end method
