@@ -1838,10 +1838,14 @@
 
     .line 3393
     :cond_b
-    
-    iget-object v13, p0, Lcom/android/internal/policy/impl/PhoneWindow;->mActionBar:Lcom/android/internal/widget/ActionBarView;
+    move-object/from16 v0, p0
 
-    invoke-static {p0, v13}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->handleStartingWindow(Lcom/android/internal/policy/impl/PhoneWindow;Lcom/android/internal/widget/ActionBarView;)V
+    iget-object v13, v0, Lcom/android/internal/policy/impl/PhoneWindow;->mActionBar:Lcom/android/internal/widget/ActionBarView;
+ 
+    move-object/from16 v0, p0
+
+
+    invoke-static {v0, v13}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->handleStartingWindow(Lcom/android/internal/policy/impl/PhoneWindow;Lcom/android/internal/widget/ActionBarView;)V
 
     const/4 v8, 0x0
 
@@ -2692,11 +2696,11 @@
     move-result-object v2
 
     .restart local v2       #lp:Landroid/view/ViewGroup$LayoutParams;
-    if-eqz v2, :cond_10
+    if-eqz v2, :cond_12
 
     iget v3, v2, Landroid/view/ViewGroup$LayoutParams;->width:I
 
-    :cond_10
+    :cond_12
     move-object/from16 v0, p1
 
     iget-object v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->decorView:Lcom/android/internal/policy/impl/PhoneWindow$DecorView;
@@ -2710,7 +2714,7 @@
     goto/16 :goto_0
 
     .local v2, lp:Landroid/view/WindowManager$LayoutParams;
-    :cond_12
+    :cond_13
     move-object/from16 v0, p1
 
     iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->gravity:I

@@ -1281,7 +1281,7 @@
 
     if-nez v0, :cond_1
 
-    const v0, #android:layout@status_bar_latest_event_ticker#t
+    const v0, 0x10900f1
 
     :goto_1
     invoke-direct {p0, v0, v1, v1}, Landroid/app/Notification$Builder;->applyStandardTemplate(IZZ)Landroid/widget/RemoteViews;
@@ -1291,7 +1291,7 @@
     goto :goto_0
 
     :cond_1
-    const v0, #android:layout@status_bar_latest_event_ticker_large_icon#t
+    const v0, 0x10900f2
 
     goto :goto_1
 
