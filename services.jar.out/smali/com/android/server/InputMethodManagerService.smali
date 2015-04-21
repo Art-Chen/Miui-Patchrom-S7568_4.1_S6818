@@ -4988,7 +4988,7 @@
 
     new-instance v26, Landroid/view/ContextThemeWrapper;
 
-    const v27, 0x103012b
+    const v27, 0x103006e
 
     move-object/from16 v0, v26
 
@@ -5000,7 +5000,7 @@
 
     move-object/from16 v1, v26
 
-    invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+    invoke-direct {v0, v8}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
     const v26, 0x10405eb
 
@@ -5173,6 +5173,8 @@
 
     invoke-virtual {v11, v0}, Landroid/widget/Switch;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
+    invoke-virtual/range {p0 .. p0}, Lcom/android/server/InputMethodManagerService;->removeCustomTitle()V
+
     .line 2834
     invoke-virtual {v8}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
@@ -5201,7 +5203,7 @@
 
     new-instance v24, Landroid/view/ContextThemeWrapper;
 
-    const v26, 0x103012b
+    const v26, 0x103006e
 
     move-object/from16 v0, v24
 
@@ -5215,7 +5217,7 @@
 
     move/from16 v1, v26
 
-    invoke-direct {v6, v0, v1, v13, v7}, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;-><init>(Landroid/content/Context;ILjava/util/List;I)V
+    invoke-direct {v6, v8, v1, v13, v7}, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;-><init>(Landroid/content/Context;ILjava/util/List;I)V
 
     .line 2844
     .local v6, adapter:Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;
@@ -5422,7 +5424,7 @@
 
     new-instance v26, Landroid/view/ContextThemeWrapper;
 
-    const v27, 0x1030128
+    const v27, 0x103006e
 
     move-object/from16 v0, v26
 
@@ -5434,7 +5436,7 @@
 
     move-object/from16 v1, v26
 
-    invoke-direct {v0, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+    invoke-direct {v0, v8}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
     const v26, 0x10405eb
 
@@ -5501,7 +5503,7 @@
 
     new-instance v24, Landroid/view/ContextThemeWrapper;
 
-    const v26, 0x1030128
+    const v26, 0x103006e
 
     move-object/from16 v0, v24
 
@@ -5515,7 +5517,7 @@
 
     move/from16 v1, v26
 
-    invoke-direct {v6, v0, v1, v13, v7}, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;-><init>(Landroid/content/Context;ILjava/util/List;I)V
+    invoke-direct {v6, v8, v1, v13, v7}, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;-><init>(Landroid/content/Context;ILjava/util/List;I)V
 
     .restart local v6       #adapter:Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;
     goto/16 :goto_5
@@ -9857,6 +9859,39 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v0
+.end method
+
+.method removeCustomTitle()V
+    .locals 3
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
+    .prologue
+    const/4 v2, 0x0
+
+    iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mContext:Landroid/content/Context;
+
+    invoke-static {v0}, Lmiui/util/UiUtils;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mDialogBuilder:Landroid/app/AlertDialog$Builder;
+
+    invoke-virtual {v0, v2}, Landroid/app/AlertDialog$Builder;->setCustomTitle(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
+
+    iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mDialogBuilder:Landroid/app/AlertDialog$Builder;
+
+    const v1, 0x1040576
+
+    invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
+
+    iput-object v2, p0, Lcom/android/server/InputMethodManagerService;->mSwitchingDialogTitleView:Landroid/view/View;
+
+    :cond_0
+    return-void
 .end method
 
 .method public setAdditionalInputMethodSubtypes(Ljava/lang/String;[Landroid/view/inputmethod/InputMethodSubtype;)V

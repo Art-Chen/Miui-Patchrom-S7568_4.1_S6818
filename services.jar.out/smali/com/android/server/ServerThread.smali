@@ -147,6 +147,21 @@
     return-void
 .end method
 
+.method private addClipServiceExtra()V
+    .locals 2
+
+    .prologue
+    const-string v0, "miui.clipserviceext"
+
+    new-instance v1, Lcom/miui/server/ClipServiceExtra;
+
+    invoke-direct {v1}, Lcom/miui/server/ClipServiceExtra;-><init>()V
+
+    invoke-static {v0, v1}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+
+    return-void
+.end method
+
 .method public run()V
     .locals 130
 
@@ -726,11 +741,11 @@
     invoke-static {v3, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 267
-    new-instance v82, Lcom/android/server/LightsService;
+    new-instance v82, Lcom/android/server/MiuiLightsService;
 
     move-object/from16 v0, v82
 
-    invoke-direct {v0, v4}, Lcom/android/server/LightsService;-><init>(Landroid/content/Context;)V
+    invoke-direct {v0, v4}, Lcom/android/server/MiuiLightsService;-><init>(Landroid/content/Context;)V
     :try_end_8
     .catch Ljava/lang/RuntimeException; {:try_start_8 .. :try_end_8} :catch_1
 
@@ -1338,6 +1353,8 @@
     invoke-direct {v9, v4}, Lcom/android/server/ClipboardService;-><init>(Landroid/content/Context;)V
 
     invoke-static {v3, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+
+    invoke-direct/range {p0 .. p0}, Lcom/android/server/ServerThread;->addClipServiceExtra()V
     :try_end_1e
     .catch Ljava/lang/Throwable; {:try_start_1e .. :try_end_1e} :catch_e
 
@@ -1819,6 +1836,8 @@
     invoke-direct {v9, v4}, Lcom/android/server/DeviceStorageMonitorService;-><init>(Landroid/content/Context;)V
 
     invoke-static {v3, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+
+    invoke-static {}, Lcom/android/server/ServerThread$Injector;->setMemoryLowThresholdProperty()V
     :try_end_37
     .catch Ljava/lang/Throwable; {:try_start_37 .. :try_end_37} :catch_1e
 
@@ -2135,6 +2154,13 @@
     .end local v117           #usb:Lcom/android/server/usb/UsbService;
     .restart local v116       #usb:Lcom/android/server/usb/UsbService;
     :goto_32
+    const-string v3, "security"
+
+    new-instance v9, Lcom/miui/server/SecurityManagerService;
+
+    invoke-direct {v9, v4}, Lcom/miui/server/SecurityManagerService;-><init>(Landroid/content/Context;)V
+
+    invoke-static {v3, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
     :try_start_46
     const-string v3, "SystemServer"
 

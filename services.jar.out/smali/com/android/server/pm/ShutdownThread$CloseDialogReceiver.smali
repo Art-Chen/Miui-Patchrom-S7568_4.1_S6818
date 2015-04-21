@@ -62,7 +62,8 @@
 
     invoke-virtual {v0, p0}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 299
+    invoke-static {p1}, Lcom/android/server/pm/ShutdownThread$Injector;->onDismiss(Landroid/content/DialogInterface;)V
+
     invoke-static {}, Lcom/android/server/pm/ShutdownThread;->access$100()Ljava/lang/Object;
 
     move-result-object v1

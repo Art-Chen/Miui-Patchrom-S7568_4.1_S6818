@@ -32,7 +32,8 @@
         Lcom/android/server/BackupManagerService$RestoreParams;,
         Lcom/android/server/BackupManagerService$RestoreGetSetsParams;,
         Lcom/android/server/BackupManagerService$ProvisionedObserver;,
-        Lcom/android/server/BackupManagerService$BackupRequest;
+        Lcom/android/server/BackupManagerService$BackupRequest;,
+        Lcom/android/server/BackupManagerService$Injector;
     }
 .end annotation
 
@@ -8162,178 +8163,169 @@
     throw v2
 .end method
 
+############################################################
+## Replace fullBackup and fullRestore method,because it has some bugs
+## Author: Art_Chen
+############################################################
 .method public fullBackup(Landroid/os/ParcelFileDescriptor;ZZZZ[Ljava/lang/String;)V
-    .locals 11
+    .locals 12
     .parameter "fd"
     .parameter "includeApks"
     .parameter "includeShared"
     .parameter "doAllApps"
     .parameter "includeSystem"
     .parameter "pkgList"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
     .prologue
-    .line 5197
-    iget-boolean v2, p0, Lcom/android/server/BackupManagerService;->isEdmBackupRequest:Z
-
-    if-nez v2, :cond_1
-
-    .line 5198
+    .line 5126
     iget-object v2, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
 
-    const-string v4, "android.permission.BACKUP"
+    const-string v3, "android.permission.BACKUP"
 
-    const-string v5, "fullBackup"
+    const-string v4, "fullBackup"
 
-    invoke-virtual {v2, v4, v5}, Landroid/content/Context;->enforceCallingPermission(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {v2, v3, v4}, Landroid/content/Context;->enforceCallingPermission(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 5205
-    :goto_0
-    if-nez p4, :cond_2
+    .line 5129
+    if-nez p4, :cond_1
 
-    .line 5206
-    if-nez p3, :cond_2
+    .line 5130
+    if-nez p3, :cond_1
 
-    .line 5210
+    .line 5134
     if-eqz p6, :cond_0
 
     move-object/from16 v0, p6
 
     array-length v2, v0
 
-    if-nez v2, :cond_2
+    if-nez v2, :cond_1
 
-    .line 5211
+    .line 5135
     :cond_0
     new-instance v2, Ljava/lang/IllegalArgumentException;
 
-    const-string v4, "Backup requested but neither shared nor any apps named"
+    const-string v3, "Backup requested but neither shared nor any apps named"
 
-    invoke-direct {v2, v4}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v2, v3}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
 
     throw v2
 
-    .line 5200
+    .line 5141
     :cond_1
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
-
-    const-string v4, "android.permission.BACKUP"
-
-    const-string v5, "fullBackup"
-
-    invoke-virtual {v2, v4, v5}, Landroid/content/Context;->enforceCallingOrSelfPermission(Ljava/lang/String;Ljava/lang/String;)V
-
-    goto :goto_0
-
-    .line 5217
-    :cond_2
     invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
 
     move-result-wide v9
 
-    .line 5220
+    .line 5144
     .local v9, oldId:J
     :try_start_0
     invoke-virtual {p0}, Lcom/android/server/BackupManagerService;->deviceIsProvisioned()Z
 
     move-result v2
 
-    if-nez v2, :cond_3
+    if-nez v2, :cond_2
 
-    .line 5221
+    .line 5145
     const-string v2, "BackupManagerService"
 
-    const-string v4, "Full backup not supported before setup"
+    const-string v3, "Full backup not supported before setup"
 
-    invoke-static {v2, v4}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v3}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_1
 
-    .line 5268
+    .line 5180
     :try_start_1
     invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
     :try_end_1
     .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_1
 
-    .line 5272
-    :goto_1
+    .line 5184
+    :goto_0
     invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
-    .line 5273
+    .line 5185
     const-string v2, "BackupManagerService"
 
-    const-string v4, "Full backup processing complete."
+    const-string v3, "Full backup processing complete."
 
-    :goto_2
-    invoke-static {v2, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    :goto_1
+    invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 5275
+    .line 5187
     return-void
 
-    .line 5225
-    :cond_3
+    .line 5149
+    :cond_2
     :try_start_2
     const-string v2, "BackupManagerService"
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v5, "Requesting full backup: apks="
+    const-string v4, "Requesting full backup: apks="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4, p2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, p2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    const-string v5, " shared="
+    const-string v4, " shared="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    const-string v5, " all="
+    const-string v4, " all="
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4, p4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    move/from16 v0, p4
 
-    move-result-object v4
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    const-string v5, " pkgs="
+    move-result-object v3
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v4, " pkgs="
 
-    move-result-object v4
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
 
     move-object/from16 v0, p6
 
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v3
 
-    invoke-static {v2, v4}, Landroid/util/Slog;->v(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v3}, Landroid/util/Slog;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 5228
+    .line 5152
     const-string v2, "BackupManagerService"
 
-    const-string v4, "Beginning full backup..."
+    const-string v3, "Beginning full backup..."
 
-    invoke-static {v2, v4}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v3}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 5230
+    .line 5154
     new-instance v1, Lcom/android/server/BackupManagerService$FullBackupParams;
 
     move-object v2, p0
@@ -8344,7 +8336,7 @@
 
     move v5, p3
 
-    move v6, p4
+    move/from16 v6, p4
 
     move/from16 v7, p5
 
@@ -8352,674 +8344,46 @@
 
     invoke-direct/range {v1 .. v8}, Lcom/android/server/BackupManagerService$FullBackupParams;-><init>(Lcom/android/server/BackupManagerService;Landroid/os/ParcelFileDescriptor;ZZZZ[Ljava/lang/String;)V
 
-    .line 5232
+    .line 5156
     .local v1, params:Lcom/android/server/BackupManagerService$FullBackupParams;
     invoke-virtual {p0}, Lcom/android/server/BackupManagerService;->generateToken()I
 
-    move-result v3
+    move-result v11
 
-    .line 5233
-    .local v3, token:I
-    iget-object v4, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
+    .line 5157
+    .local v11, token:I
+    iget-object v3, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
 
-    monitor-enter v4
+    monitor-enter v3
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_1
 
-    .line 5234
+    .line 5158
     :try_start_3
     iget-object v2, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
 
-    invoke-virtual {v2, v3, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+    invoke-virtual {v2, v11, v1}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
 
-    .line 5235
-    monitor-exit v4
+    .line 5159
+    monitor-exit v3
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_0
 
-    .line 5238
+    .line 5162
     :try_start_4
-    iget-boolean v2, p0, Lcom/android/server/BackupManagerService;->isEdmBackupRequest:Z
-
-    if-eqz v2, :cond_7
-
-    .line 5239
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mEdmBackupAppPkgName:Ljava/lang/String;
-
-    if-eqz v2, :cond_6
-
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mActiveRestoreSession:Lcom/android/server/BackupManagerService$ActiveRestoreSession;
-
-    if-eqz v2, :cond_4
-
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mActiveRestoreSession:Lcom/android/server/BackupManagerService$ActiveRestoreSession;
-
-    #getter for: Lcom/android/server/BackupManagerService$ActiveRestoreSession;->mPackageName:Ljava/lang/String;
-    invoke-static {v2}, Lcom/android/server/BackupManagerService$ActiveRestoreSession;->access$2100(Lcom/android/server/BackupManagerService$ActiveRestoreSession;)Ljava/lang/String;
-
-    move-result-object v2
-
-    iget-object v4, p0, Lcom/android/server/BackupManagerService;->mEdmBackupAppPkgName:Ljava/lang/String;
-
-    invoke-virtual {v2, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v2
-
-    if-nez v2, :cond_5
-
-    :cond_4
-    iget-boolean v2, p0, Lcom/android/server/BackupManagerService;->mBackupRunning:Z
-
-    if-eqz v2, :cond_6
-
-    .line 5243
-    :cond_5
-    const/4 v2, -0x3
-
-    invoke-direct {p0, v2}, Lcom/android/server/BackupManagerService;->resetEdmBackupTags(I)V
-    :try_end_4
-    .catchall {:try_start_4 .. :try_end_4} :catchall_1
-
-    .line 5268
-    :try_start_5
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_5
-    .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_2
-
-    .line 5272
-    :goto_3
-    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5273
-    const-string v2, "BackupManagerService"
-
-    const-string v4, "Full backup processing complete."
-
-    goto/16 :goto_2
-
-    .line 5235
-    :catchall_0
-    move-exception v2
-
-    :try_start_6
-    monitor-exit v4
-    :try_end_6
-    .catchall {:try_start_6 .. :try_end_6} :catchall_0
-
-    :try_start_7
-    throw v2
-    :try_end_7
-    .catchall {:try_start_7 .. :try_end_7} :catchall_1
-
-    .line 5267
-    .end local v1           #params:Lcom/android/server/BackupManagerService$FullBackupParams;
-    .end local v3           #token:I
-    :catchall_1
-    move-exception v2
-
-    .line 5268
-    :try_start_8
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_8
-    .catch Ljava/io/IOException; {:try_start_8 .. :try_end_8} :catch_0
-
-    .line 5272
-    :goto_4
-    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5273
-    const-string v4, "BackupManagerService"
-
-    const-string v5, "Full backup processing complete."
-
-    invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5267
-    throw v2
-
-    .line 5246
-    .restart local v1       #params:Lcom/android/server/BackupManagerService$FullBackupParams;
-    .restart local v3       #token:I
-    :cond_6
-    const/4 v4, 0x1
-
-    :try_start_9
-    const-string v5, ""
-
-    const-string v6, ""
-
-    iget-object v7, p0, Lcom/android/server/BackupManagerService;->mEdmFullObserver:Lcom/android/server/BackupManagerService$EdmFullObserver;
-
-    move-object v2, p0
-
-    invoke-virtual/range {v2 .. v7}, Lcom/android/server/BackupManagerService;->acknowledgeFullBackupOrRestore(IZLjava/lang/String;Ljava/lang/String;Landroid/app/backup/IFullBackupRestoreObserver;)V
-
-    .line 5264
-    :goto_5
-    const-string v2, "BackupManagerService"
-
-    const-string v4, "Waiting for full backup completion..."
-
-    invoke-static {v2, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5265
-    invoke-virtual {p0, v1}, Lcom/android/server/BackupManagerService;->waitForCompletion(Lcom/android/server/BackupManagerService$FullParams;)V
-    :try_end_9
-    .catchall {:try_start_9 .. :try_end_9} :catchall_1
-
-    .line 5268
-    :try_start_a
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_a
-    .catch Ljava/io/IOException; {:try_start_a .. :try_end_a} :catch_3
-
-    .line 5272
-    :goto_6
-    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5273
-    const-string v2, "BackupManagerService"
-
-    const-string v4, "Full backup processing complete."
-
-    goto/16 :goto_2
-
-    .line 5249
-    :cond_7
-    :try_start_b
-    const-string v2, "BackupManagerService"
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "Starting backup confirmation UI, token="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-static {v2, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5250
-    const-string v2, "fullback"
-
-    invoke-virtual {p0, v3, v2}, Lcom/android/server/BackupManagerService;->startConfirmationUi(ILjava/lang/String;)Z
-
-    move-result v2
-
-    if-nez v2, :cond_8
-
-    .line 5251
-    const-string v2, "BackupManagerService"
-
-    const-string v4, "Unable to launch full backup confirmation"
-
-    invoke-static {v2, v4}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5252
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
-
-    invoke-virtual {v2, v3}, Landroid/util/SparseArray;->delete(I)V
-    :try_end_b
-    .catchall {:try_start_b .. :try_end_b} :catchall_1
-
-    .line 5268
-    :try_start_c
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_c
-    .catch Ljava/io/IOException; {:try_start_c .. :try_end_c} :catch_4
-
-    .line 5272
-    :goto_7
-    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5273
-    const-string v2, "BackupManagerService"
-
-    const-string v4, "Full backup processing complete."
-
-    goto/16 :goto_2
-
-    .line 5257
-    :cond_8
-    :try_start_d
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mPowerManager:Landroid/os/PowerManager;
-
-    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
-
-    move-result-wide v4
-
-    const/4 v6, 0x0
-
-    invoke-virtual {v2, v4, v5, v6}, Landroid/os/PowerManager;->userActivity(JZ)V
-
-    .line 5260
-    invoke-virtual {p0, v3, v1}, Lcom/android/server/BackupManagerService;->startConfirmationTimeout(ILcom/android/server/BackupManagerService$FullParams;)V
-    :try_end_d
-    .catchall {:try_start_d .. :try_end_d} :catchall_1
-
-    goto :goto_5
-
-    .line 5269
-    .end local v1           #params:Lcom/android/server/BackupManagerService$FullBackupParams;
-    .end local v3           #token:I
-    :catch_0
-    move-exception v4
-
-    goto :goto_4
-
-    :catch_1
-    move-exception v2
-
-    goto/16 :goto_1
-
-    .restart local v1       #params:Lcom/android/server/BackupManagerService$FullBackupParams;
-    .restart local v3       #token:I
-    :catch_2
-    move-exception v2
-
-    goto/16 :goto_3
-
-    :catch_3
-    move-exception v2
-
-    goto :goto_6
-
-    :catch_4
-    move-exception v2
-
-    goto :goto_7
-.end method
-
-.method public fullRestore(Landroid/os/ParcelFileDescriptor;)V
-    .locals 10
-    .parameter "fd"
-
-    .prologue
-    .line 5279
-    iget-boolean v0, p0, Lcom/android/server/BackupManagerService;->isEdmRestoreRequest:Z
-
-    if-nez v0, :cond_0
-
-    .line 5280
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
-
-    const-string v2, "android.permission.BACKUP"
-
-    const-string v3, "fullRestore"
-
-    invoke-virtual {v0, v2, v3}, Landroid/content/Context;->enforceCallingPermission(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 5286
-    :goto_0
-    invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
-
-    move-result-wide v7
-
-    .line 5291
-    .local v7, oldId:J
-    :try_start_0
-    invoke-virtual {p0}, Lcom/android/server/BackupManagerService;->deviceIsProvisioned()Z
-
-    move-result v0
-
-    if-nez v0, :cond_1
-
-    .line 5292
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Full restore not permitted before setup"
-
-    invoke-static {v0, v2}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_1
-
-    .line 5335
-    :try_start_1
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_1
-    .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_1
-
-    .line 5339
-    :goto_1
-    invoke-static {v7, v8}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5340
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Full restore processing complete."
-
-    :goto_2
-    invoke-static {v0, v2}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5342
-    return-void
-
-    .line 5282
-    .end local v7           #oldId:J
-    :cond_0
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
-
-    const-string v2, "android.permission.BACKUP"
-
-    const-string v3, "fullRestore"
-
-    invoke-virtual {v0, v2, v3}, Landroid/content/Context;->enforceCallingOrSelfPermission(Ljava/lang/String;Ljava/lang/String;)V
-
-    goto :goto_0
-
-    .line 5296
-    .restart local v7       #oldId:J
-    :cond_1
-    :try_start_2
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Beginning full restore..."
-
-    invoke-static {v0, v2}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5298
-    new-instance v9, Lcom/android/server/BackupManagerService$FullRestoreParams;
-
-    invoke-direct {v9, p0, p1}, Lcom/android/server/BackupManagerService$FullRestoreParams;-><init>(Lcom/android/server/BackupManagerService;Landroid/os/ParcelFileDescriptor;)V
-
-    .line 5299
-    .local v9, params:Lcom/android/server/BackupManagerService$FullRestoreParams;
-    invoke-virtual {p0}, Lcom/android/server/BackupManagerService;->generateToken()I
-
-    move-result v1
-
-    .line 5300
-    .local v1, token:I
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
-
-    monitor-enter v2
-    :try_end_2
-    .catchall {:try_start_2 .. :try_end_2} :catchall_1
-
-    .line 5301
-    :try_start_3
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
-
-    invoke-virtual {v0, v1, v9}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
-
-    .line 5302
-    monitor-exit v2
-    :try_end_3
-    .catchall {:try_start_3 .. :try_end_3} :catchall_0
-
-    .line 5305
-    :try_start_4
-    iget-boolean v0, p0, Lcom/android/server/BackupManagerService;->isEdmRestoreRequest:Z
-
-    if-eqz v0, :cond_5
-
-    .line 5306
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mEdmRestoreAppPkgName:Ljava/lang/String;
-
-    if-eqz v0, :cond_4
-
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mActiveRestoreSession:Lcom/android/server/BackupManagerService$ActiveRestoreSession;
-
-    if-eqz v0, :cond_2
-
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mActiveRestoreSession:Lcom/android/server/BackupManagerService$ActiveRestoreSession;
-
-    #getter for: Lcom/android/server/BackupManagerService$ActiveRestoreSession;->mPackageName:Ljava/lang/String;
-    invoke-static {v0}, Lcom/android/server/BackupManagerService$ActiveRestoreSession;->access$2100(Lcom/android/server/BackupManagerService$ActiveRestoreSession;)Ljava/lang/String;
-
-    move-result-object v0
-
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mEdmRestoreAppPkgName:Ljava/lang/String;
-
-    invoke-virtual {v0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_3
-
-    :cond_2
-    iget-boolean v0, p0, Lcom/android/server/BackupManagerService;->mBackupRunning:Z
-
-    if-eqz v0, :cond_4
-
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mPendingBackups:Ljava/util/HashMap;
-
-    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mEdmRestoreAppPkgName:Ljava/lang/String;
-
-    invoke-virtual {v0, v2}, Ljava/util/HashMap;->containsKey(Ljava/lang/Object;)Z
-
-    move-result v0
-
-    if-eqz v0, :cond_4
-
-    .line 5310
-    :cond_3
-    const/4 v0, -0x3
-
-    invoke-direct {p0, v0}, Lcom/android/server/BackupManagerService;->resetEdmRestoreTags(I)V
-    :try_end_4
-    .catchall {:try_start_4 .. :try_end_4} :catchall_1
-
-    .line 5335
-    :try_start_5
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_5
-    .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_2
-
-    .line 5339
-    :goto_3
-    invoke-static {v7, v8}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5340
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Full restore processing complete."
-
-    goto :goto_2
-
-    .line 5302
-    :catchall_0
-    move-exception v0
-
-    :try_start_6
-    monitor-exit v2
-    :try_end_6
-    .catchall {:try_start_6 .. :try_end_6} :catchall_0
-
-    :try_start_7
-    throw v0
-    :try_end_7
-    .catchall {:try_start_7 .. :try_end_7} :catchall_1
-
-    .line 5334
-    .end local v1           #token:I
-    .end local v9           #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
-    :catchall_1
-    move-exception v0
-
-    .line 5335
-    :try_start_8
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_8
-    .catch Ljava/io/IOException; {:try_start_8 .. :try_end_8} :catch_0
-
-    .line 5339
-    :goto_4
-    invoke-static {v7, v8}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5340
-    const-string v2, "BackupManagerService"
-
-    const-string v3, "Full restore processing complete."
-
-    invoke-static {v2, v3}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5334
-    throw v0
-
-    .line 5313
-    .restart local v1       #token:I
-    .restart local v9       #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
-    :cond_4
-    const/4 v2, 0x1
-
-    :try_start_9
-    const-string v3, ""
-
-    const-string v4, ""
-
-    iget-object v5, p0, Lcom/android/server/BackupManagerService;->mEdmFullObserver:Lcom/android/server/BackupManagerService$EdmFullObserver;
-
-    move-object v0, p0
-
-    invoke-virtual/range {v0 .. v5}, Lcom/android/server/BackupManagerService;->acknowledgeFullBackupOrRestore(IZLjava/lang/String;Ljava/lang/String;Landroid/app/backup/IFullBackupRestoreObserver;)V
-
-    .line 5331
-    :goto_5
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Waiting for full restore completion..."
-
-    invoke-static {v0, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5332
-    invoke-virtual {p0, v9}, Lcom/android/server/BackupManagerService;->waitForCompletion(Lcom/android/server/BackupManagerService$FullParams;)V
-    :try_end_9
-    .catchall {:try_start_9 .. :try_end_9} :catchall_1
-
-    .line 5335
-    :try_start_a
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_a
-    .catch Ljava/io/IOException; {:try_start_a .. :try_end_a} :catch_3
-
-    .line 5339
-    :goto_6
-    invoke-static {v7, v8}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5340
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Full restore processing complete."
-
-    goto/16 :goto_2
-
-    .line 5316
-    :cond_5
-    :try_start_b
-    const-string v0, "BackupManagerService"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "Starting restore confirmation UI, token="
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5317
-    const-string v0, "fullrest"
-
-    invoke-virtual {p0, v1, v0}, Lcom/android/server/BackupManagerService;->startConfirmationUi(ILjava/lang/String;)Z
-
-    move-result v0
-
-    if-nez v0, :cond_6
-
-    .line 5318
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Unable to launch full restore confirmation"
-
-    invoke-static {v0, v2}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 5319
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
-
-    invoke-virtual {v0, v1}, Landroid/util/SparseArray;->delete(I)V
-    :try_end_b
-    .catchall {:try_start_b .. :try_end_b} :catchall_1
-
-    .line 5335
-    :try_start_c
-    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
-    :try_end_c
-    .catch Ljava/io/IOException; {:try_start_c .. :try_end_c} :catch_4
-
-    .line 5339
-    :goto_7
-    invoke-static {v7, v8}, Landroid/os/Binder;->restoreCallingIdentity(J)V
-
-    .line 5340
-    const-string v0, "BackupManagerService"
-
-    const-string v2, "Full restore processing complete."
-
-    goto/16 :goto_2
-
-    .line 5324
-    :cond_6
-    :try_start_d
-    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mPowerManager:Landroid/os/PowerManager;
-
-    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
-
-    move-result-wide v2
-
-    const/4 v4, 0x0
-
-    invoke-virtual {v0, v2, v3, v4}, Landroid/os/PowerManager;->userActivity(JZ)V
-
-    .line 5327
-    invoke-virtual {p0, v1, v9}, Lcom/android/server/BackupManagerService;->startConfirmationTimeout(ILcom/android/server/BackupManagerService$FullParams;)V
-    :try_end_d
-    .catchall {:try_start_d .. :try_end_d} :catchall_1
-
-    goto :goto_5
-
-    .line 5336
-    .end local v1           #token:I
-    .end local v9           #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
-    :catch_0
-    move-exception v6
-
-    .line 5337
-    .local v6, e:Ljava/io/IOException;
     const-string v2, "BackupManagerService"
 
     new-instance v3, Ljava/lang/StringBuilder;
 
     invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "Error trying to close fd after full restore: "
+    const-string v4, "Starting backup confirmation UI, token="
 
     invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v11}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v3
 
@@ -9027,135 +8391,523 @@
 
     move-result-object v3
 
-    invoke-static {v2, v3}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    goto/16 :goto_4
+    .line 5163
+    const-string v2, "fullback"
 
-    .line 5336
-    .end local v6           #e:Ljava/io/IOException;
-    :catch_1
-    move-exception v6
+    invoke-static {p0, v11, v2}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationUi(Lcom/android/server/BackupManagerService;ILjava/lang/String;)Z
 
-    .line 5337
-    .restart local v6       #e:Ljava/io/IOException;
-    const-string v0, "BackupManagerService"
+    move-result v2
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    if-nez v2, :cond_3
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    .line 5164
+    const-string v2, "BackupManagerService"
 
-    const-string v3, "Error trying to close fd after full restore: "
+    const-string v3, "Unable to launch full backup confirmation"
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-static {v2, v3}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    move-result-object v2
+    .line 5165
+    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
 
-    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v11}, Landroid/util/SparseArray;->delete(I)V
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_1
 
-    move-result-object v2
+    .line 5180
+    :try_start_5
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_5
+    .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_2
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 5184
+    :goto_2
+    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
-    move-result-object v2
+    .line 5185
+    const-string v2, "BackupManagerService"
 
-    invoke-static {v0, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v3, "Full backup processing complete."
 
     goto/16 :goto_1
 
-    .line 5336
-    .end local v6           #e:Ljava/io/IOException;
-    .restart local v1       #token:I
-    .restart local v9       #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
+    .line 5159
+    :catchall_0
+    move-exception v2
+
+    :try_start_6
+    monitor-exit v3
+    :try_end_6
+    .catchall {:try_start_6 .. :try_end_6} :catchall_0
+
+    :try_start_7
+    throw v2
+    :try_end_7
+    .catchall {:try_start_7 .. :try_end_7} :catchall_1
+
+    .line 5179
+    .end local v1           #params:Lcom/android/server/BackupManagerService$FullBackupParams;
+    .end local v11           #token:I
+    :catchall_1
+    move-exception v2
+
+    .line 5180
+    :try_start_8
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_8
+    .catch Ljava/io/IOException; {:try_start_8 .. :try_end_8} :catch_0
+
+    .line 5184
+    :goto_3
+    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+
+    .line 5185
+    const-string v3, "BackupManagerService"
+
+    const-string v4, "Full backup processing complete."
+
+    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 5179
+    throw v2
+
+    .line 5170
+    .restart local v1       #params:Lcom/android/server/BackupManagerService$FullBackupParams;
+    .restart local v11       #token:I
+    :cond_3
+    :try_start_9
+    iget-object v2, p0, Lcom/android/server/BackupManagerService;->mPowerManager:Landroid/os/PowerManager;
+
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v3
+
+    const/4 v5, 0x0
+
+    invoke-virtual {v2, v3, v4, v5}, Landroid/os/PowerManager;->userActivity(JZ)V
+
+    invoke-static {p0, v11, v1}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationTimeout(Lcom/android/server/BackupManagerService;ILcom/android/server/BackupManagerService$FullParams;)V
+
+    const-string v2, "BackupManagerService"
+
+    const-string v3, "Waiting for full backup completion..."
+
+    invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    invoke-virtual {p0, v1}, Lcom/android/server/BackupManagerService;->waitForCompletion(Lcom/android/server/BackupManagerService$FullParams;)V
+    :try_end_9
+    .catchall {:try_start_9 .. :try_end_9} :catchall_1
+
+    :try_start_a
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_a
+    .catch Ljava/io/IOException; {:try_start_a .. :try_end_a} :catch_3
+
+    :goto_4
+    invoke-static {v9, v10}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+
+    const-string v2, "BackupManagerService"
+
+    const-string v3, "Full backup processing complete."
+
+    goto/16 :goto_1
+
+    .end local v1           #params:Lcom/android/server/BackupManagerService$FullBackupParams;
+    .end local v11           #token:I
+    :catch_0
+    move-exception v3
+
+    goto :goto_3
+
+    :catch_1
+    move-exception v2
+
+    goto/16 :goto_0
+
+    .restart local v1       #params:Lcom/android/server/BackupManagerService$FullBackupParams;
+    .restart local v11       #token:I
     :catch_2
-    move-exception v6
+    move-exception v2
 
-    .line 5337
-    .restart local v6       #e:Ljava/io/IOException;
-    const-string v0, "BackupManagerService"
+    goto :goto_2
 
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "Error trying to close fd after full restore: "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v0, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_3
-
-    .line 5336
-    .end local v6           #e:Ljava/io/IOException;
     :catch_3
-    move-exception v6
+    move-exception v2
 
-    .line 5337
-    .restart local v6       #e:Ljava/io/IOException;
-    const-string v0, "BackupManagerService"
+    goto :goto_4
+.end method
 
-    new-instance v2, Ljava/lang/StringBuilder;
+.method public fullRestore(Landroid/os/ParcelFileDescriptor;)V
+    .locals 9
+    .parameter "fd"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    .prologue
+    .line 5190
+    iget-object v5, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
 
-    const-string v3, "Error trying to close fd after full restore: "
+    const-string v6, "android.permission.BACKUP"
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v7, "fullRestore"
 
-    move-result-object v2
+    invoke-virtual {v5, v6, v7}, Landroid/content/Context;->enforceCallingPermission(Ljava/lang/String;Ljava/lang/String;)V
 
-    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    .line 5192
+    invoke-static {}, Landroid/os/Binder;->clearCallingIdentity()J
 
-    move-result-object v2
+    move-result-wide v1
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 5197
+    .local v1, oldId:J
+    :try_start_0
+    invoke-virtual {p0}, Lcom/android/server/BackupManagerService;->deviceIsProvisioned()Z
 
-    move-result-object v2
+    move-result v5
 
-    invoke-static {v0, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    if-nez v5, :cond_0
 
-    goto/16 :goto_6
+    .line 5198
+    const-string v5, "BackupManagerService"
 
-    .line 5336
-    .end local v6           #e:Ljava/io/IOException;
-    :catch_4
-    move-exception v6
+    const-string v6, "Full restore not permitted before setup"
 
-    .line 5337
-    .restart local v6       #e:Ljava/io/IOException;
-    const-string v0, "BackupManagerService"
+    invoke-static {v5, v6}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_1
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    .line 5229
+    :try_start_1
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_1
+    .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_1
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    .line 5233
+    :goto_0
+    invoke-static {v1, v2}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
-    const-string v3, "Error trying to close fd after full restore: "
+    .line 5234
+    const-string v5, "BackupManagerService"
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v6, "Full restore processing complete."
 
-    move-result-object v2
+    :goto_1
+    invoke-static {v5, v6}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-virtual {v2, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    .line 5236
+    return-void
 
-    move-result-object v2
+    .line 5202
+    :cond_0
+    :try_start_2
+    const-string v5, "BackupManagerService"
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v6, "Beginning full restore..."
 
-    move-result-object v2
+    invoke-static {v5, v6}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-static {v0, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    .line 5204
+    new-instance v3, Lcom/android/server/BackupManagerService$FullRestoreParams;
 
-    goto/16 :goto_7
+    invoke-direct {v3, p0, p1}, Lcom/android/server/BackupManagerService$FullRestoreParams;-><init>(Lcom/android/server/BackupManagerService;Landroid/os/ParcelFileDescriptor;)V
+
+    .line 5205
+    .local v3, params:Lcom/android/server/BackupManagerService$FullRestoreParams;
+    invoke-virtual {p0}, Lcom/android/server/BackupManagerService;->generateToken()I
+
+    move-result v4
+
+    .line 5206
+    .local v4, token:I
+    iget-object v6, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
+
+    monitor-enter v6
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_1
+
+    .line 5207
+    :try_start_3
+    iget-object v5, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
+
+    invoke-virtual {v5, v4, v3}, Landroid/util/SparseArray;->put(ILjava/lang/Object;)V
+
+    .line 5208
+    monitor-exit v6
+    :try_end_3
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
+
+    .line 5211
+    :try_start_4
+    const-string v5, "BackupManagerService"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "Starting restore confirmation UI, token="
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 5212
+    const-string v5, "fullrest"
+
+    invoke-static {p0, v4, v5}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationUi(Lcom/android/server/BackupManagerService;ILjava/lang/String;)Z
+
+    move-result v5
+
+    if-nez v5, :cond_1
+
+    .line 5213
+    const-string v5, "BackupManagerService"
+
+    const-string v6, "Unable to launch full restore confirmation"
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 5214
+    iget-object v5, p0, Lcom/android/server/BackupManagerService;->mFullConfirmations:Landroid/util/SparseArray;
+
+    invoke-virtual {v5, v4}, Landroid/util/SparseArray;->delete(I)V
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_1
+
+    .line 5229
+    :try_start_5
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_5
+    .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_2
+
+    .line 5233
+    :goto_2
+    invoke-static {v1, v2}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+
+    .line 5234
+    const-string v5, "BackupManagerService"
+
+    const-string v6, "Full restore processing complete."
+
+    goto :goto_1
+
+    .line 5208
+    :catchall_0
+    move-exception v5
+
+    :try_start_6
+    monitor-exit v6
+    :try_end_6
+    .catchall {:try_start_6 .. :try_end_6} :catchall_0
+
+    :try_start_7
+    throw v5
+    :try_end_7
+    .catchall {:try_start_7 .. :try_end_7} :catchall_1
+
+    .line 5228
+    .end local v3           #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
+    .end local v4           #token:I
+    :catchall_1
+    move-exception v5
+
+    .line 5229
+    :try_start_8
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_8
+    .catch Ljava/io/IOException; {:try_start_8 .. :try_end_8} :catch_0
+
+    .line 5233
+    :goto_3
+    invoke-static {v1, v2}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+
+    .line 5234
+    const-string v6, "BackupManagerService"
+
+    const-string v7, "Full restore processing complete."
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 5228
+    throw v5
+
+    .line 5219
+    .restart local v3       #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
+    .restart local v4       #token:I
+    :cond_1
+    :try_start_9
+    iget-object v5, p0, Lcom/android/server/BackupManagerService;->mPowerManager:Landroid/os/PowerManager;
+
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v6
+
+    const/4 v8, 0x0
+
+    invoke-virtual {v5, v6, v7, v8}, Landroid/os/PowerManager;->userActivity(JZ)V
+
+    invoke-static {p0, v4, v3}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationTimeout(Lcom/android/server/BackupManagerService;ILcom/android/server/BackupManagerService$FullParams;)V
+
+    const-string v5, "BackupManagerService"
+
+    const-string v6, "Waiting for full restore completion..."
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    invoke-virtual {p0, v3}, Lcom/android/server/BackupManagerService;->waitForCompletion(Lcom/android/server/BackupManagerService$FullParams;)V
+    :try_end_9
+    .catchall {:try_start_9 .. :try_end_9} :catchall_1
+
+    :try_start_a
+    invoke-virtual {p1}, Landroid/os/ParcelFileDescriptor;->close()V
+    :try_end_a
+    .catch Ljava/io/IOException; {:try_start_a .. :try_end_a} :catch_3
+
+    :goto_4
+    invoke-static {v1, v2}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+
+    const-string v5, "BackupManagerService"
+
+    const-string v6, "Full restore processing complete."
+
+    goto/16 :goto_1
+
+    .end local v3           #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
+    .end local v4           #token:I
+    :catch_0
+    move-exception v0
+
+    .local v0, e:Ljava/io/IOException;
+    const-string v6, "BackupManagerService"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "Error trying to close fd after full restore: "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-static {v6, v7}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_3
+
+    .line 5230
+    .end local v0           #e:Ljava/io/IOException;
+    :catch_1
+    move-exception v0
+
+    .line 5231
+    .restart local v0       #e:Ljava/io/IOException;
+    const-string v5, "BackupManagerService"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "Error trying to close fd after full restore: "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_0
+
+    .line 5230
+    .end local v0           #e:Ljava/io/IOException;
+    .restart local v3       #params:Lcom/android/server/BackupManagerService$FullRestoreParams;
+    .restart local v4       #token:I
+    :catch_2
+    move-exception v0
+
+    .line 5231
+    .restart local v0       #e:Ljava/io/IOException;
+    const-string v5, "BackupManagerService"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "Error trying to close fd after full restore: "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_2
+
+    .line 5230
+    .end local v0           #e:Ljava/io/IOException;
+    :catch_3
+    move-exception v0
+
+    .line 5231
+    .restart local v0       #e:Ljava/io/IOException;
+    const-string v5, "BackupManagerService"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "Error trying to close fd after full restore: "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_4
 .end method
 
 .method generateToken()I
@@ -9320,6 +9072,18 @@
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
     throw v2
+.end method
+
+.method getContext()Landroid/content/Context;
+    .locals 1
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
+
+    return-object v0
 .end method
 
 .method public getCurrentTransport()Ljava/lang/String;

@@ -3584,10 +3584,12 @@
 
     move-result-object v5
 
-    iput-object v5, v4, Landroid/app/Notification;->deleteIntent:Landroid/app/PendingIntent;
+    #iput-object v5, v4, Landroid/app/Notification;->deleteIntent:Landroid/app/PendingIntent;
 
     .line 3358
     .end local v0           #deleteIntent:Landroid/content/Intent;
+    invoke-direct {p0}, Lcom/android/server/WifiService;->setPickWifiIntent()V
+
     :cond_4
     iget-object v4, p0, Lcom/android/server/WifiService;->mContext:Landroid/content/Context;
 
