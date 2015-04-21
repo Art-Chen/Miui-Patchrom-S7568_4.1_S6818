@@ -48,6 +48,7 @@
 .field static final TAG:Ljava/lang/String; = "InputMethodService"
 
 .field private static mCpuLocked:Z
+
 .field protected static mFloatingForMultiWindow:Z
 
 .field private static mPermissionGranted:Z
@@ -87,8 +88,6 @@
 .field mExtractedText:Landroid/view/inputmethod/ExtractedText;
 
 .field mExtractedToken:I
-
-.field protected mFloatingForMultiWindow:Z
 
 .field mFullscreenApplied:Z
 
