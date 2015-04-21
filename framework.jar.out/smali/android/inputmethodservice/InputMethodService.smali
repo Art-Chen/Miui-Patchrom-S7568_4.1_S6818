@@ -231,9 +231,6 @@
     .line 345
     iput-boolean v1, p0, Landroid/inputmethodservice/InputMethodService;->mWACOMPen:Z
 
-    .line 349
-    iput-boolean v1, p0, Landroid/inputmethodservice/InputMethodService;->mFloatingForMultiWindow:Z
-
     .line 370
     new-instance v0, Landroid/inputmethodservice/InputMethodService$1;
 

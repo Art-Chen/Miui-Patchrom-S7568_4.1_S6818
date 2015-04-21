@@ -403,19 +403,17 @@
 .end method
 
 .method public updateFloatingState(I)V
-    .locals 2
+    .locals 1
     .parameter "value"
 
     .prologue
-    const/4 v1, 0x1
+    const/4 v0, 0x1
 
-    .line 447
-    if-ne p1, v1, :cond_0
+    .line 438
+    if-ne p1, v0, :cond_0
 
-    .line 448
-    iget-object v0, p0, Landroid/inputmethodservice/InputMethodService$InputMethodImpl;->this$0:Landroid/inputmethodservice/InputMethodService;
-
-    iput-boolean v1, v0, Landroid/inputmethodservice/InputMethodService;->mFloatingForMultiWindow:Z
+    .line 439
+    sput-boolean v0, Landroid/inputmethodservice/InputMethodService;->mFloatingForMultiWindow:Z
 
     .line 452
     :goto_0
@@ -423,11 +421,9 @@
 
     .line 450
     :cond_0
-    iget-object v0, p0, Landroid/inputmethodservice/InputMethodService$InputMethodImpl;->this$0:Landroid/inputmethodservice/InputMethodService;
+    const/4 v0, 0x0
 
-    const/4 v1, 0x0
-
-    iput-boolean v1, v0, Landroid/inputmethodservice/InputMethodService;->mFloatingForMultiWindow:Z
+    sput-boolean v0, Landroid/inputmethodservice/InputMethodService;->mFloatingForMultiWindow:Z
 
     goto :goto_0
 .end method
