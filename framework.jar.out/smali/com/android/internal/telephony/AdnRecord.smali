@@ -439,6 +439,19 @@
     return-void
 .end method
 
+.method static callStringCompareNullEqualsEmpty(Ljava/lang/String;Ljava/lang/String;)Z
+    .locals 1
+    .parameter "s1"
+    .parameter "s2"
+
+    .prologue
+    invoke-static {p0, p1}, Lcom/android/internal/telephony/AdnRecord;->stringCompareNullEqualsEmpty(Ljava/lang/String;Ljava/lang/String;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
 .method private parseRecord([B)V
     .locals 6
     .parameter "record"
@@ -460,27 +473,24 @@
 
     iput-object v3, p0, Lcom/android/internal/telephony/AdnRecord;->alphaTag:Ljava/lang/String;
 
-    .line 484
     array-length v3, p1
 
     add-int/lit8 v1, v3, -0xe
 
-    .line 486
     .local v1, footerOffset:I
     aget-byte v3, p1, v1
 
     and-int/lit16 v2, v3, 0xff
 
-    .line 488
     .local v2, numberLength:I
+    goto :cond_0
+
     const/16 v3, 0xb
 
     if-le v2, v3, :cond_0
 
-    .line 491
     const/16 v2, 0xb
 
-    .line 504
     :cond_0
     add-int/lit8 v3, v1, 0x1
 
@@ -915,15 +925,7 @@
     :cond_8
     iget-object v6, p0, Lcom/android/internal/telephony/AdnRecord;->alphaTag:Ljava/lang/String;
 
-    invoke-static {v6}, Lcom/android/internal/telephony/GsmAlphabet;->stringToGsm8BitPacked(Ljava/lang/String;)[B
-
-    move-result-object v2
-
-    .line 432
-    .local v2, byteTag:[B
-    array-length v6, v2
-
-    invoke-static {v2, v7, v0, v7, v6}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+    invoke-static {v0, v6, v4}, Lcom/android/internal/telephony/MiuiAdnUtils;->encodeAlphaTag([BLjava/lang/String;I)Z
 
     .end local v1           #bcdNumber:[B
     .end local v2           #byteTag:[B

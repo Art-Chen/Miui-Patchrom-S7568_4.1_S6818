@@ -1175,11 +1175,11 @@
     iput-boolean v3, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->isRefreshedBySTK:Z
 
     .line 353
-    new-instance v1, Lcom/android/internal/telephony/AdnRecordCache;
+    new-instance v1, Lcom/android/internal/telephony/MiuiAdnRecordCache;
 
     iget-object v2, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mFh:Lcom/android/internal/telephony/IccFileHandler;
 
-    invoke-direct {v1, v2}, Lcom/android/internal/telephony/AdnRecordCache;-><init>(Lcom/android/internal/telephony/IccFileHandler;)V
+    invoke-direct {v1, v2}, Lcom/android/internal/telephony/MiuiAdnRecordCache;-><init>(Lcom/android/internal/telephony/IccFileHandler;)V
 
     iput-object v1, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->adnCache:Lcom/android/internal/telephony/AdnRecordCache;
 
@@ -7098,19 +7098,6 @@
     move-result v0
 
     if-eqz v0, :cond_0
-
-    .line 2935
-    iget-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->mSpnOverride:Lcom/android/internal/telephony/gsm/SpnOverride;
-
-    invoke-virtual {p0}, Lcom/android/internal/telephony/gsm/SIMRecords;->getIMSI()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v0, p1, v1}, Lcom/android/internal/telephony/gsm/SpnOverride;->getSpn(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/android/internal/telephony/gsm/SIMRecords;->spn:Ljava/lang/String;
 
     .line 2937
     :cond_0
@@ -18225,7 +18212,7 @@
 
     move-result-object v10
 
-    invoke-virtual {v9, v5, v10}, Lcom/android/internal/telephony/gsm/SpnOverride;->getSpn(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v9, v5, v10}, Lcom/android/internal/telephony/gsm/SpnOverride;->getSpn_samsung(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v8
 

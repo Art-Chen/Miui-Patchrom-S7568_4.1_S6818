@@ -87,7 +87,7 @@
 
 .field mSST:Lcom/android/internal/telephony/gsm/GsmServiceStateTracker;
 
-.field mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+.field mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
 
 .field public mSimSlotActivationResult:Z
 
@@ -291,11 +291,11 @@
     if-nez p4, :cond_1
 
     .line 204
-    new-instance v0, Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+    new-instance v0, Lcom/android/internal/telephony/gsm/MiuiSimPhoneBookInterfaceManager;
 
-    invoke-direct {v0, p0}, Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/gsm/GSMPhone;)V
+    invoke-direct {v0, p0}, Lcom/android/internal/telephony/gsm/MiuiSimPhoneBookInterfaceManager;-><init>(Lcom/android/internal/telephony/gsm/GSMPhone;)V
 
-    iput-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+    iput-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
 
     .line 205
     new-instance v0, Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
@@ -2193,7 +2193,10 @@
     .end annotation
 
     .prologue
-    .line 545
+    const/16 v0, 0xf
+
+    invoke-virtual {p0, v0}, Lcom/android/internal/telephony/gsm/GSMPhone;->removeMessages(I)V
+
     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mCT:Lcom/android/internal/telephony/gsm/GsmCallTracker;
 
     invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GsmCallTracker;->acceptCall()V
@@ -3308,9 +3311,9 @@
     invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GsmSMSDispatcher;->dispose()V
 
     .line 301
-    iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+    iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
 
-    invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;->dispose()V
+    invoke-virtual {v0}, Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;->dispose()V
 
     .line 302
     iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;
@@ -4116,7 +4119,7 @@
 
     .prologue
     .line 2356
-    iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+    iget-object v0, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
 
     return-object v0
 .end method
@@ -5230,6 +5233,12 @@
 
     iput-object v1, v0, Lcom/android/internal/telephony/gsm/GSMPhone;->mImei:Ljava/lang/String;
 
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GSMPhone;->sendDeviceIdReadyBroadcast()V
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/gsm/GSMPhone;->setDeviceIdSystemProperty()V
+
     goto/16 :goto_0
 
     .line 1892
@@ -5859,6 +5868,14 @@
     .line 2023
     .local v2, eonsName:Ljava/lang/String;
     if-eqz v2, :cond_d
+
+    const-string v1, "CMHK"
+
+    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_d
 
     .line 2024
     new-instance v1, Lcom/android/internal/telephony/OperatorInfo;
@@ -6643,7 +6660,7 @@
     .line 309
     const-string v0, "GSM"
 
-    const-string/jumbo v1, "removeReferences"
+    const-string v1, "removeReferences"
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
@@ -6654,7 +6671,7 @@
     iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimulatedRadioControl:Lcom/android/internal/telephony/test/SimulatedRadioControl;
 
     .line 313
-    iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/gsm/SimPhoneBookInterfaceManager;
+    iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimPhoneBookIntManager:Lcom/android/internal/telephony/IccPhoneBookInterfaceManager;
 
     .line 314
     iput-object v2, p0, Lcom/android/internal/telephony/gsm/GSMPhone;->mSimSmsIntManager:Lcom/android/internal/telephony/gsm/SimSmsInterfaceManager;

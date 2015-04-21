@@ -11,7 +11,8 @@
     value = {
         Lcom/android/internal/app/ResolverActivity$ItemLongClickListener;,
         Lcom/android/internal/app/ResolverActivity$ResolveListAdapter;,
-        Lcom/android/internal/app/ResolverActivity$DisplayResolveInfo;
+        Lcom/android/internal/app/ResolverActivity$DisplayResolveInfo;,
+        Lcom/android/internal/app/ResolverActivity$Injector;
     }
 .end annotation
 
@@ -487,6 +488,10 @@
     .parameter "initialIntents"
     .parameter
     .parameter "alwaysUseOption"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->CHANGE_CODE:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -544,13 +549,7 @@
     iput-boolean v0, p0, Lcom/android/internal/app/ResolverActivity;->mAlwaysUseOption:Z
 
     .line 143
-    invoke-virtual {p0}, Lcom/android/internal/app/ResolverActivity;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v1
-
-    const v2, 0x10e0036
-
-    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getInteger(I)I
+    invoke-static/range {p0 .. p0}, Lcom/android/internal/app/ResolverActivity$Injector;->getMaxColumns(Lcom/android/internal/app/ResolverActivity;)I
 
     move-result v1
 
@@ -716,6 +715,17 @@
     .line 230
     :cond_1
     :goto_3
+    iget-object v0, v10, Lcom/android/internal/app/AlertController$AlertParams;->mView:Landroid/view/View;
+
+    if-eqz v0, :cond_miui_00
+
+    move-object/from16 v0, p0
+
+    move/from16 v2, p6
+
+    invoke-static {v0, v2}, Lcom/android/internal/app/ResolverActivity$Injector;->initialize(Lcom/android/internal/app/ResolverActivity;Z)V
+
+    :cond_miui_00
     return-void
 
     .line 138
@@ -869,6 +879,12 @@
 
     .line 215
     if-eqz p6, :cond_1
+
+    invoke-static/range {p0 .. p0}, Lmiui/util/UiUtils;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_1
 
     .line 216
     const v1, 0x10202a7
@@ -1903,6 +1919,19 @@
     invoke-virtual {v1, v2}, Landroid/widget/GridView;->setNumColumns(I)V
 
     .line 235
+    return-void
+.end method
+
+.method setAlwaysUseOption(Z)V
+    .locals 0
+    .parameter "alwaysUseOption"
+    .annotation build Landroid/annotation/MiuiHook;
+        value = .enum Landroid/annotation/MiuiHook$MiuiHookType;->NEW_METHOD:Landroid/annotation/MiuiHook$MiuiHookType;
+    .end annotation
+
+    .prologue
+    iput-boolean p1, p0, Lcom/android/internal/app/ResolverActivity;->mAlwaysUseOption:Z
+
     return-void
 .end method
 
