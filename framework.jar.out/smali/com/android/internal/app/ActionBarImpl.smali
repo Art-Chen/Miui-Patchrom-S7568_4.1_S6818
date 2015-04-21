@@ -1381,56 +1381,41 @@
     .parameter "toActionMode"
 
     .prologue
-    const/4 v2, 0x0
-
     const/16 v1, 0x8
 
-    .line 796
-    iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl;->mTopVisibilityView:Landroid/view/ViewGroup;
+    const/4 v2, 0x0
 
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->getVisibility()I
+    .line 791
+    if-eqz p1, :cond_1
 
-    move-result v0
-
-    if-ne v0, v1, :cond_0
-
-    .line 797
-    iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl;->mActionView:Lcom/android/internal/widget/ActionBarView;
-
-    invoke-virtual {v0}, Lcom/android/internal/widget/ActionBarView;->updateCollapsed()V
-
-    .line 801
-    :cond_0
-    if-eqz p1, :cond_2
-
-    .line 802
+    .line 792
     invoke-direct {p0}, Lcom/android/internal/app/ActionBarImpl;->showForActionMode()V
 
-    .line 807
+    .line 797
     :goto_0
     iget-object v3, p0, Lcom/android/internal/app/ActionBarImpl;->mActionView:Lcom/android/internal/widget/ActionBarView;
 
-    if-eqz p1, :cond_3
+    if-eqz p1, :cond_2
 
     move v0, v1
 
     :goto_1
     invoke-virtual {v3, v0}, Lcom/android/internal/widget/ActionBarView;->animateToVisibility(I)V
 
-    .line 808
+    .line 798
     iget-object v3, p0, Lcom/android/internal/app/ActionBarImpl;->mContextView:Lcom/android/internal/widget/ActionBarContextView;
 
-    if-eqz p1, :cond_4
+    if-eqz p1, :cond_3
 
     move v0, v2
 
     :goto_2
     invoke-virtual {v3, v0}, Lcom/android/internal/widget/ActionBarContextView;->animateToVisibility(I)V
 
-    .line 809
+    .line 799
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl;->mTabScrollView:Lcom/android/internal/widget/ScrollingTabContainerView;
 
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_0
 
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl;->mActionView:Lcom/android/internal/widget/ActionBarView;
 
@@ -1438,7 +1423,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_1
+    if-nez v0, :cond_0
 
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl;->mActionView:Lcom/android/internal/widget/ActionBarView;
 
@@ -1446,42 +1431,42 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_0
 
-    .line 810
+    .line 800
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl;->mTabScrollView:Lcom/android/internal/widget/ScrollingTabContainerView;
 
-    if-eqz p1, :cond_5
+    if-eqz p1, :cond_4
 
     :goto_3
     invoke-virtual {v0, v1}, Lcom/android/internal/widget/ScrollingTabContainerView;->animateToVisibility(I)V
 
-    .line 812
-    :cond_1
+    .line 802
+    :cond_0
     return-void
 
-    .line 804
-    :cond_2
+    .line 794
+    :cond_1
     invoke-direct {p0}, Lcom/android/internal/app/ActionBarImpl;->hideForActionMode()V
 
     goto :goto_0
 
-    :cond_3
+    :cond_2
     move v0, v2
 
-    .line 807
+    .line 797
     goto :goto_1
 
-    :cond_4
+    :cond_3
     move v0, v1
 
-    .line 808
+    .line 798
     goto :goto_2
 
-    :cond_5
+    :cond_4
     move v1, v2
 
-    .line 810
+    .line 800
     goto :goto_3
 .end method
 

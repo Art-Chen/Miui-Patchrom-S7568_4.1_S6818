@@ -60,6 +60,8 @@
 
 .field private static final TIME_CHANGED_MASK:I = 0x10000
 
+.field private static final TIME_SKEW:J
+
 .field private static final isEngBinary:Z
 
 .field private static final localLOGV:Z

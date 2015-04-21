@@ -130,6 +130,8 @@
 
 .field mSelectionModifierCursorController:Landroid/widget/MiuiCursorController;
 
+.field mSelectionModifierCursorController:Landroid/widget/Editor$SelectionModifierCursorController;
+
 .field mSelectionMoved:Z
 
 .field mShowCursor:J
@@ -2302,7 +2304,7 @@
 
     .prologue
     .line 975
-    invoke-virtual {p0}, Landroid/widget/Editor;->getSelectionController()Landroid/widget/Editor$SelectionModifierCursorController;
+    invoke-virtual {p0}, Landroid/widget/Editor;->getSelectionController()Landroid/widget/MiuiCursorController;
 
     move-result-object v2
 
@@ -4893,6 +4895,56 @@
     .end local v0           #observer:Landroid/view/ViewTreeObserver;
     :cond_1
     iget-object v1, p0, Landroid/widget/Editor;->mSelectionModifierCursorController:Landroid/widget/MiuiCursorController;
+
+    goto :goto_0
+.end method
+
+.method getSelectionController()Landroid/widget/Editor$SelectionModifierCursorController;
+    .locals 2
+
+    .prologue
+    .line 1814
+    iget-boolean v1, p0, Landroid/widget/Editor;->mSelectionControllerEnabled:Z
+
+    if-nez v1, :cond_0
+
+    .line 1815
+    const/4 v1, 0x0
+
+    .line 1825
+    :goto_0
+    return-object v1
+
+    .line 1818
+    :cond_0
+    iget-object v1, p0, Landroid/widget/Editor;->mSelectionModifierCursorController:Landroid/widget/Editor$SelectionModifierCursorController;
+
+    if-nez v1, :cond_1
+
+    .line 1819
+    new-instance v1, Landroid/widget/Editor$SelectionModifierCursorController;
+
+    invoke-direct {v1, p0}, Landroid/widget/Editor$SelectionModifierCursorController;-><init>(Landroid/widget/Editor;)V
+
+    iput-object v1, p0, Landroid/widget/Editor;->mSelectionModifierCursorController:Landroid/widget/Editor$SelectionModifierCursorController;
+
+    .line 1821
+    iget-object v1, p0, Landroid/widget/Editor;->mTextView:Landroid/widget/TextView;
+
+    invoke-virtual {v1}, Landroid/widget/TextView;->getViewTreeObserver()Landroid/view/ViewTreeObserver;
+
+    move-result-object v0
+
+    .line 1822
+    .local v0, observer:Landroid/view/ViewTreeObserver;
+    iget-object v1, p0, Landroid/widget/Editor;->mSelectionModifierCursorController:Landroid/widget/Editor$SelectionModifierCursorController;
+
+    invoke-virtual {v0, v1}, Landroid/view/ViewTreeObserver;->addOnTouchModeChangeListener(Landroid/view/ViewTreeObserver$OnTouchModeChangeListener;)V
+
+    .line 1825
+    .end local v0           #observer:Landroid/view/ViewTreeObserver;
+    :cond_1
+    iget-object v1, p0, Landroid/widget/Editor;->mSelectionModifierCursorController:Landroid/widget/Editor$SelectionModifierCursorController;
 
     goto :goto_0
 .end method

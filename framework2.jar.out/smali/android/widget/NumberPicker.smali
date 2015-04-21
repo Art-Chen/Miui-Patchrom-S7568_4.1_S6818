@@ -31,10 +31,6 @@
 
 .field private static final SELECTOR_MAX_FLING_VELOCITY_ADJUSTMENT:I = 0x8
 
-.field private static final SELECTOR_MIDDLE_ITEM_INDEX:I = 0x1
-
-.field private static final SELECTOR_WHEEL_ITEM_COUNT:I = 0x3
-
 .field private static final SIZE_UNSPECIFIED:I = -0x1
 
 .field private static final SNAP_SCROLL_DURATION:I = 0x12c

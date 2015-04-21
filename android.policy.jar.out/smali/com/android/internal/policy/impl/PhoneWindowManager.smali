@@ -9829,7 +9829,7 @@
 
     .line 5736
     :cond_5
-    iget-object v12, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiKeyguardViewMediator;
+    iget-object v12, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
 
     invoke-virtual {v12}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->isShowing()Z
 
@@ -11515,11 +11515,11 @@
     if-nez v11, :cond_0
 
     .line 2013
-    new-instance v11, Lcom/android/internal/policy/impl/KeyguardViewMediator;
+    new-instance v11, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
 
     move-object/from16 v0, p4
 
-    invoke-direct {v11, p1, p0, v0}, Lcom/android/internal/policy/impl/KeyguardViewMediator;-><init>(Landroid/content/Context;Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/os/LocalPowerManager;)V
+    invoke-direct {v11, p1, p0, v0}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;-><init>(Landroid/content/Context;Lcom/android/internal/policy/impl/PhoneWindowManager;Landroid/os/LocalPowerManager;)V
 
     iput-object v11, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
 
@@ -11692,7 +11692,7 @@
 
     move-object/from16 v0, p3
 
-    invoke-direct {v11, p1, v0, v12}, Lcom/android/internal/policy/impl/PenDetachmentAlert;-><init>(Landroid/content/Context;Landroid/view/WindowManagerPolicy$WindowManagerFuncs;Lcom/android/internal/policy/impl/KeyguardViewMediator;)V
+    invoke-direct {v11, p1, v0, v12}, Lcom/android/internal/policy/impl/PenDetachmentAlert;-><init>(Landroid/content/Context;Landroid/view/WindowManagerPolicy$WindowManagerFuncs;Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;)V
 
     iput-object v11, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mPenDetachmentAlert:Lcom/android/internal/policy/impl/PenDetachmentAlert;
 
@@ -17811,7 +17811,7 @@
 
     move/from16 v2, v30
 
-    invoke-virtual {v0, v1, v2}, Lcom/android/internal/policy/impl/KeyguardViewMediator;->onWakeKeyWhenKeyguardShowingTq(IZ)Z
+    invoke-virtual {v0, v1, v2}, Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;->onWakeKeyWhenKeyguardShowingTq(IZ)Z
 
     goto/16 :goto_8
 
@@ -23948,9 +23948,9 @@
     .line 5988
     :cond_0
     :goto_1
-    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVibrator:Landroid/os/SystemVibrator;
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemVibrator:Landroid/os/SystemVibrator;
 
-    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVibrator:Landroid/os/SystemVibrator;
+    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemVibrator:Landroid/os/SystemVibrator;
 
     invoke-virtual {v5}, Landroid/os/SystemVibrator;->getMaxMagnitude()I
 
@@ -24017,9 +24017,9 @@
     .line 6002
     :cond_3
     :goto_4
-    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVibrator:Landroid/os/SystemVibrator;
+    iget-object v4, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemVibrator:Landroid/os/SystemVibrator;
 
-    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVibrator:Landroid/os/SystemVibrator;
+    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemVibrator:Landroid/os/SystemVibrator;
 
     invoke-virtual {v5}, Landroid/os/SystemVibrator;->getMaxMagnitude()I
 
@@ -24266,7 +24266,7 @@
     if-ne v6, v4, :cond_6
 
     .line 8333
-    iget-object v6, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVibrator:Landroid/os/SystemVibrator;
+    iget-object v6, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemVibrator:Landroid/os/SystemVibrator;
 
     aget-wide v7, v3, v5
 
@@ -24316,7 +24316,7 @@
 
     .line 8336
     :cond_6
-    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVibrator:Landroid/os/SystemVibrator;
+    iget-object v5, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemVibrator:Landroid/os/SystemVibrator;
 
     const/4 v6, -0x1
 
@@ -28215,7 +28215,7 @@
 
     .line 7876
     :cond_0
-    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/KMiuieyguardViewMediator;
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mKeyguardMediator:Lcom/android/internal/policy/impl/MiuiKeyguardViewMediator;
 
     if-eqz v0, :cond_1
 
