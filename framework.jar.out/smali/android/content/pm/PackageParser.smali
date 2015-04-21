@@ -15267,7 +15267,7 @@
     if-eqz v25, :cond_4
 
     .line 505
-    new-instance v32, Landroid/content/res/Resources;
+    new-instance v32, Landroid/content/res/MiuiResources;
 
     const/4 v6, 0x0
 
