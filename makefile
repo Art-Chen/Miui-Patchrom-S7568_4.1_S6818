@@ -44,7 +44,7 @@ updater := $(ZIP_DIR)/META-INF/com/google/android/updater-script
 local-pre-zip-misc:
         #cp other/spn-conf.xml $(ZIP_DIR)/system/etc/spn-conf.xml
 	cp other/build.prop $(ZIP_DIR)/system/build.prop
-	cp other/bootanimation $(ZIP_DIR)/system/bootanimation
+	cp other/bootanimation $(ZIP_DIR)/system/bin/bootanimation
 	#cp stockrom/system/app/FFFFFFFF000000000000000000000001.drbin $(ZIP_DIR)/system/app
 	#cp -r stockrom/system/app/mcRegistry $(ZIP_DIR)/system/app
 	rm -rf $(ZIP_DIR)/system/csc
